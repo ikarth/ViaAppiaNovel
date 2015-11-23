@@ -56,15 +56,19 @@ def checkOrbis():
 
 pleiades_site_list = []
 
-#def getPleiadesSiteList():
-#    with open("../../data/ancient/pleiades/pleiades-places-20151108.csv", encoding="utf-8") as csvfile:
-#        reader = csv.DictReader(csvfile)
-#        global pleiades_site_list
-#        for row in reader:
-#            pleiades_site_list.append(row)
-#    return
+def getPleiadesSiteList():
+    global pleiades_site_list
+    pleiades_site_list = []
+    with open(DATA_FILEPATH + os.sep + "pleiades" + os.sep + "pleiades-places-20151122.csv", mode = 'r', encoding="utf-8") as csvfile:
+        reader = csv.DictReader(csvfile)
+        
+        for row in reader:
+            pleiades_site_list.append(row)
+    return
 
 def checkPleiades():
+    if not pleiades_site_list:
+        getPleiadesSiteList()
     return
 
 def getPleiadesRecord(pleiades_id):
@@ -85,6 +89,7 @@ def getPleiadesData(loc):
         return -1
     interest = getPleiadesRecord(loc.pleiades_id)
     return interest
+
 
 
 # Location ID Conversion
@@ -211,7 +216,7 @@ def getSearchDARE(lat, lon, radius = 5, count = "", zoom = "10", typeid = "", la
         raise settings.DataSourceAccessProblem("Failed to get data from DARE: " + str(err))
 
 
-def getSearchPelagios(lat, lon, radius = 10, search_terms = "", types = "", datasets = "", limit = "", offset = ""):
+def getSearchPelagios(lat, lon, radius = 10, search_terms = "", types = "", datasets = "", limit = "", offset = "", api_url = "peripleo"):
     if search_terms:
         search_terms = "query=" + search_terms + "&"
     if types:
@@ -222,12 +227,16 @@ def getSearchPelagios(lat, lon, radius = 10, search_terms = "", types = "", data
         limit = "limit=" + str(limit) + "&"
     if offset:
         offset = "offset=" + str(offset) + "&"
+    if not api_url:
+        api_url = "peripleo"
     try:
-        search_query = "http://pelagios.org/peripleo/search?" + search_terms + types + datasets + limit + offset + "lat=" + str(lat) + "&lon=" + str(lon) + "&radius=" + str(radius)
+        search_query = "http://pelagios.org/" + api_url + "/search?" + search_terms + types + datasets + limit + offset + "lat=" + str(lat) + "&lon=" + str(lon) + "&radius=" + str(radius)
         search_result = requests.get(search_query)
         return search_result.json()
     except Exception as err:
         raise settings.DataSourceAccessProblem("Failed to get data from Pelagios: " + str(err))
+
+#http://pelagios.dme.ait.ac.at/api/datasets/cf3baed0f33f28c02dbed50a96b663af/annotations
 
 def findNearbyPelagiosCoins(latlon):
     if not latlonIsValid(latlon): return
