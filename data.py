@@ -3,6 +3,8 @@ import requests
 import json
 import csv
 import os
+import xml
+import xml.etree.ElementTree
 
 DATA_FILEPATH = "../../data/ancient"
 
@@ -18,14 +20,18 @@ DATA_FILEPATH = "../../data/ancient"
 # isPort? (t/f)
 # size rank, 6-10
 
-orbis_sites_list = []
+orbis_sites_list = {}
 
 def getOrbisSites():
-    request_sites = requests.get("http://orbis.stanford.edu/api/sites")
     global orbis_sites_list
-    orbis_sites_list = request_sites.json()
-    with open("orbis_sites_list.json", mode='w') as file:
-        json.dump(orbis_sites_list, file, indent=3)
+    try:
+        with open("orbis_sites_list.json", mode='r') as file:
+            orbis_sites_list = json.load(file)
+    except FileNotFoundError as err:
+        request_sites = requests.get("http://orbis.stanford.edu/api/sites")
+        orbis_sites_list = request_sites.json()
+        with open("orbis_sites_list.json", mode='w') as file:
+            json.dump(orbis_sites_list, file, indent=3)
 
 def checkOrbis():
     if(orbis_sites_list == []):
@@ -127,15 +133,84 @@ def latlonIsValid(latlon):
         return False
     return True
 
-def getSearchPelagios(lat, lon, radius = 10, search_terms = "", types = "", datasets = ""):
+###########################
+#
+#   DARE
+#
+###########################
+#
+#Parameters		Description
+#
+#	Places by Bounding Box
+#	----------------------
+#	Returns: coordinates, id, name, country, ancient name, type and precision
+#
+# ?bbox=‹bbox›		bounding box, expressed as lower left corner (lon1, lat1) and upper right corner (lon2, lat2), decimal degrees. Default -15,20,70,60 (entire area). Example: area around Rome, Italy ?bbox=10.44,40.78,14.53,42.98
+#
+# &callback=‹callback› 	Required for JSONP
+#
+# &zoom=‹zoomlevel›	Zoom level. More places are displayed on the map as the zoom level increases. At zoom 10, all placetypes are rendered. At zoom 6 (default) only cities and legionary fortresses are rendered, e.g. ?zoom=6
+#
+# &typeid=‹typeid›	Optional Numerical placetype id: city (11), town (12), zoom is ignored, e.g. Roman villa (14), ?typeid=14. see the legend for a complete list of placetype identifiers.
+#
+# &layer=‹layer›	Optional Selection of places based on a collection of external identifiers, zoom is ignored, e.g. the Peutinger map, ?layer=TPPlace. Available layers are described here
+#
+# &cc=‹countrycode› 	Optional Modern country (ISO 3166), e.g. France ?cc=FR.
+#
+# &mss=‹string›	Optional UTF-8 encoded search string of modern placename, for instance, ?mss=court return all places containing the lemma court. Zoom parameter is ignored
+#
+# &ass=‹string›	Optional UTF-8 encoded search string of ancient placename, for instance, ?ass=briga return all places containing the Celtic lemma briga. Zoom parameter is ignored
+# 	 
+# 	Nearest place(s) by Point
+#	-------------------------
+#
+#?point=‹lon,lat›	Returns one or more places around the longitude/latitude point, ordered by distance from that point.
+#
+# &callback=‹callback›	Required for JSONP
+#
+# &count=‹count›		Optional Number of places to return. Default is one.
+#
+# &radius=‹radius›	Optional The radius of the area to search. Default is 0.2 degrees (both latitude and longitude)
+#...	Other parameters, used by the bbox method described above, can also be used by the point method, i.e. zoom, typeid, layer, etc.
+# 	 
+# 	Single place by identifier
+#	--------------------------
+#
+# ?id=‹id›		    Return extended information about a place by DARE identifier, e.g. Rome ?id=1438
+#
+# ?pleiades=‹pleiadesid›	Alternate Single place by Pleiades identifier, id is ignored, e.g. Rome ?pleiades=423025
+#
+#####################################
+
+Required for JSONP
+&count=‹count›	Optional Number of places to return. Default is one.
+&radius=‹radius›	Optional The radius of the area to search. Default is 0.2 degrees (both latitude and longitude)
+...	Other parameters, used by the bbox method described above, can also be used by the point method, i.e. zoom, typeid, layer, etc.
+ 	 
+ 	Single place by identifier
+?id=‹id›	Return extended information about a place by DARE identifier, e.g. Rome ?id=1438
+?pleiades=‹pleiadesid›	Alternate Single place by Pleiades identifier, id is ignored, e.g. Rome ?pleiades=423025
+
+def getSearchDARE():
+    """
+    Access the API for the Digital Atlas of the Roman Empire (DARE)
+    http://dare.ht.lu.se/
+    """
+    search_query = "http://dare.ht.lu.se/api/geojson.php"
+
+def getSearchPelagios(lat, lon, radius = 10, search_terms = "", types = "", datasets = "", limit = "", offset = ""):
     if search_terms:
         search_terms = "query=" + search_terms + "&"
     if types:
         types = "types=" + types + "&"
     if datasets:
         datasets = "datasets=" + datasets + "&"
+    if limit:
+        limit = "limit=" + str(limit) + "&"
+    if offset:
+        offset = "offset=" + str(offset) + "&"
     try:
-        search_query = "http://pelagios.org/peripleo/search?" + search_terms + types + datasets + "lat=" + str(lat) + "&lon=" + str(lon) + "&radius=" + str(radius)
+        search_query = "http://pelagios.org/peripleo/search?" + search_terms + types + datasets + limit + offset + "lat=" + str(lat) + "&lon=" + str(lon) + "&radius=" + str(radius)
         search_result = requests.get(search_query)
         return search_result.json()
     except Exception as err:
@@ -146,14 +221,31 @@ def findNearbyPelagiosCoins(latlon):
     result = getSearchPelagios(float(latlon[0]),float(latlon[1]), radius=250, datasets="dd1698f0a50440d1ac1e77fc5f303c8001db5929cc6435c30b8b29e6ba15a1e5", types="item")
     return result
 
-def findNearbyPelagiosItem(latlon):
+def findNearbyPelagiosThing(latlon):
     if not latlonIsValid(latlon): return
     result = getSearchPelagios(float(latlon[0]),float(latlon[1]))
     return result
 
+def findNearbyPelagiosItem(latlon):
+    if not latlonIsValid(latlon): return
+    result = getSearchPelagios(float(latlon[0]),float(latlon[1]), radius = 40, types = "item")
+    return result
+
+def findNearbyPelagiosPlace(latlon):
+    if not latlonIsValid(latlon): return
+    result = getSearchPelagios(float(latlon[0]),float(latlon[1]), limit = 40, types = "place")
+    return result
+
 def findNearbyPelagiosInscription(latlon):
     if not latlonIsValid(latlon): return
-    result = getSearchPelagios(float(latlon[0]),float(latlon[1]),datasets="ac9dafb82ac100d90d644cd38e19a873")
+    #result = getSearchPelagios(float(latlon[0]),float(latlon[1]),datasets="ac9dafb82ac100d90d644cd38e19a873")
+    result = getSearchPelagios(float(latlon[0]),float(latlon[1]),datasets="21b2d56d90bd192834aea9d8ad9d61b21a94d85f15f7cab1c458d4eebf599b73")
+    return result
+
+def findNearbyPelagiosInscription(latlon):
+    if not latlonIsValid(latlon): return
+    #result = getSearchPelagios(float(latlon[0]),float(latlon[1]),datasets="ac9dafb82ac100d90d644cd38e19a873")
+    result = getSearchPelagios(float(latlon[0]),float(latlon[1]),datasets="21b2d56d90bd192834aea9d8ad9d61b21a94d85f15f7cab1c458d4eebf599b73")
     return result
 
 def extractPossibleField(dataset, field):
@@ -311,4 +403,31 @@ def loadOrbisConnections():
         orbis_nodes = [{'id':rows[0], 'label':rows[1], 'x':rows[2],'y':rows[3]} for rows in csv_reader]
 
 def testLocationRome():
+    getOrbisSites()
     return makeOrbisLocation(50327)
+
+
+
+def translateInscription(input):
+    """
+    Take the raw data and extract the bits that we can use to generate text.
+    """
+    heidelberg_data_url = input['items'][0]['homepage'] + ".xml"
+    heidelberg_data = requests.get(heidelberg_data_url)
+    #eltree = xml.etree.ElementTree.ElementTree(xml.etree.ElementTree.fromstring(heidelberg_data.text))
+    #root = eltree.getroot().find(".")
+    #print("----------------")
+    #print(root.findall(".//{http://www.tei-c.org/ns/1.0}ab"))
+    find_inscription = heidelberg_data.text.split("<!--")[1].split("-->")[0].strip()
+    return find_inscription
+    #return {'data_url': input['items'][0]['homepage'] + ".xml",
+    #        'transcription': find_inscription,
+    #        'eltree': eltree}
+
+def testXML():
+    eltree = xml.etree.ElementTree.parse("HD006837.xml")
+    root = eltree.getroot()
+    for child in root:
+        print(child.tag, child.attrib)
+    print(root.findall(".//{http://www.tei-c.org/ns/1.0}ab")[0])
+    return root
