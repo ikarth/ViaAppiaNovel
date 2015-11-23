@@ -182,21 +182,34 @@ def latlonIsValid(latlon):
 #
 #####################################
 
-Required for JSONP
-&count=‹count›	Optional Number of places to return. Default is one.
-&radius=‹radius›	Optional The radius of the area to search. Default is 0.2 degrees (both latitude and longitude)
-...	Other parameters, used by the bbox method described above, can also be used by the point method, i.e. zoom, typeid, layer, etc.
- 	 
- 	Single place by identifier
-?id=‹id›	Return extended information about a place by DARE identifier, e.g. Rome ?id=1438
-?pleiades=‹pleiadesid›	Alternate Single place by Pleiades identifier, id is ignored, e.g. Rome ?pleiades=423025
-
-def getSearchDARE():
+def getSearchDARE(lat, lon, radius = 5, count = "", zoom = "10", typeid = "", layer = "", mss = "", ass = ""):
     """
     Access the API for the Digital Atlas of the Roman Empire (DARE)
     http://dare.ht.lu.se/
+
+    Radius is in degrees
     """
-    search_query = "http://dare.ht.lu.se/api/geojson.php"
+    if count:
+        count = "count=" + str(count) + "&"
+    if zoom:
+        zoom = "zoom=" + str(zoom) + "&"
+    if typeid:
+        typeid = "typeid=" + str(typeid) + "&"
+    if layer:
+        layer = "layer=" + str(layer) + "&"
+    if mss:
+        typeid = "mss=" + str(mss) + "&"
+    if ass:
+        typeid = "ass=" + str(ass) + "&"
+    if radius:
+        radius = "radius=" + str(radius) + ""
+    try:
+        search_query = "http://dare.ht.lu.se/api/geojson.php?point=" + str(lon) + "," + str(lat) + count + zoom + typeid + layer + mss + ass + radius
+        search_result = requests.get(search_query)
+        return search_result.json()
+    except Exception as err:
+        raise settings.DataSourceAccessProblem("Failed to get data from DARE: " + str(err))
+
 
 def getSearchPelagios(lat, lon, radius = 10, search_terms = "", types = "", datasets = "", limit = "", offset = ""):
     if search_terms:
