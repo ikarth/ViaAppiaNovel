@@ -129,8 +129,8 @@ def getInteresting(loc):
     return
 
 def getPleiadesData(loc):
-    if(loc.pleiades_id) == -1:
-        return -1
+    if not loc.pleiades_id:
+        return None
     interest = getPleiadesRecord(loc.pleiades_id)
     return interest
 
@@ -138,43 +138,43 @@ def getPleiadesData(loc):
 
 # Location ID Conversion
 # Functions to find equivalent location ids.
-# -1 indicates the data is unknown or unavailible
+# None indicates the data is unknown or unavailible
 
 def getPleiadesFromOrbis(o_id):
     checkOrbis()
-    orbis_record = next((elem for elem in orbis_sites_list if elem[1][0] == o_id), -1)
-    p_id = -1
-    if(orbis_record != -1):
+    orbis_record = next((elem for elem in orbis_sites_list if str(elem[1][0]) == str(o_id)), None)
+    p_id = None
+    if orbis_record:
         p_id = orbis_record[1][4]
         if(p_id == "no Pleiades ID yet"):
-            p_id = -1
+            p_id = None
     return p_id
 
 # Get the Orbis ID if we have the Pleiades ID. Note that not all ORBIS places have Pleiades IDs, and vice versa
 def getOrbisFromPleiades(p_id):
     checkOrbis()
-    orbis_record = next((elem for elem in orbis_sites_list if str(elem[1][4]) == str(p_id)), -1)
-    o_id = -1
-    if(orbis_record != -1):
+    orbis_record = next((elem for elem in orbis_sites_list if str(elem[1][4]) == str(p_id)), None)
+    o_id = None
+    if orbis_record:
         o_id = orbis_record[1][0]
     return o_id
 
 def getLatLonFromOrbis(o_id):
     checkOrbis()
-    orbis_record = next((elem for elem in orbis_sites_list if str(elem[1][0]) == str(o_id)), -1)
-    latlon = -1
-    if(orbis_record != -1):
+    orbis_record = next((elem for elem in orbis_sites_list if str(elem[1][0]) == str(o_id)), None)
+    latlon = None
+    if orbis_record:
         latlon = [orbis_record[1][2], orbis_record[1][3]]
     return latlon
 
 def getLatLonFromPleiades(p_id):
-    return -1
+    return None
 
 def findNearestSite(latlon):
-    return -1
+    return None
 
 def latlonIsValid(latlon):
-    if -1 == latlon or (not latlon):
+    if None == latlon or (not latlon):
         print("INVALID LAT/LON")
         return False
     if (0.0 == latlon[0] and 0.0 == latlon[1]):
@@ -355,7 +355,7 @@ def haversine(lon1, lat1, lon2, lat2):
 # very naive currently, assumes planar geometry.
 # if you want better results, implement the above formula.
 def findIntermediatePointLatLon(start, end, percent):
-    if -1 == start or -1 == end:
+    if None == start or None == end:
         print("Warning: Could not find lat/lon coordinates")
         return [0, 0] # one of the coordinates is invalid...
     inter = [((float(end[0]) - float(start[0])) * percent) + (float(start[0])), ((float(end[1]) - float(start[1])) * percent) + (float(start[1]))]
@@ -376,7 +376,7 @@ def pickValidOrbisLocation():
 
 def searchOrbisRoute(start_id:str, end_id:str):
     checkOrbis()
-    route = -1
+    route = None
     try:
         request_route = requests.get("http://orbis.stanford.edu/api/route/" + start_id + "/" + end_id + "/6/1")
         if request_route:
@@ -392,14 +392,14 @@ def searchOrbisRoute(start_id:str, end_id:str):
 
 def pickValidOrbisRoute(start_id):
     checkOrbis()
-    end_id = -1
-    route = -1
+    end_id = None
+    route = None
     panic_escape = 0
-    while route == -1:
+    while not route:
         if panic_escape > 5:
             warnings.warn("Too many failed route searches. Failing to avoid overtaxing resources.", ResourceWarning)
-            end_id = -1
-            route = -1
+            end_id = None
+            route = None
             break
         panic_escape += 1
         end_id = pickValidOrbisLocation()[1][0]
@@ -409,22 +409,22 @@ def pickValidOrbisRoute(start_id):
             route = searchOrbisRoute(start_id, end_id)
         except settings.DataSourceAccessProblem as err:
             print("WARNING: " + str(err))
-            route = -1
-        if -1 == route:
+            route = None
+        if None == route:
             continue
         if route:
             if route['sites']:
                 print("Route OK:" + end_id)
             else:
-                route = -1
+                route = None
         else:
-            route = -1
-    if route == -1:
-        end_id = -1
+            route = None
+    if route == None:
+        end_id = None
     return end_id, route
 
 class Location:
-    def __init__(self, orbis_id=-1, pleiades_id=-1,latlon=-1):
+    def __init__(self, orbis_id=None, pleiades_id=None,latlon=None):
         self.data = []
         self.orbis_id = orbis_id
         self.pleiades_id = pleiades_id
@@ -445,20 +445,25 @@ def getNearestName(loc:Location):
 # Based on the location data we have, find the matching ids for the other types
 # Or, if we just have Lat/Lon, find the nearest site
 def hydrateLocation(loc:Location) -> Location:
-    if(loc.orbis_id != -1):
+    if loc.orbis_id:
         loc.pleiades_id = getPleiadesFromOrbis(loc.orbis_id)
         loc.latlon = getLatLonFromOrbis(loc.orbis_id)
     else:
-        if(loc.pleiades_id != -1):
+        if loc.pleiades_id:
             loc.orbis_id = getOrbisFromPleiades(loc.pleiades_id)
             loc.latlon = GetLatLonFromPleiades(loc.pleiades_id)
         else:
-            if(loc.latlon != -1):
+            if loc.latlon:
                 loc = getNearestLocation(loc.latlon)
     return loc    
 
 def makeOrbisLocation(o_id):
     loc = Location(orbis_id = o_id)
+    hydrateLocation(loc)
+    return loc
+
+def makeLatLonLocation(latlon):
+    loc = Location(latlon = latlon)
     hydrateLocation(loc)
     return loc
 
@@ -632,7 +637,7 @@ def renderPerseusFromPleiades(pleiades_number):
     #choice = t[0][0].toPython()
     base_choice = choice.split(", ")[0].strip()
     #print(base_choice)
-    rqst = requests.get(base_choice + ".xml")
+    rqst = requests.get(base_choice)
     soup = BeautifulSoup(rqst.text, "xml")
     def class_is_text_container(x):
         return re.compile("text_container").search(x)
@@ -640,7 +645,9 @@ def renderPerseusFromPleiades(pleiades_number):
     output_string = ""
     for tex in sresult:
         output_string += str(tex.text)
-    return output_string # todo: include citation and name of author/book
+        #print(tex.text)
+    #return output_string
+    return {'text':output_string, 'cite':'Perseus', 'author':'TODO' } # todo: include citation and name of author/book
 
 
 #    triple_list = list()
