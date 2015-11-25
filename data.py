@@ -15,7 +15,6 @@ import random
 # Random Generator
 random.seed("Rome wasn't built in a day")
 
-
 DATA_FILEPATH = "../../data/ancient"
 
 PREFIX="""
@@ -550,7 +549,7 @@ def testPerseusText():
     #eltree = xml.etree.ElementTree.ElementTree()
     #parser = xml.etree.ElementTree.XMLParser()
     #parser.parser.UseForeignDTD(True)
-    #with open("F:\\Isaac\\Dev\\nanogenmo2015\\projects\\data\\ancient\\perseus\\Classics\\Caesar\\opensource\\caes.bg_eng.xml", mode='rt') as file:
+    #with open(DATA_FILEPATH + "\\perseus\\Classics\\Caesar\\opensource\\caes.bg_eng.xml", mode='rt') as file:
     #    eltree = xml.etree.ElementTree.parse(file, parser=parser)
     #root = eltree.getroot()
     #return eltree
