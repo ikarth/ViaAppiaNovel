@@ -12,8 +12,6 @@ from heapq import nlargest
 
 import random
 
-# Random Generator
-random.seed("Rome wasn't built in a day")
 
 DATA_FILEPATH = "../../data/ancient"
 
@@ -66,7 +64,7 @@ def sample_from_iterable(iterable, samplesize):
 # isPort? (t/f)
 # size rank, 6-10
 
-orbis_sites_list = {}
+orbis_sites_list = None
 
 def getOrbisSites():
     global orbis_sites_list
@@ -80,7 +78,7 @@ def getOrbisSites():
             json.dump(orbis_sites_list, file, indent=3)
 
 def checkOrbis():
-    if(orbis_sites_list == []):
+    if not orbis_sites_list:
         try:
             getOrbisSites()
         except Exception as err:
@@ -365,10 +363,10 @@ def findIntermediatePointLatLon(start, end, percent):
 
 def getNameFromOrbis(o_id):
     checkOrbis()
-    orbis_record = next((elem for elem in orbis_sites_list if elem[1][0] == o_id), -1)
+    orbis_record = next((elem for elem in orbis_sites_list if str(elem[1][0]) == str(o_id)), None)
     n = "the countryside"
-    if(orbis_record != -1):
-        n = orbis_record[1][1]
+    if orbis_record:
+        n = str(orbis_record[1][1])
     return n
 
 def pickValidOrbisLocation():
@@ -438,6 +436,12 @@ def LocationToJSON(loc):
     out = json.dumps(loc)
     return out
 
+def getNearestName(loc:Location):
+    # TODO: try to get names from other sources as well...
+    print(loc.orbis_id)
+    n = getNameFromOrbis(loc.orbis_id)
+    return n
+
 # Based on the location data we have, find the matching ids for the other types
 # Or, if we just have Lat/Lon, find the nearest site
 def hydrateLocation(loc:Location) -> Location:
@@ -469,6 +473,19 @@ def loadOrbisConnections():
     with open(DATA_FILEPATH + os.sep + "orbis" + os.sep + "orbis_nodes_0514.csv", mode='r') as file:
         csv_reader = csv.reader(file)
         orbis_nodes = [{'id':rows[0], 'label':rows[1], 'x':rows[2],'y':rows[3]} for rows in csv_reader]
+
+def checkOrbisConnections():
+    if (not orbis_connections) and (not orbis_nodes):
+        loadOrbisConnections()
+
+def findOrbisEdges(orbis_id) -> list:
+    """
+    Given an orbis location ID, return a list of the edges on the
+    Orbis graph.
+    """
+    checkOrbisConnections()
+    edges = [x for x in orbis_connections if str(x['source']) == str(orbis_id)]
+    return edges
 
 def testLocationRome():
     getOrbisSites()
