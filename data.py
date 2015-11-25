@@ -5,8 +5,55 @@ import csv
 import os
 import xml
 import xml.etree.ElementTree
+import sqlite3
+import rdflib
+import re
+from heapq import nlargest
+
+import random
+
+# Random Generator
+random.seed("Rome wasn't built in a day")
+
 
 DATA_FILEPATH = "../../data/ancient"
+
+PREFIX="""
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX p: <http://research.data.gov.uk/def/project/>
+PREFIX aiiso: <http://purl.org/vocab/aiiso/schema#>
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/> 
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX oac: <http://www.openannotation.org/ns/>
+PREFIX cnt: <http://www.w3.org/2008/content#>
+"""
+
+
+def iter_sample_fast(iterable, samplesize):
+    results = []
+    iterator = iter(iterable)
+    # Fill in the first samplesize elements:
+    try:
+        for _ in xrange(samplesize):
+            results.append(iterator.next())
+    except StopIteration:
+        raise ValueError("Sample larger than population.")
+    random.shuffle(results)  # Randomize their positions
+    for i, v in enumerate(iterator, samplesize):
+        r = random.randint(0, i)
+        if r < samplesize:
+            results[r] = v  # at a decreasing rate, replace random items
+    return results
+
+def sample_from_iterable(iterable, samplesize):
+    return (x for _, x in nlargest(samplesize, ((random.random(), x) for x in iterable)))
+
+
 
 ## Data Retreval
 
@@ -453,3 +500,132 @@ def testXML():
         print(child.tag, child.attrib)
     print(root.findall(".//{http://www.tei-c.org/ns/1.0}ab")[0])
     return root
+
+
+def openRDF(rdf_name) -> rdflib.Graph:
+    g = rdflib.Graph()
+    if not isinstance(rdf_name, str):
+        rdf_name = str(rdf_name)
+    filepath = DATA_FILEPATH + os.sep + str(rdf_name)
+    if not os.path.isfile(filepath):
+        print("Warning: " + str(filepath) + " does not exist")
+        return
+    #g.load(filepath)
+    with open(filepath, mode="rt") as file:
+        g.parse(file, format='application/rdf+xml')
+    return g
+
+# http://www.perseus.tufts.edu/hopper/CTS?request=GetCapabilities
+# http://www.perseus.tufts.edu/hopper/CTS?request=GetValidReff&urn=urn:cts:latinLit:phi0914
+#
+# urn:cts:latinLit:phi0914
+#
+# Anatomy of the URN format used by Perseus
+#    urn:cts:latinLit:phi0914.phi0011.perseus-lat1:4.2
+#    {1}:{2}:   {3}  :   {4} . {5}   .  {6}       :{7}
+#
+# {1} It’s a urn. This part is fixed.
+# {2} The urn is part of the ‘cts’ namespace. This part is fixed.
+# {3} The Latin Literature namespace. Would be ‘greekLit’ for Greek texts, 
+#     and possibly other values.
+# {4} The textgroup’s identifier. It’s normally either the TLG or PHI 
+#     author index value. In the catalogue it’s contained in the ‘projid’ 
+#     attribute of the ‘textgroup’ element, stripped of the namespace.
+# {5} The work’s identifier. This may map to an author’s title or to an 
+#     individual book in a larger collection of texts. This also apparently
+#     comes from either TLG or PHI indices (I’ve not verified this fact 
+#     for sure). In the catalogue it’s contained in the ‘projid’ attribute 
+#     of the ‘work’ element, stripped of the namespace.
+# {6} The edition of the work. This may also be a translation. This is a 
+#     Perseus-specific value. In the catalogue it’s contained in the 
+#     ‘projid’ attribute of the ‘edition’ or ‘translation’ element, 
+#     stripped of the namespace.
+# {7} The text reference. This will be specific to the work and edition 
+#     you are referencing. You can find out a simple unadorned list of 
+#     what’s available by querying the reference validation service with 
+#     the URN up to this point at the argument.
+# http://inlustre.net/2013/04/how-to-retrieve-ancient-text-data-from-perseus/
+
+def testPerseusText():
+    #eltree = xml.etree.ElementTree.ElementTree()
+    #parser = xml.etree.ElementTree.XMLParser()
+    #parser.parser.UseForeignDTD(True)
+    #with open("F:\\Isaac\\Dev\\nanogenmo2015\\projects\\data\\ancient\\perseus\\Classics\\Caesar\\opensource\\caes.bg_eng.xml", mode='rt') as file:
+    #    eltree = xml.etree.ElementTree.parse(file, parser=parser)
+    #root = eltree.getroot()
+    #return eltree
+    xmldoc = xml.dom.minidom.parse(DATA_FILEPATH + "\\perseus\\Classics\\Caesar\\opensource\\caes.bg_eng.xml")
+    #print(xmldoc.childNodes[1].childNodes[3].childNodes[1].toxml())
+    paralist = xmldoc.getElementsByTagName('p')
+    
+    for n in paralist:
+        print(n)
+    #namelist = xmldoc.getElementsByTagName('name')
+    #for n in namelist:
+    #    print(n.toxml())
+    return xmldoc
+
+from bs4 import BeautifulSoup
+
+perseus_cts = []
+def loadPerseusCTS():
+    input_string = ""
+    with open(DATA_FILEPATH + "\\perseus\\CTS.xml", mode='rt') as file:
+        input_string = file.read()
+    soup = BeautifulSoup(input_string, 'xml')
+    perseus_cts = soup
+    return soup
+
+def testPerseusTextTwo():
+    input_string = ""
+    with open(DATA_FILEPATH + "\\perseus\\Classics\\Caesar\\opensource\\caes.bg_eng.xml", mode='r') as file:
+        input_string = file.read()
+    soup = BeautifulSoup(input_string, 'xml')
+    #print(soup.prettify())
+    return soup
+
+perseus_pleiades_index = None
+def perseusPleiadesMetadata():
+    global perseus_pleiades_index
+    if not perseus_pleiades_index:
+        perseus_pleiades_index = openRDF("perseus/Perseus-collection-Greco-Roman.pleiades.rdf")
+    #for s, p, o in r.triples((None, None, None)):
+    #    perseus_pleiades_index.append({''})
+    #    print(s,"\n",p,"\n",o,"\n\n")
+    return perseus_pleiades_index
+
+def findPleiadesInPerseus(pleiades_number):
+    r = perseusPleiadesMetadata()
+    place_ref = "http://pleiades.stoa.org/places/{}#this".format(str(pleiades_number))
+    #t = r.triples( (None,
+    #                rdflib.term.URIRef('http://www.openannotation.org/ns/hasBody'),
+    #                rdflib.term.URIRef(place_ref)))
+    #tl = list(r.query(PREFIX+"SELECT ?x WHERE { ?x rdf:resource } LIMIT 50"))
+    return list(r.query(PREFIX + """ SELECT ?yo WHERE {?s oac:hasBody <""" + """http://pleiades.stoa.org/places/""" + str(pleiades_number) + """#this""" + """>; oac:hasTarget ?yo} LIMIT 15"""))
+    
+
+# list(r.query(data.PREFIX + """SELECT ?o WHERE {?s oac:hasBody ?o} LIMIT 15"""))
+# list(r.query(data.PREFIX + """SELECT ?yo WHERE {?s oac:hasBody ?o. ?ys oac:hasTarget ?yo} LIMIT 15"""))
+# list(r.query(data.PREFIX + """SELECT ?yo WHERE {?s oac:hasBody <http://pleiades.stoa.org/places/432839#this>; oac:hasTarget ?yo} LIMIT 15"""))
+
+def renderPerseusFromPleiades(pleiades_number):
+    t = findPleiadesInPerseus(pleiades_number)
+    choice = random.choice(t)[0].toPython()
+    #choice = t[0][0].toPython()
+    base_choice = choice.split(", ")[0].strip()
+    rqst = requests.get(base_choice + ".xml")
+    soup = BeautifulSoup(rqst.text, "xml")
+    def class_is_text_container(x):
+        return re.compile("text_container").search(x)
+    sresult = soup.find_all(class_=re.compile("text_container"))
+    output_string = ""
+    for tex in sresult:
+        output_string += str(tex.text)
+    return output_string # todo: include citation and name of author/book
+
+
+#    triple_list = list()
+#    t = findPleiadesInPerseus(pleiades_number)
+#    for s, p, o in t:
+#        triple_list.append([s,p,o])
+#    return t
