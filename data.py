@@ -610,8 +610,11 @@ def findPleiadesInPerseus(pleiades_number):
 def renderPerseusFromPleiades(pleiades_number):
     t = findPleiadesInPerseus(pleiades_number)
     choice = random.choice(t)[0].toPython()
+    #print(choice)
+    #print(t[0][0].toPython())
     #choice = t[0][0].toPython()
     base_choice = choice.split(", ")[0].strip()
+    #print(base_choice)
     rqst = requests.get(base_choice + ".xml")
     soup = BeautifulSoup(rqst.text, "xml")
     def class_is_text_container(x):
