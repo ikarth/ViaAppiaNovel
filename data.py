@@ -9,7 +9,9 @@ import sqlite3
 import rdflib
 import re
 import pickle
+import uuid
 from heapq import nlargest
+import ftfy
 
 import random
 
@@ -669,11 +671,14 @@ def renderPerseusFromPleiades(pleiades_number):
     sresult = soup.find_all(class_=re.compile("text_container"))
     output_string = ""
     for tex in sresult:
-        output_string += tex.text
+        output_string += " ".join(tex.text.split()).strip()
         #print(tex.text)
-    output_string += "\n\n"
-    return {'text':output_string, 'cite':'Perseus', 'author':'TODO', 'place':makePleiadesLocation(pleiades_number) } # todo: include citation and name of author/book
-
+    cite_name = str(uuid.uuid4()).replace("-", "")
+    output_string += "[^{cite_name}]\n\n\n".format(cite_name=cite_name)
+    output_string = ftfy.fix_text(output_string)
+    find_cite = re.sub('[\t+]', ' ', (soup.find("div", id="text_footer").find(id="text_desc").text))
+    cite = ("[^{citation_name}]: From the Perseus Digital Library:\n    ".format(citation_name=cite_name) + find_cite + "\n    "+ base_choice + "\n    Used under a Creative Commons Attribution-ShareAlike 3.0 United States License.\n")
+    return {'text':output_string, 'cite': cite, 'uuid': cite_name, 'author':'TODO', 'place':makePleiadesLocation(pleiades_number) } # todo: include citation and name of author/book
 
 #    triple_list = list()
 #    t = findPleiadesInPerseus(pleiades_number)

@@ -4,11 +4,15 @@ import pprint
 import mistune
 import html2text
 import bs4
+import re
+import hoedown
+import ftfy
 
 
 h = html2text.HTML2Text()
-h.ignore_links = True
-h.unicode_snob = True
+h.ignore_links = False
+h.unicode_snob = False
+h.body_width = 0
 
 book_text = []
 
@@ -39,7 +43,7 @@ def writeToBook(text):
 def readBook():
     all_text = bookIntro()
     for t in book_text:
-        all_text += str(t).encode('unicode_escape').decode('unicode_escape')
+        all_text += ftfy.fix_encoding(str(t)) + "\n"
     return all_text
 
 def textQuotation(t):
@@ -61,6 +65,14 @@ def textTravel(t):
     #writeToBook(t['text'])
     pass
 
+def addCitation(t):
+    cite = ""
+    for c in t:
+        cite += str(c)
+    #strip_whitespace = re.compile(r'\s+')
+    #cite = strip_whitespace.sub(" ", cite)
+    writeToBook(str(cite))
+
 text_translate_table = {'quotation': textQuotation,
                        'travel-narration': textTravel }
 
@@ -73,15 +85,20 @@ def transcribeStory(story:list):
     #markdown = mistune.Markdown(renderer = renderer)
     for t in story:
         text_translate_table[(t['type'])](t)
+    for c in story:
+        try:
+            addCitation([c['cite']])
+        except KeyError as err:
+            continue
     
     result = readBook()
-    with open("output.markdown", 'wt') as file:
+    with open("output.markdown", mode='wt', encoding="utf-8") as file:
         file.write(result)
     
-    renderer = mistune.Renderer(escape=True, hard_wrap=True)
+    renderer = mistune.Renderer(escape=True, hard_wrap=False)
     markdown = mistune.Markdown(renderer = renderer)
-    htmltext = markdown(result)
-    with open("output.html", encoding="utf-8", mode='w') as file:
+    htmltext = ftfy.fix_text(markdown(result))
+    with open("output.html", mode='wt', encoding="utf-8") as file:
         file.write(htmltext)
     return result
 
