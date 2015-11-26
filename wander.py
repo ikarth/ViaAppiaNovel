@@ -32,7 +32,7 @@ def renderSelectDestination(wander:dict):
     text_travel_route_type = descriptionJourneyType(wander['journey']['type'])
     text_destination_name = data.getNearestName(data.hydrateLocation(wander['destination']))
     text_distance = str(float(wander['journey']['distance']) * settings.KILOMETERS_TO_MILES) # km-to-miles
-    story = "Virgil departed from {0}, intending to travel {1} to {2}, a {3} mile journey.".format(text_departing_from_name, text_travel_route_type, text_destination_name, text_distance)
+    story = "Virgil departed from {0}, intending to travel {1} to {2}, a {3} mile journey.\n\n".format(text_departing_from_name, text_travel_route_type, text_destination_name, text_distance)
     writeStory({'type': 'travel-narration', 'text':story, 'metadata':[], 'state':wander})
 
 def renderTravelQuotation(wander:dict):

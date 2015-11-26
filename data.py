@@ -169,10 +169,16 @@ def getLatLonFromOrbis(o_id):
     return latlon
 
 def getLatLonFromPleiades(p_id):
-    return None
+    checkPleiades()
+    p = getPleiadesRecord(p_id)
+    if not p:
+        return None
+    #print( p['reprPoint'])
+    return p['reprPoint']
+
 
 def findNearestSite(latlon):
-    return None
+    return None # TODO
 
 def latlonIsValid(latlon):
     if None == latlon or (not latlon):
@@ -452,7 +458,7 @@ def hydrateLocation(loc:Location) -> Location:
     else:
         if loc.pleiades_id:
             loc.orbis_id = getOrbisFromPleiades(loc.pleiades_id)
-            loc.latlon = GetLatLonFromPleiades(loc.pleiades_id)
+            loc.latlon = getLatLonFromPleiades(loc.pleiades_id)
         else:
             if loc.latlon:
                 loc = getNearestLocation(loc.latlon)
@@ -465,6 +471,11 @@ def makeOrbisLocation(o_id):
 
 def makeLatLonLocation(latlon):
     loc = Location(latlon = latlon)
+    hydrateLocation(loc)
+    return loc
+
+def makePleiadesLocation(pleia):
+    loc = Location(pleiades_id = pleia)
     hydrateLocation(loc)
     return loc
 
@@ -620,6 +631,7 @@ def perseusPleiadesMetadata():
     global perseus_pleiades_index
     if not perseus_pleiades_index:
         try:
+            print("Accessing pickle...")
             with open("data" + os.sep + "perseus_pleiades_index.pickle", mode='rb') as file:
                 perseus_pleiades_index = pickle.load(file)
         except FileNotFoundError as err:
@@ -649,11 +661,7 @@ def renderPerseusFromPleiades(pleiades_number):
         print ("Error: no quotations found")
         return
     choice = random.choice(t)[0].toPython()
-    #print(choice)
-    #print(t[0][0].toPython())
-    #choice = t[0][0].toPython()
     base_choice = choice.split(", ")[0].strip()
-    #print(base_choice)
     rqst = requests.get(base_choice)
     soup = BeautifulSoup(rqst.text, "xml")
     def class_is_text_container(x):
@@ -661,10 +669,10 @@ def renderPerseusFromPleiades(pleiades_number):
     sresult = soup.find_all(class_=re.compile("text_container"))
     output_string = ""
     for tex in sresult:
-        output_string += str(tex.text)
+        output_string += tex.text
         #print(tex.text)
-    #return output_string
-    return {'text':output_string, 'cite':'Perseus', 'author':'TODO' } # todo: include citation and name of author/book
+    output_string += "\n\n"
+    return {'text':output_string, 'cite':'Perseus', 'author':'TODO', 'place':makePleiadesLocation(pleiades_number) } # todo: include citation and name of author/book
 
 
 #    triple_list = list()
