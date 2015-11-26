@@ -8,6 +8,7 @@ import xml.etree.ElementTree
 import sqlite3
 import rdflib
 import re
+import pickle
 from heapq import nlargest
 
 import random
@@ -438,7 +439,7 @@ def LocationToJSON(loc):
 
 def getNearestName(loc:Location):
     # TODO: try to get names from other sources as well...
-    print(loc.orbis_id)
+    #print(loc.orbis_id)
     n = getNameFromOrbis(loc.orbis_id)
     return n
 
@@ -588,14 +589,23 @@ def testPerseusText():
 
 from bs4 import BeautifulSoup
 
-perseus_cts = []
+perseus_cts = None
 def loadPerseusCTS():
-    input_string = ""
-    with open(DATA_FILEPATH + "\\perseus\\CTS.xml", mode='rt') as file:
-        input_string = file.read()
-    soup = BeautifulSoup(input_string, 'xml')
-    perseus_cts = soup
-    return soup
+    try:
+        if not perseus_cts:
+            with open("data" + os.sep + "perseus_cts.pickle", mode='rb') as file:
+                perseus_cts = pickle.load(file)
+        return perseus_cts
+    except FileNotFoundError as err:
+        print("data" + os.sep + "perseus_cts.pickle not found")
+        input_string = ""
+        with open(DATA_FILEPATH + os.sep + "perseus" + os.sep + "CTS.xml", mode='rt') as file:
+            input_string = file.read()
+        soup = BeautifulSoup(input_string, 'xml')
+        perseus_cts = soup
+        with open("data" + os.sep + "perseus_cts.pickle", mode='wb') as file:
+            pickle.dump(perseus_cts, file)
+        return soup
 
 def testPerseusTextTwo():
     input_string = ""
@@ -609,10 +619,14 @@ perseus_pleiades_index = None
 def perseusPleiadesMetadata():
     global perseus_pleiades_index
     if not perseus_pleiades_index:
-        perseus_pleiades_index = openRDF("perseus/Perseus-collection-Greco-Roman.pleiades.rdf")
-    #for s, p, o in r.triples((None, None, None)):
-    #    perseus_pleiades_index.append({''})
-    #    print(s,"\n",p,"\n",o,"\n\n")
+        try:
+            with open("data" + os.sep + "perseus_pleiades_index.pickle", mode='rb') as file:
+                perseus_pleiades_index = pickle.load(file)
+        except FileNotFoundError as err:
+            print("Using RDF")
+            perseus_pleiades_index = openRDF("perseus" + os.sep + "Perseus-collection-Greco-Roman.pleiades.rdf")
+        with open("data" + os.sep + "perseus_pleiades_index.pickle", mode='wb') as file:
+            pickle.dump(perseus_pleiades_index, file)
     return perseus_pleiades_index
 
 def findPleiadesInPerseus(pleiades_number):
@@ -631,6 +645,9 @@ def findPleiadesInPerseus(pleiades_number):
 
 def renderPerseusFromPleiades(pleiades_number):
     t = findPleiadesInPerseus(pleiades_number)
+    if len(t) == 0:
+        print ("Error: no quotations found")
+        return
     choice = random.choice(t)[0].toPython()
     #print(choice)
     #print(t[0][0].toPython())

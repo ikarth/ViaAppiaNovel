@@ -10,4 +10,7 @@ random.seed("Rome wasn't built in a day")
 
 
 
-
+def go():
+    wander.processWanderer(wander.makeWanderer())
+    story = wander.getStory()
+    return book.transcribeStory(story)
