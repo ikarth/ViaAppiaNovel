@@ -704,12 +704,38 @@ def processPerseusText(soup:BeautifulSoup):
 
     else:
         for section in soup.find_all('p'):
+            div2 = True
+            while div2:
+                if not section.find('div2', {'type':'commline'}):
+                    div2 = False
+                    break
+                tag = section.find('div2', {'type':'commline'})
+                sec_mark = soup.new_tag("span")
+                sec_mark.string = str(tag['n']) + ". "
+                section.find('div2', {'type':'commline'}).find('p').insert(0, sec_mark)
+                section.find('div2', {'type':'commline'}).unwrap()            
             milestone = True
             while milestone:
                 if not section.find('milestone'):
                     milestone = False
                     break
+                #note_text = section.find('milestone').text
+                #section.find('milestone').replace_with(str("[" + note_text + "]"))
                 milestone = section.find('milestone').extract()
+            lang_la = True
+            while lang_la:
+                if not section.find('foreign', {'lang':'la'}):
+                    lang_la = False
+                    break
+                note_text = section.find('foreign', {'lang':'la'}).text
+                section.find('foreign', {'lang':'la'}).replace_with(str("_" + note_text + "_"))
+            lang_gr = True
+            while lang_gr:
+                if not section.find('foreign', {'lang':'greek'}):
+                    lang_gr = False
+                    break
+                note_text = section.find('foreign', {'lang':'greek'}).text
+                section.find('foreign', {'lang':'greek'}).replace_with(str("\\rendergreek{" + note_text + "}"))
             note = True
             while note:
                 if not section.find('note'):
@@ -717,13 +743,20 @@ def processPerseusText(soup:BeautifulSoup):
                     break
                 note_text = section.find('note').text
                 section.find('note').replace_with(str("^[" + note_text + "]"))
-            cit = True
-            while cit:
-                if not section.find('cite'):
-                    note = False
+            qt = True
+            while qt:
+                if not section.find('q'):
+                    qt = False
                     break
-                note_text = section.find('cite').text
-                section.find('cite').replace_with(str("^[" + note_text + "]"))
+                note_text = section.find('q').text
+                section.find('q').replace_with(str("\"" + note_text + "\""))
+            #cit = True
+            #while cit:
+            #    if not section.find('cit'):
+            #        cit = False
+            #        break
+            #    note_text = section.find('cit').text
+            #    section.find('cit').replace_with(str("^[" + note_text + "]"))
             #bibl = True
             #while bibl:
             #    if not section.find('bibl'):
