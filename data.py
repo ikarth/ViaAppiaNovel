@@ -717,6 +717,21 @@ def processPerseusText(soup:BeautifulSoup):
                     break
                 note_text = section.find('note').text
                 section.find('note').replace_with(str("^[" + note_text + "]"))
+            cit = True
+            while cit:
+                if not section.find('cite'):
+                    note = False
+                    break
+                note_text = section.find('cite').text
+                section.find('cite').replace_with(str("^[" + note_text + "]"))
+            #bibl = True
+            #while bibl:
+            #    if not section.find('bibl'):
+            #        bibl = False
+            #        break
+            #    note_text = section.find('bibl').text
+            #    section.find('bibl').replace_with(str("^[" + note_text + "]"))
+
             content = "<p>"
             content += " ".join(section.text.split()).strip()
             content += "</p>"
@@ -727,29 +742,47 @@ def processPerseusText(soup:BeautifulSoup):
     output_string = fragments
     return output_string
 
-def getPerseusCatalogData(doc_url):
-    catalog_metadata = {'author':'Unknown','book_title':'Unknown'}
-    urn = doc_url.split("urn:")[1] # Perseus URN identifier
-    urn = urn.rsplit(":", 1)[0]
-    book_urn = "urn:" + urn.rsplit(".", 1)[0]
-    author_urn = "urn:" + urn.rsplit(".", 2)[0]
-    catalog_urn_url = "http://data.perseus.org/catalog/urn:" + str(urn) + "/atom"
-    catalog_data = requests.get(catalog_urn_url, "xml")
+def getPerseusCatalogData(doc_url, no_urn = False):
+    catalog_metadata = {'author':'Unknown','book_title':'Unknown','description':'Perseus Digital Library'}
+    catalog_status_code = None
+    if not no_urn:
+        print(doc_url)
+        urn = doc_url.split("urn:")[1] # Perseus URN identifier
+        print(urn)
+        urn = urn.rsplit(":", 1)[0]
+        book_urn = "urn:" + urn.rsplit(".", 1)[0]
+        author_urn = "urn:" + urn.rsplit(".", 2)[0]
+        catalog_urn_url = "http://data.perseus.org/catalog/urn:" + str(urn) + "/atom"
+        print(catalog_urn_url)
+        catalog_data = requests.get(catalog_urn_url, "xml")
+        catalog_status_code = catalog_data.status_code
     #print(catalog_data)
-    if catalog_data.status_code == 200:
+    if (not no_urn) and catalog_status_code == 200:
         catalog_metadata['urn'] = catalog_urn_url
         soup_metadata_atom = BeautifulSoup(catalog_data.text, "xml")
         #print(soup_metadata_atom.text)
         md = soup_metadata_atom.find("textgroup", {'urn':author_urn})
-        catalog_metadata['author'] = md.find("groupname").text
-        catalog_metadata['book_title'] = md.find("title").text
+        catalog_metadata['author'] = md.find("groupname").text.strip()
+        if catalog_metadata['author'].endswith("."):
+            catalog_metadata['author'] = catalog_metadata['author'][:-1]
+        catalog_metadata['book_title'] = md.find("title").text.strip()
         catalog_metadata['label'] = md.find("label").text
         catalog_metadata['description'] = md.find("description").text
-    
+    else: # record not found...try to at least grab the author...
+        book_page_data = requests.get(doc_url, "xml")
+        soup_metadata_page = BeautifulSoup(book_page_data.text, "html")
+        page_title = soup_metadata_page.find('h1')
+        #print(page_title.text)
+        catalog_metadata['author'] = page_title.text.split(",")[0].strip()
+        book_title = page_title.find(class_='title')
+        catalog_metadata['book_title'] = book_title.text
+    catalog_metadata['author_raw'] = catalog_metadata['author']
     if catalog_metadata['author'].count(",") > 0:
         flip_name = catalog_metadata['author'].strip(".").split(", ", 1)
-        catalog_metadata['author_reordered'] = flip_name[1] + " " + flip_name[0]
-    #print(catalog_metadata)
+        if flip_name[1].isalpha():
+            catalog_metadata['author_reordered'] = flip_name[1] + " " + flip_name[0]
+            catalog_metadata['author'] = catalog_metadata['author_reordered']
+    print(catalog_metadata)
 
     return catalog_metadata
 
@@ -761,26 +794,34 @@ def renderPerseusFromPleiades(pleiades_number):
     choice = random.choice(t)[0].toPython()
     base_choice = choice.split(", ")[0].strip()
 
-    textmetadata = getPerseusCatalogData(base_choice)
-    
-    xml_url = str(base_choice).replace("text", "xmlchunk", 1)
+    xml_url = None #str(base_choice).replace("text", "xmlchunk", 1)
 
-    rqst = requests.get(base_choice)
-    soup = BeautifulSoup(rqst.text, "xml")
-    def class_is_text_container(x):
-        return re.compile("text_container").search(x)
-    sresult = soup.find(class_=re.compile("text_container"))
+    textmetadata = {}
+    if "xmlchunk" in base_choice:
+        html_url = base_choice.replace("xmlchunk", "text")
+        textmetadata = getPerseusCatalogData(html_url, no_urn = True)
+        xml_url = base_choice
+    else:
+        textmetadata = getPerseusCatalogData(base_choice)
     
-    #paras = sresult.find_all("text")
-    ##for i in paras:
-    ##    print (i.text)
+
     output_string = ""
-    
-    link = soup.find_all("a", class_="xml")
-    for i in link:
-        if i.has_attr('href'):
-            if "xmlchu" == str(i['href'])[0:6]:
-                xml_url = "http://www.perseus.tufts.edu/hopper/" + i['href']
+    sresult = None
+    soup = None
+        
+    if not xml_url:
+        rqst = requests.get(base_choice)
+        soup = BeautifulSoup(rqst.text, "xml")
+        #def class_is_text_container(x):
+        #    return re.compile("text_container").search(x)
+        sresult = soup.find(class_=re.compile("text_container"))
+
+        link = soup.find_all("a", class_="xml")
+        for i in link:
+            if i.has_attr('href'):
+                if "xmlchu" == str(i['href'])[0:6]:
+                    xml_url = "http://www.perseus.tufts.edu/hopper/" + i['href']
+
     #print(link)
     #print(xml_url)
     if(xml_url):
@@ -788,20 +829,26 @@ def renderPerseusFromPleiades(pleiades_number):
         xml_soup = BeautifulSoup(xml_rqst.text, "xml")
         output_string = processPerseusText(xml_soup)
     else:
-        for tex in sresult:
-            output_string += " ".join(tex.text.split()).strip()
-            print(tex.text)
+        if sresult:
+            for tex in sresult:
+                output_string += " ".join(tex.text.split()).strip()
+                print(tex.text)
 
     cite_name = str(uuid.uuid4()).replace("-", "")
     output_string = output_string[:-4] + "[^{cite_name}]</p>".format(cite_name=cite_name)
     output_string = ftfy.fix_text(output_string)
-    find_cite_first_p = "Perseus Digital Library"
-    if soup.find("div", id="text_footer"):
-        if soup.find("div", id="text_footer").find(id="text_desc"):
-            find_cite = re.sub('[\t+]', ' ', (soup.find("div", id="text_footer").find(id="text_desc").text))
-            find_cite_first_p = find_cite.splitlines()[1]
-    cite = ftfy.fix_text("[^{citation_name}]: From the Perseus Digital Library: ".format(citation_name=cite_name) + find_cite_first_p + "\n\r    <" + base_choice + ">  \n\r    Used under a Creative Commons Attribution-ShareAlike 3.0 United States License.  \n\r\n\r")
-    return {'text':output_string, 'cite': cite, 'uuid': cite_name, 'author':textmetadata['author'],'book_title':textmetadata['book_title'], 'metadata':textmetadata 'place':makePleiadesLocation(pleiades_number) } # todo: include citation and name of author/book
+    
+    cite = ""
+    if (not soup) and textmetadata:
+        cite = ftfy.fix_text("[^{citation_name}]: From the Perseus Digital Library: ".format(citation_name=cite_name) + textmetadata['description'] + "\n\r    <" + base_choice + ">  \n\r\n\r")
+    if soup:
+        find_cite_first_p = "Perseus Digital Library"
+        if soup.find("div", id="text_footer"):
+            if soup.find("div", id="text_footer").find(id="text_desc"):
+                find_cite = re.sub('[\t+]', ' ', (soup.find("div", id="text_footer").find(id="text_desc").text))
+                find_cite_first_p = find_cite.splitlines()[1]
+        cite = ftfy.fix_text("[^{citation_name}]: From the Perseus Digital Library: ".format(citation_name=cite_name) + find_cite_first_p + "\n\r    <" + base_choice + ">  \n\r\n\r")
+    return {'text':output_string, 'cite': cite, 'uuid': cite_name, 'author':textmetadata['author'],'book_title':textmetadata['book_title'], 'metadata':textmetadata, 'place':makePleiadesLocation(pleiades_number) } # todo: include citation and name of author/book
 
 #    triple_list = list()
 #    t = findPleiadesInPerseus(pleiades_number)

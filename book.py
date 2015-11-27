@@ -8,6 +8,7 @@ import re
 import hoedown
 import ftfy
 
+DISPLAY_TEXT_WHILE_WRITING = False
 
 h = html2text.HTML2Text()
 h.ignore_links = False
@@ -42,7 +43,7 @@ def bookIntro():
 &nbsp;\n\n
 Virgil's Commonplace Book\n
 2015\n\n
-Portions of the text are based on extracts from texts provided by the Perseus Digital Library, used under a Creative Commons Attribution-ShareAlike 3.0 United States License\n
+This work includes extracts from texts provided by the Perseus Digital Library under a Creative Commons Attribution-ShareAlike 3.0 United States License\n\n
 \\newpage
 \n## Introduction
 It has long been a common practice to incorporate the works of earlier writers into new books. Indeed, many commonplace books consist of nothing _but_ quotations and similar notes. We have many surviving examples from the Roman Empire, such as Aulus Gellius' _Attic Nights_. These texts were not always attributed to the original source. Lacking the modern concept of plagiarism (and our post-printing-press system of uniform citations) writers sometimes come off as careless to modern sensibilities. Quotes could be paraphrased and rather vague citations were the norm. Indeed, some authors committed a kind of reverse plagiarism, [pseudepigraphically](https://en.wikipedia.org/wiki/Pseudepigrapha) attributing their work to an earlier, more famous author.\n 
@@ -53,19 +54,25 @@ I chose Virgil as the protagonist for three reasons: first, his works are among 
 \\newpage
 ## Technical Notes
 The book generator is a Python program that outputs a Markdown text file designed to be converted into PDF form via Pandoc.
+
+~~~
+pandoc output.markdown -S --normalize --toc -o output_test.pdf
+~~~
+
 \\newpage
     """
     return intro_text
 
 def writeToBook(text):
     global book_text
-    pprint.pprint(text)
+    if DISPLAY_TEXT_WHILE_WRITING:
+        pprint.pprint(text)
     book_text.append(text)
 
 def readBook():
     all_text = bookIntro()
     for t in book_text:
-        all_text += ftfy.fix_encoding(str(t)) + "\n"
+        all_text += ftfy.fix_text(str(t)) + "\n"
     return all_text
 
 def textQuotation(t):
@@ -76,8 +83,9 @@ def textQuotation(t):
     place_name = data.getNearestName(t['place'])
     if not place_name:
         place_name = data.getNearestName(data.hydrateLocation(t['state']['location']))
-    title_data = {'place': place_name}
-    writeToBook("### A story about {place}\n".format(**title_data))
+    author_name = t['author']
+    title_data = {'place': place_name, 'author': author_name, 'book': t['book_title']}
+    writeToBook("### A story by {author} about {place} from {book}\n".format(**title_data))
     writeToBook(h.handle(t['text']))
     #writeToBook(t['text'])
     pass

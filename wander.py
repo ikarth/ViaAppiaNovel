@@ -1,7 +1,9 @@
 ﻿import settings
 import data
 import random
+import time
 
+DELAY_FOR_BANDWIDTH = False #if true, sleeps a bit between tasks that might call for network resources
 
 wanderer_story = []
 
@@ -131,5 +133,8 @@ def makeWanderer():
 
 def processWanderer(wander:dict):
     for i in range(0,90):
+        if DELAY_FOR_BANDWIDTH:
+            print(time.process_time)
+            time.sleep(3)            
         wander = wander['state'](wander)
     return wander
