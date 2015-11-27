@@ -790,7 +790,7 @@ def renderPerseusFromPleiades(pleiades_number):
     output_string = ftfy.fix_text(output_string)
     find_cite = re.sub('[\t+]', ' ', (soup.find("div", id="text_footer").find(id="text_desc").text))
     find_cite_first_p = find_cite.splitlines()[1]
-    cite = ("[^{citation_name}]: From the Perseus Digital Library:<br/>    ".format(citation_name=cite_name) + find_cite_first_p + "<br/>    <" + base_choice + "><br/>    Used under a Creative Commons Attribution-ShareAlike 3.0 United States License.\n")
+    cite = ftfy.fix_text("[^{citation_name}]: From the Perseus Digital Library: ".format(citation_name=cite_name) + find_cite_first_p + "\n\r    <" + base_choice + ">  \n\r    Used under a Creative Commons Attribution-ShareAlike 3.0 United States License.  \n\r\n\r")
     return {'text':output_string, 'cite': cite, 'uuid': cite_name, 'author':'TODO', 'place':makePleiadesLocation(pleiades_number) } # todo: include citation and name of author/book
 
 #    triple_list = list()

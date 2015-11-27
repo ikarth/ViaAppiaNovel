@@ -16,6 +16,10 @@ h.body_width = 0
 
 book_text = []
 
+def flushBook():
+    global book_text
+    book_text = []
+
 def bookIntro():
     intro_text = """% Virgil's Commonplace Book
 % Isaac Karth
@@ -97,6 +101,7 @@ def transcribeStory(story:list):
     Takes a list of dicts that contain the story text and metadata and
     transcribes it into the formatted book.
     """
+    flushBook()
     #renderer = mistune.Renderer(escape=True, hard_wrap=True)
     #markdown = mistune.Markdown(renderer = renderer)
     for t in story:
