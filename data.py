@@ -727,6 +727,32 @@ def processPerseusText(soup:BeautifulSoup):
     output_string = fragments
     return output_string
 
+def getPerseusCatalogData(doc_url):
+    catalog_metadata = {'author':'Unknown','book_title':'Unknown'}
+    urn = doc_url.split("urn:")[1] # Perseus URN identifier
+    urn = urn.rsplit(":", 1)[0]
+    book_urn = "urn:" + urn.rsplit(".", 1)[0]
+    author_urn = "urn:" + urn.rsplit(".", 2)[0]
+    catalog_urn_url = "http://data.perseus.org/catalog/urn:" + str(urn) + "/atom"
+    catalog_data = requests.get(catalog_urn_url, "xml")
+    #print(catalog_data)
+    if catalog_data.status_code == 200:
+        catalog_metadata['urn'] = catalog_urn_url
+        soup_metadata_atom = BeautifulSoup(catalog_data.text, "xml")
+        #print(soup_metadata_atom.text)
+        md = soup_metadata_atom.find("textgroup", {'urn':author_urn})
+        catalog_metadata['author'] = md.find("groupname").text
+        catalog_metadata['book_title'] = md.find("title").text
+        catalog_metadata['label'] = md.find("label").text
+        catalog_metadata['description'] = md.find("description").text
+    
+    if catalog_metadata['author'].count(",") > 0:
+        flip_name = catalog_metadata['author'].strip(".").split(", ", 1)
+        catalog_metadata['author_reordered'] = flip_name[1] + " " + flip_name[0]
+    #print(catalog_metadata)
+
+    return catalog_metadata
+
 def renderPerseusFromPleiades(pleiades_number):
     t = findPleiadesInPerseus(pleiades_number)
     if len(t) == 0:
@@ -735,8 +761,9 @@ def renderPerseusFromPleiades(pleiades_number):
     choice = random.choice(t)[0].toPython()
     base_choice = choice.split(", ")[0].strip()
 
-    xml_url = str(base_choice).replace("text", "xmlchunk", 1)
+    textmetadata = getPerseusCatalogData(base_choice)
     
+    xml_url = str(base_choice).replace("text", "xmlchunk", 1)
 
     rqst = requests.get(base_choice)
     soup = BeautifulSoup(rqst.text, "xml")
@@ -774,7 +801,7 @@ def renderPerseusFromPleiades(pleiades_number):
             find_cite = re.sub('[\t+]', ' ', (soup.find("div", id="text_footer").find(id="text_desc").text))
             find_cite_first_p = find_cite.splitlines()[1]
     cite = ftfy.fix_text("[^{citation_name}]: From the Perseus Digital Library: ".format(citation_name=cite_name) + find_cite_first_p + "\n\r    <" + base_choice + ">  \n\r    Used under a Creative Commons Attribution-ShareAlike 3.0 United States License.  \n\r\n\r")
-    return {'text':output_string, 'cite': cite, 'uuid': cite_name, 'author':'TODO', 'place':makePleiadesLocation(pleiades_number) } # todo: include citation and name of author/book
+    return {'text':output_string, 'cite': cite, 'uuid': cite_name, 'author':textmetadata['author'],'book_title':textmetadata['book_title'], 'metadata':textmetadata 'place':makePleiadesLocation(pleiades_number) } # todo: include citation and name of author/book
 
 #    triple_list = list()
 #    t = findPleiadesInPerseus(pleiades_number)
