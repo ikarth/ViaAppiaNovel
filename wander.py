@@ -130,6 +130,6 @@ def makeWanderer():
             'journey':{'type':'', 'distance':'0.0', 'expense':'0.0', 'days':'0.0'}}
 
 def processWanderer(wander:dict):
-    for i in range(0,30):
+    for i in range(0,90):
         wander = wander['state'](wander)
     return wander
