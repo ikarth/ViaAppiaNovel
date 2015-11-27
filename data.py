@@ -704,8 +704,6 @@ def processPerseusText(soup:BeautifulSoup):
 
     else:
         for section in soup.find_all('p'):
-            #print(section)
-            #print("...")
             milestone = True
             while milestone:
                 if not section.find('milestone'):
@@ -723,28 +721,10 @@ def processPerseusText(soup:BeautifulSoup):
             content += " ".join(section.text.split()).strip()
             content += "</p>"
             content = content.replace(" ^[", "^[") # clean up space in front of inline cite
-            #print(content)
-            #print(">>>>>>")
-            #print(footnotes)
-            #print(">>>>>>")
             fragments += content
 
-    
-    #print(soup.find_all('p'))
-
-    ##pgphs = text.find_all(class_="text")
-    #stew = soup.findAll("p")
-    #valid_tags = ['p']
-      
-    ##stew = stripTags(soup, valid_tags)
-    #print(stew)
     output_string = ""
     output_string = fragments
-    #for i in stew:
-    #    print("---")
-    #    print(i.text)
-    #    output_string += i.text #" ".join(i.text.split()).strip()
-    #print("===")
     return output_string
 
 def renderPerseusFromPleiades(pleiades_number):
