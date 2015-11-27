@@ -12,6 +12,8 @@ import pickle
 import uuid
 from heapq import nlargest
 import ftfy
+from bs4 import BeautifulSoup
+import bs4
 
 import random
 
@@ -600,8 +602,6 @@ def testPerseusText():
     #    print(n.toxml())
     return xmldoc
 
-from bs4 import BeautifulSoup
-
 perseus_cts = None
 def loadPerseusCTS():
     try:
@@ -657,6 +657,96 @@ def findPleiadesInPerseus(pleiades_number):
 # list(r.query(data.PREFIX + """SELECT ?yo WHERE {?s oac:hasBody ?o. ?ys oac:hasTarget ?yo} LIMIT 15"""))
 # list(r.query(data.PREFIX + """SELECT ?yo WHERE {?s oac:hasBody <http://pleiades.stoa.org/places/432839#this>; oac:hasTarget ?yo} LIMIT 15"""))
 
+def stripTags(soup, valid_tags):
+    for tag in soup.find_all(True):
+        if not (tag.name in valid_tags):
+            s = ""
+            for c in tag.contents:
+                if not isinstance(c, bs4.NavigableString):
+                    c = stripTags(c, valid_tags)
+                s += str(c)
+            tag.replace_with(s)
+    return soup
+
+def processPerseusText(soup:BeautifulSoup):
+
+    fragments = ""
+    if 0 == len(soup.find_all('p')):
+        if 0 == len(soup.find_all('l')):
+            print(soup)
+            print("WARNING: Couldn't find p or l in this text...")
+            pass
+        else:
+            content = "<p>"
+            for section in soup.find_all('l'):
+                milestone = True
+                while milestone:
+                    if not section.find('milestone'):
+                        milestone = False
+                        break
+                    milestone = section.find('milestone', {'unit':'para'})
+                    if milestone:
+                        section.find('milestone', {'unit':'para'}).replace_with(str("<br/>"))
+                    else:
+                        milestone = section.find('milestone').extract()
+                note = True
+                while note:
+                    if not section.find('note'):
+                        note = False
+                        break
+                    note_text = section.find('note').text
+                    section.find('note').replace_with(str("^[" + note_text + "]"))
+                content += " ".join(section.text.split()).strip().replace("\n", " ")
+                content += "<br/>"
+            content = content.replace(" ^[", "^[").replace("\n", " ")
+            content += "</p>"
+            fragments += content
+
+    else:
+        for section in soup.find_all('p'):
+            #print(section)
+            #print("...")
+            milestone = True
+            while milestone:
+                if not section.find('milestone'):
+                    milestone = False
+                    break
+                milestone = section.find('milestone').extract()
+            note = True
+            while note:
+                if not section.find('note'):
+                    note = False
+                    break
+                note_text = section.find('note').text
+                section.find('note').replace_with(str("^[" + note_text + "]"))
+            content = "<p>"
+            content += " ".join(section.text.split()).strip()
+            content += "</p>"
+            content = content.replace(" ^[", "^[") # clean up space in front of inline cite
+            #print(content)
+            #print(">>>>>>")
+            #print(footnotes)
+            #print(">>>>>>")
+            fragments += content
+
+    
+    #print(soup.find_all('p'))
+
+    ##pgphs = text.find_all(class_="text")
+    #stew = soup.findAll("p")
+    #valid_tags = ['p']
+      
+    ##stew = stripTags(soup, valid_tags)
+    #print(stew)
+    output_string = ""
+    output_string = fragments
+    #for i in stew:
+    #    print("---")
+    #    print(i.text)
+    #    output_string += i.text #" ".join(i.text.split()).strip()
+    #print("===")
+    return output_string
+
 def renderPerseusFromPleiades(pleiades_number):
     t = findPleiadesInPerseus(pleiades_number)
     if len(t) == 0:
@@ -664,20 +754,43 @@ def renderPerseusFromPleiades(pleiades_number):
         return
     choice = random.choice(t)[0].toPython()
     base_choice = choice.split(", ")[0].strip()
+
+    xml_url = str(base_choice).replace("text", "xmlchunk", 1)
+    
+
     rqst = requests.get(base_choice)
     soup = BeautifulSoup(rqst.text, "xml")
     def class_is_text_container(x):
         return re.compile("text_container").search(x)
-    sresult = soup.find_all(class_=re.compile("text_container"))
+    sresult = soup.find(class_=re.compile("text_container"))
+    
+    #paras = sresult.find_all("text")
+    ##for i in paras:
+    ##    print (i.text)
     output_string = ""
-    for tex in sresult:
-        output_string += " ".join(tex.text.split()).strip()
-        #print(tex.text)
+    
+    link = soup.find_all("a", class_="xml")
+    for i in link:
+        if i.has_attr('href'):
+            if "xmlchu" == str(i['href'])[0:6]:
+                xml_url = "http://www.perseus.tufts.edu/hopper/" + i['href']
+    #print(link)
+    #print(xml_url)
+    if(xml_url):
+        xml_rqst = requests.get(xml_url)
+        xml_soup = BeautifulSoup(xml_rqst.text, "xml")
+        output_string = processPerseusText(xml_soup)
+    else:
+        for tex in sresult:
+            output_string += " ".join(tex.text.split()).strip()
+            print(tex.text)
+
     cite_name = str(uuid.uuid4()).replace("-", "")
-    output_string += "[^{cite_name}]\n\n\n".format(cite_name=cite_name)
+    output_string = output_string[:-4] + "[^{cite_name}]</p>".format(cite_name=cite_name)
     output_string = ftfy.fix_text(output_string)
     find_cite = re.sub('[\t+]', ' ', (soup.find("div", id="text_footer").find(id="text_desc").text))
-    cite = ("[^{citation_name}]: From the Perseus Digital Library:\n    ".format(citation_name=cite_name) + find_cite + "\n    "+ base_choice + "\n    Used under a Creative Commons Attribution-ShareAlike 3.0 United States License.\n")
+    find_cite_first_p = find_cite.splitlines()[1]
+    cite = ("[^{citation_name}]: From the Perseus Digital Library:<br/>    ".format(citation_name=cite_name) + find_cite_first_p + "<br/>    <" + base_choice + "><br/>    Used under a Creative Commons Attribution-ShareAlike 3.0 United States License.\n")
     return {'text':output_string, 'cite': cite, 'uuid': cite_name, 'author':'TODO', 'place':makePleiadesLocation(pleiades_number) } # todo: include citation and name of author/book
 
 #    triple_list = list()
