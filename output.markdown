@@ -7,7 +7,7 @@ It has long been a common practice to incorporate the works of earlier writers i
  
 In a way, this reuse is fortunate: many texts from the Classical period only exist in fragments quoted in other documents. Some works survive in [epitome](https://en.wikipedia.org/wiki/Epitome), distilled versions that summarized the text; for others we have fragments that later writers quoted or abridged as they wrote their compilations.
 
-Artists, of course, have been far looser with their borrowings than writers of mere facts, placing the present work solidly within a long tradition. The closest literary ancedents of NaNoGenMo--Dada and Oulipo--have often explored similar sampling approaches. Kathryn Hume has suggested that technical constratints have lead NaNoGenMo to "align itself with poetics of recontextualization and reassembly."^[Hume, Kathryn. "NaNoGenMo: Dada 2.0". URL:<http://arcade.stanford.edu/blogs/nanogenmo-dada-20>. Accessed: 2015-11-28. (Archived by WebCite® at <http://www.webcitation.org/6dNl9xpbY>)] 
+Artists, of course, have been far looser with their borrowings than writers of mere facts, placing the present work solidly within a long tradition. The closest literary ancedents of NaNoGenMo--Dada and Oulipo--have often explored similar sampling approaches. Kathryn Hume has suggested that technical constratints have lead NaNoGenMo to "align itself with poetics of recontextualization and reassembly."^[Hume, Kathryn. "NaNoGenMo: Dada 2.0". URL:\url{http://arcade.stanford.edu/blogs/nanogenmo-dada-20}. Accessed: 2015-11-28. (Archived by WebCite® at \url{http://www.webcitation.org/6dNl9xpbY>})] 
 
 While I'd point out that NaNoGenMo also exhibits other aspects, such as the concrete poetry in thricedotted's _The Seeker_, or the way structurally-plotted works like _Hannah and The Twelve-Disk Tower of Hanoi_ evoke the chessboard constraints of _Life a User's Manual_ or _Through the Looking Glass_, there is an undeniable strand of appropreation as we teach our machines to imitate their human creators. Still, that's no reason to neglect giving credit, so this book attempts to cite the sources for the texts it borrows.
 
@@ -15,7 +15,7 @@ In this work, that deliberate borrowing is the intent. Unlike an age of precious
 
 I chose Virgil as the protagonist for three reasons: first, his works are among the source texts in the Perseus Digital Library used for much of the text here. His _Aeneid_ builds on earlier traditions, recast in a founding epic for a new age: appropriate for a work themed around appropriation and reuse in this new information age. This would not be enough to recommend him on its own: there are other authors whose works were much closer to the kind of copying and summarizing going on here. And _The Golden Ass_ by Apuleius, one of the earliest surviving novels, is closer in form to the travel tale that structures this generated novel. 
 
-But there was also a tradition that linked Virgil and his poetry with magic and prophecy. It was no accident that Dante chose Virgil to be his guide through the _Inferno_. That touch of magic, a magic intimately linked with words and poetry. And, as Jeff Howard has pointed out,^[in _Game Magic: A Designer's Guide to Magic Systems in Theory and Practice_] programming is a form of magic. A magician-protagonist is entirely appropreate.
+But there was also a tradition that linked Virgil and his poetry with magic and prophecy. It was no accident that Dante chose Virgil to be his guide through the _Inferno_. His memory is haunted by that touch of magic, a magic intimately linked with words and poetry. And, as Jeff Howard has pointed out,^[in _Game Magic: A Designer's Guide to Magic Systems in Theory and Practice_] programming is a form of magic. A magician-protagonist is entirely appropreate.
 
 Lastly, that tradition of magic lead the much-neglected Avram Davidson to pen a novel with Vergil Magus as the magician-protagonist. My own pseudo-Virgil is a humble tribute, a machine homunculus librarian to forgotten texts.
 
@@ -45,7 +45,63 @@ pandoc output.markdown -S --normalize --toc \
 
 
 \newpage
-    Virgil departed from Roma, intending to travel on a military boat downstream to the countryside, a 17.017487577 mile journey. 
+    Virgil departed from Roma, intending to travel by road to Volsinii, a 62.636682284 mile journey. 
+
+Insert story about 413389
+
+Virgil departed from Volsinii, intending to travel by road to Clusium, a 27.014725595999998 mile journey. 
+
+Insert story about 413096
+
+Virgil departed from Clusium, intending to travel by road to Arretium, a 32.675415406 mile journey. 
+
+Insert story about 413032
+
+Virgil departed from Arretium, intending to travel by road to Florentia, a 42.091050169000006 mile journey. 
+
+Insert story about 413138
+
+Virgil departed from Florentia, intending to travel on a boat heading downstream to Pisae, a 54.196599991 mile journey. 
+
+Insert story about 403253
+
+Virgil departed from Pisae, intending to travel on a boat heading upstream to Florentia, a 54.196599991 mile journey. 
+
+Insert story about 413138
+
+Virgil departed from Florentia, intending to travel by road to Arretium, a 42.091050169000006 mile journey. 
+
+Insert story about 413032
+
+Virgil departed from Arretium, intending to travel by road to Clusium, a 32.675415406 mile journey. 
+
+Insert story about 413096
+
+Virgil departed from Clusium, intending to travel by road to Volsinii, a 27.014725595999998 mile journey. 
+
+Insert story about 413389
+
+Virgil departed from Volsinii, intending to travel by road to Clusium, a 27.014725595999998 mile journey. 
+
+Insert story about 413096
+
+Virgil departed from Clusium, intending to travel by road to Volsinii, a 27.014725595999998 mile journey. 
+
+Insert story about 413389
+
+Virgil departed from Volsinii, intending to travel by road to Roma, a 62.636682284 mile journey. 
+
+Insert story about 423025
+
+Virgil departed from Roma, intending to travel on a boat heading upstream to Ocriculum, a 64.936997726 mile journey. 
+
+Insert story about 413231
+
+Virgil departed from Ocriculum, intending to travel on a boat heading downstream to Roma, a 64.936997726 mile journey. 
+
+Insert story about 423025
+
+Virgil departed from Roma, intending to travel on a military boat downstream to the countryside, a 17.017487577 mile journey. 
 
 There was no story for None
 
@@ -53,7 +109,51 @@ Virgil departed from the countryside, intending to travel on a boat heading upst
 
 Insert story about 423025
 
+Virgil departed from Roma, intending to travel by road to Forum Appii, a 42.639720762 mile journey. 
+
+There was no story for None
+
+Virgil departed from Forum Appii, intending to travel on a boat heading downstream to Tarracina, a 14.712822538000001 mile journey. 
+
+Insert story about 433143
+
+Virgil departed from Tarracina, intending to travel by ship, down the coast to Formiae, a 24.815072256 mile journey. 
+
+Insert story about 432839
+
+Virgil departed from Formiae, intending to travel by ship, down the coast to Minturnae, a 18.833133639 mile journey. 
+
+Insert story about 432940
+
+Virgil departed from Minturnae, intending to travel by road to Teanum, a 15.72690001 mile journey. 
+
+There was no story for None
+
+Virgil departed from Teanum, intending to travel by road to Casinum, a 23.607127031999998 mile journey. 
+
+Insert story about 432764
+
+Virgil departed from Casinum, intending to travel by road to Fregellanum, a 17.855717056 mile journey. 
+
+Insert story about 432847
+
+Virgil departed from Fregellanum, intending to travel by road to Ferentinum, a 17.359862998 mile journey. 
+
+Insert story about 432830
+
+Virgil departed from Ferentinum, intending to travel by road to Roma, a 43.833374453000005 mile journey. 
+
+Insert story about 423025
+
 Virgil departed from Roma, intending to travel by road to Volsinii, a 62.636682284 mile journey. 
+
+Insert story about 413389
+
+Virgil departed from Volsinii, intending to travel by road to Clusium, a 27.014725595999998 mile journey. 
+
+Insert story about 413096
+
+Virgil departed from Clusium, intending to travel by road to Volsinii, a 27.014725595999998 mile journey. 
 
 Insert story about 413389
 
@@ -65,163 +165,63 @@ Virgil departed from Roma, intending to travel by road to Tibur, a 17.629538012 
 
 Insert story about 423081
 
-Virgil departed from Tibur, intending to travel by road to Roma, a 17.629538012 mile journey. 
+Virgil departed from Tibur, intending to travel by road to Alba Fucens, a 39.645955284 mile journey. 
 
-Insert story about 423025
+Insert story about 413005
 
-Virgil departed from Roma, intending to travel on a boat heading downstream to Ostia/Portus, a 17.919718269 mile journey. 
+Virgil departed from Alba Fucens, intending to travel by road to Corfinium, a 24.140884721 mile journey. 
 
-Insert story about 422995
+Insert story about 413105
 
-Virgil departed from Ostia/Portus, intending to travel by ship, down the coast to Cosa, a 81.81094860200001 mile journey. 
+Virgil departed from Corfinium, intending to travel by road to Interpromium, a 11.139317917 mile journey. 
 
-Insert story about 413107
+Insert story about 413182
 
-Virgil departed from Cosa, intending to travel by ship, down the coast to Ostia/Portus, a 81.81094860200001 mile journey. 
+Virgil departed from Interpromium, intending to travel by road to Corfinium, a 11.139317917 mile journey. 
 
-Insert story about 422995
+Insert story about 413105
 
-Virgil departed from Ostia/Portus, intending to travel by ship, down the coast to Palinurus Pr., a 197.493451785 mile journey. 
+Virgil departed from Corfinium, intending to travel by road to Alba Fucens, a 24.140884721 mile journey. 
 
-There was no story for None
+Insert story about 413005
 
-Virgil departed from Palinurus Pr., intending to travel by ship, down the coast to Regium, a 168.075884532 mile journey. 
+Virgil departed from Alba Fucens, intending to travel by road to Corfinium, a 24.140884721 mile journey. 
 
-Insert story about 452416
+Insert story about 413105
 
-Virgil departed from Regium, intending to travel across by ferry to Messana, a 11.504684065000001 mile journey. 
+Virgil departed from Corfinium, intending to travel by road to Alba Fucens, a 24.140884721 mile journey. 
 
-There was no story for None
+Insert story about 413005
 
-Virgil departed from Messana, intending to travel across by ferry to Regium, a 11.504684065000001 mile journey. 
+Virgil departed from Alba Fucens, intending to travel by road to Tibur, a 39.645955284 mile journey. 
 
-Insert story about 452416
+Insert story about 423081
 
-Virgil departed from Regium, intending to travel by ship, down the coast to Heracleum Pr., a 44.766052324 mile journey. 
+Virgil departed from Tibur, intending to travel by road to Alba Fucens, a 39.645955284 mile journey. 
 
-There was no story for None
+Insert story about 413005
 
-Virgil departed from Heracleum Pr., intending to travel by ship, down the coast to Regium, a 44.766052324 mile journey. 
+Virgil departed from Alba Fucens, intending to travel by road to Corfinium, a 24.140884721 mile journey. 
 
-Insert story about 452416
+Insert story about 413105
 
-Virgil departed from Regium, intending to travel on a local coastal ship, travelling only by day to Vibo Valentia, a 73.847457866 mile journey. 
+Virgil departed from Corfinium, intending to travel by road to Aesernia, a 43.612787748 mile journey. 
 
-Insert story about 452337
+Insert story about 432652
 
-Virgil departed from Vibo Valentia, intending to travel by ship, down the coast to Regium, a 73.847457866 mile journey. 
+Virgil departed from Aesernia, intending to travel by road to Bovianum, a 15.321766118000001 mile journey. 
 
-Insert story about 452416
+Insert story about 432725
 
-Virgil departed from Regium, intending to travel across by ferry to Messana, a 11.504684065000001 mile journey. 
+Virgil departed from Bovianum, intending to travel by road to Aequum Tuticum, a 38.820774596 mile journey. 
 
-There was no story for None
+Insert story about 442452
 
-Virgil departed from Messana, intending to travel by ship, crossing the sea to Apollonia-Sozousa, a 532.731184108 mile journey. 
+Virgil departed from Aequum Tuticum, intending to travel by road to Bovianum, a 38.820774596 mile journey. 
 
-There was no story for None
+Insert story about 432725
 
-Virgil departed from Apollonia-Sozousa, intending to travel by road to Cyrene, a 9.984189228000002 mile journey. 
+Virgil departed from Bovianum, intending to travel by road to Aesernia, a 15.321766118000001 mile journey. 
 
-Insert story about 373778
-
-Virgil departed from Cyrene, intending to travel by road to Ptolemais, a 61.977407653 mile journey. 
-
-Insert story about 373879
-
-Virgil departed from Ptolemais, intending to travel by road to Cyrene, a 61.977407653 mile journey. 
-
-Insert story about 373778
-
-Virgil departed from Cyrene, intending to travel by road to Apollonia-Sozousa, a 9.984189228000002 mile journey. 
-
-There was no story for None
-
-Virgil departed from Apollonia-Sozousa, intending to travel by ship, down the coast to Darnis, a 64.985464664 mile journey. 
-
-Insert story about 373780
-
-Virgil departed from Darnis, intending to travel by road to Cyrene, a 46.277226596 mile journey. 
-
-Insert story about 373778
-
-Virgil departed from Cyrene, intending to travel by road to Darnis, a 46.277226596 mile journey. 
-
-Insert story about 373780
-
-Virgil departed from Darnis, intending to travel by ship, down the coast to Apollonia-Sozousa, a 64.985464664 mile journey. 
-
-There was no story for None
-
-Virgil departed from Apollonia-Sozousa, intending to travel by ship, crossing the sea to Messana, a 555.323612297 mile journey. 
-
-There was no story for None
-
-Virgil departed from Messana, intending to travel by ship, crossing the sea to Gades, a 1345.3974601680002 mile journey. 
-
-Insert story about 256177
-
-Virgil departed from Gades, intending to travel by ship, crossing the sea to Messana, a 1431.16654204 mile journey. 
-
-There was no story for None
-
-Virgil departed from Messana, intending to travel by ship, crossing the sea to Gades, a 1345.3974601680002 mile journey. 
-
-Insert story about 256177
-
-Virgil departed from Gades, intending to travel by ship, crossing the sea to Caralis, a 1061.762103911 mile journey. 
-
-There was no story for None
-
-Virgil departed from Caralis, intending to travel by ship, crossing the sea to Gades, a 990.7133010289999 mile journey. 
-
-Insert story about 256177
-
-Virgil departed from Gades, intending to travel by ship, crossing the sea to Caralis, a 1061.762103911 mile journey. 
-
-There was no story for None
-
-Virgil departed from Caralis, intending to travel by ship, crossing the sea to Galata, a 125.241053276 mile journey. 
-
-There was no story for None
-
-Virgil departed from Galata, intending to travel by ship, crossing the sea to Caralis, a 125.241053276 mile journey. 
-
-There was no story for None
-
-Virgil departed from Caralis, intending to travel by ship, crossing the sea to Palma, a 397.229431509 mile journey. 
-
-There was no story for None
-
-Virgil departed from Palma, intending to travel by ship, down the coast to Ebusus, a 92.429557621 mile journey. 
-
-There was no story for None
-
-Virgil departed from Ebusus, intending to travel by ship, crossing the sea to Iol Caesarea, a 173.477462635 mile journey. 
-
-Insert story about 295279
-
-Virgil departed from Iol Caesarea, intending to travel by ship, crossing the sea to Ebusus, a 173.477462635 mile journey. 
-
-There was no story for None
-
-Virgil departed from Ebusus, intending to travel by ship, crossing the sea to Iol Caesarea, a 173.477462635 mile journey. 
-
-Insert story about 295279
-
-Virgil departed from Iol Caesarea, intending to travel by road to Sufasar, a 45.669525758000006 mile journey. 
-
-Insert story about 295346
-
-Virgil departed from Sufasar, intending to travel by road to Albulae, a 231.13882732200003 mile journey. 
-
-Insert story about 285412
-
-Virgil departed from Albulae, intending to travel by road to Sufasar, a 231.13882732200003 mile journey. 
-
-Insert story about 295346
-
-Virgil departed from Sufasar, intending to travel by road to Iol Caesarea, a 45.669525758000006 mile journey. 
-
-Insert story about 295279
+Insert story about 432652
 

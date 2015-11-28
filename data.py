@@ -442,6 +442,17 @@ class Location:
         self.latlon = latlon
     def name(self):
         return getNameFromOrbis(self.orbis_id)
+    def id(self):
+        return getLocationId(self)
+
+def getLocationId(loc:Location) -> str:
+    if loc.orbis_id:
+        return "orb:" + str(loc.orbis_id)
+    if loc.pleiades_id:
+        return "ple:" + str(loc.pleiades_id)
+    if loc.latlon:
+        return "lat:" + str(loc.latlon)
+    return ""
 
 def LocationToJSON(loc):
     out = json.dumps(loc)
@@ -452,6 +463,11 @@ def getNearestName(loc:Location):
     #print(loc.orbis_id)
     n = getNameFromOrbis(loc.orbis_id)
     return n
+
+def locationFromId(id:str) -> Location:
+    ident = id.split(":")
+    routingTable = {'orb':makeOrbisLocation, 'ple':makePleiadesLocation, 'lat':makeLatLonLocation}
+    return routingTable[ident[0]](ident[1])
 
 # Based on the location data we have, find the matching ids for the other types
 # Or, if we just have Lat/Lon, find the nearest site
@@ -469,16 +485,23 @@ def hydrateLocation(loc:Location) -> Location:
     return loc    
 
 def makeOrbisLocation(o_id):
+    if isinstance(o_id, str):
+        o_id = int(o_id)
     loc = Location(orbis_id = o_id)
     hydrateLocation(loc)
     return loc
 
 def makeLatLonLocation(latlon):
+    if isinstance(latlon, str):
+        latlonarray = latlon.strip('[] ').split(', ')
+        latlon = [ float(latlonarray[0]), float(latlonarray[1]) ]
     loc = Location(latlon = latlon)
     hydrateLocation(loc)
     return loc
 
 def makePleiadesLocation(pleia):
+    if isinstance(pleia, str):
+        pleia = int(pleia)
     loc = Location(pleiades_id = pleia)
     hydrateLocation(loc)
     return loc
@@ -873,14 +896,14 @@ def renderPerseusFromPleiades(pleiades_number):
     
     cite = ""
     if (not soup) and textmetadata:
-        cite = ftfy.fix_text("[^{citation_name}]: From the Perseus Digital Library: ".format(citation_name=cite_name) + textmetadata['description'] + "\n\r    <" + base_choice + "> \n\r\n\r")
+        cite = ftfy.fix_text("[^{citation_name}]: From the Perseus Digital Library: ".format(citation_name=cite_name) + textmetadata['description'] + "\n\r    \\url{" + base_choice + "} \n\r\n\r")
     if soup:
         find_cite_first_p = "Perseus Digital Library"
         if soup.find("div", id="text_footer"):
             if soup.find("div", id="text_footer").find(id="text_desc"):
                 find_cite = re.sub('[\t+]', ' ', (soup.find("div", id="text_footer").find(id="text_desc").text))
                 find_cite_first_p = find_cite.splitlines()[1]
-        cite = ftfy.fix_text("[^{citation_name}]: From the Perseus Digital Library: ".format(citation_name=cite_name) + find_cite_first_p + "\n\r    <" + base_choice + ">   \n\r\n\r")
+        cite = ftfy.fix_text("[^{citation_name}]: From the Perseus Digital Library: ".format(citation_name=cite_name) + find_cite_first_p + "\n\r    \\url{" + base_choice + "}   \n\r\n\r")
     return {'text':output_string, 'cite': cite, 'uuid': cite_name, 'author':textmetadata['author'],'book_title':textmetadata['book_title'], 'metadata':textmetadata, 'place':makePleiadesLocation(pleiades_number) } # todo: include citation and name of author/book
 
 #    triple_list = list()

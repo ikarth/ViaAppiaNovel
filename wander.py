@@ -2,6 +2,8 @@
 import data
 import random
 import time
+import numpy
+import math
 
 DELAY_FOR_BANDWIDTH = False #if true, sleeps a bit between tasks that might call for network resources
 WRITE_THE_STORIES = False # if false, skip writing the actual stories, so we can speed up testing
@@ -102,8 +104,9 @@ def wanderArrive(wander):
     """
     The wanderer has arrived at the travel destination.
     """
+    wander['previous_locations'].append(wander['location'])
     wander['location'] = wander['destination']
-    renderPlaceQuotation(wander)
+    renderPlaceQuotation(wander)    
     wander['state'] = wanderAtPlace
     return wander
 
@@ -114,15 +117,46 @@ def wanderDepart(wander):
     wander['state'] = wanderTravel
     return wander
 
+def countVisits(wander):
+    """
+    Go through the list of previously visited locations, counting how many times they occur
+    """
+    loc_count = {}
+    for i in wander['previous_locations']:
+        iid = str(i.id())
+        try:
+            loc_count[iid] += 1
+        except KeyError:
+            loc_count[iid] = 1
+    return loc_count
+
+def scoreEdgesByVisits(wander, edges) -> dict:
+    visits = countVisits(wander)
+    edge_loc = [data.makeOrbisLocation(i['target']) for i in edges]
+    score = []
+    for i in edge_loc:
+        try:
+            score.append(visits[i.id()])
+        except KeyError:
+            score.append(0)
+    prob_max = max(1.0, max(score)) + 1
+    prob = numpy.array([(max(0, prob_max - i) / prob_max) for i in score])
+    prob /= prob.sum()
+    print(prob)
+    return prob
+
 def wanderSelectDestination(wander):
     """
     The wanderer needs to select the next destination.
     """
     current = data.hydrateLocation(wander['location']).orbis_id
     edges = data.findOrbisEdges(current)
+    weighted_edges = scoreEdgesByVisits(wander, edges)
+    #weighted_edges = data.scoreByDistance(data.hydrateLocation(wander['location']), edges)
     try:
-        destination = random.choice(edges)
-    except ValueError as err:
+        #destination = random.choice(edges)
+        destination = numpy.random.choice(edges, p=weighted_edges)
+    except Exception as err:
         print (err)
         return
     wander['destination'] = data.hydrateLocation(data.makeOrbisLocation(destination['target']))
@@ -138,6 +172,7 @@ def makeWanderer():
             'current_time': 0.0,
             'destination': data.Location(),
             'last_city': data.Location(),
+            'previous_locations': list(),
             'journey':{'type':'', 'distance':'0.0', 'expense':'0.0', 'days':'0.0'}}
 
 def processWanderer(wander:dict):
