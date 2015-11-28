@@ -873,14 +873,14 @@ def renderPerseusFromPleiades(pleiades_number):
     
     cite = ""
     if (not soup) and textmetadata:
-        cite = ftfy.fix_text("[^{citation_name}]: From the Perseus Digital Library: ".format(citation_name=cite_name) + textmetadata['description'] + "\n\r    \\small{ <" + base_choice + "> } \n\r\n\r")
+        cite = ftfy.fix_text("[^{citation_name}]: From the Perseus Digital Library: ".format(citation_name=cite_name) + textmetadata['description'] + "\n\r    <" + base_choice + "> \n\r\n\r")
     if soup:
         find_cite_first_p = "Perseus Digital Library"
         if soup.find("div", id="text_footer"):
             if soup.find("div", id="text_footer").find(id="text_desc"):
                 find_cite = re.sub('[\t+]', ' ', (soup.find("div", id="text_footer").find(id="text_desc").text))
                 find_cite_first_p = find_cite.splitlines()[1]
-        cite = ftfy.fix_text("[^{citation_name}]: From the Perseus Digital Library: ".format(citation_name=cite_name) + find_cite_first_p + "\n\r    \\small{ <" + base_choice + "> }  \n\r\n\r")
+        cite = ftfy.fix_text("[^{citation_name}]: From the Perseus Digital Library: ".format(citation_name=cite_name) + find_cite_first_p + "\n\r    <" + base_choice + ">   \n\r\n\r")
     return {'text':output_string, 'cite': cite, 'uuid': cite_name, 'author':textmetadata['author'],'book_title':textmetadata['book_title'], 'metadata':textmetadata, 'place':makePleiadesLocation(pleiades_number) } # todo: include citation and name of author/book
 
 #    triple_list = list()
