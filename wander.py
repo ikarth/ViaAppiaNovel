@@ -4,6 +4,7 @@ import random
 import time
 
 DELAY_FOR_BANDWIDTH = True #if true, sleeps a bit between tasks that might call for network resources
+WRITE_THE_STORIES = False # if false, skip writing the actual stories, so we can speed up testing
 
 wanderer_story = []
 
@@ -60,7 +61,11 @@ def renderPlaceQuotation(wander:dict):
         print("Error: place not found")
         return renderNearbyPlaceQuotation(wander, data.hydrateLocation(wander['location']))
     #    return {'type':'quotation', 'state':wander}.update(data.renderPerseusFromPleiades(talking_about))
-    output_text = data.renderPerseusFromPleiades(talking_about)
+    output_text = None
+    if WRITE_THE_STORIES:
+        output_text = data.renderPerseusFromPleiades(talking_about)
+    else:
+        writeStory({'type':'placeholder', 'text':str("Insert story about ", str(talking_about.pleiades_id)) , 'state':wander})
     #print(output_text)
     if output_text:
         render_base = {'type':'quotation', 'state':wander}

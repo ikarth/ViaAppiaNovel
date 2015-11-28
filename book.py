@@ -24,7 +24,6 @@ def flushBook():
 def bookIntro():
     intro_text = """% Virgil's Commonplace Book
 % Isaac Karth
-% November 26, 2015
 \\newpage
 \n
 \\newpage
@@ -60,14 +59,16 @@ Lastly, that tradition of magic lead the much-neglected Avram Davidson to pen a 
 The book generator is a Python program that outputs a Markdown text file designed to be converted into PDF form via Pandoc. \n
 
 ~~~
-pandoc output.markdown -S --normalize --toc -o via_appia.pdf \\
-  --latex-engine=xelatex --template novel_template.latex \\
-  --variable otherlangs=polutonikogreek,greek --variable lang="english" \\
-  -V geometry:paperwidth=5.5in -V geometry:paperheight=8.25in \\
-  -V geometry:margin=.7in -V geometry:inner=1.0in -V geometry:outer=0.5in \\
+pandoc output.markdown -S --normalize --toc \\
+ -o via_appia.pdf --latex-engine=xelatex \\
+ --template novel_template.latex \\
+  --variable otherlangs=polutonikogreek,greek \\
+  --variable lang="english" -V geometry:paperwidth=5.5in \\
+  -V geometry:paperheight=8.25in -V geometry:margin=.7in \\
+  -V geometry:inner=1.0in -V geometry:outer=0.5in \\
   -V fontfamily:"DejaVu Serif" -V linestretch:1.2
 ~~~
-
+\n
 \\newpage
     """
     return intro_text
@@ -87,7 +88,8 @@ def readBook():
 def textQuotation(t):
     possible_story_titles = ["A story about {place}",
                              "What {author} once said about {place}",
-                             ""
+                             "A story by {author} about {place} from {book}",
+                             "An extract from {book} by {author}",
                              ]
     place_name = data.getNearestName(t['place'])
     if not place_name:
@@ -104,6 +106,10 @@ def textTravel(t):
     #writeToBook(t['text'])
     pass
 
+def textPlaceholder(t):
+    writeToBook(h.handle(t['text']))
+    pass
+
 def addCitation(t):
     cite = ""
     for c in t:
@@ -113,7 +119,8 @@ def addCitation(t):
     writeToBook(str(cite))
 
 text_translate_table = {'quotation': textQuotation,
-                       'travel-narration': textTravel }
+                       'travel-narration': textTravel,
+                       'placeholder': textPlaceholder}
 
 def transcribeStory(story:list):
     """
