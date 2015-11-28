@@ -193,22 +193,47 @@ $else$
 $endif$
 
 \newcommand\rendergreek[1]{\fontspec{GFS Bodoni}\selectlanguage{greek}#1\selectlanguage{english}}
+\exhyphenpenalty=6000 
+\hyphenpenalty=6000
+
+\usepackage[hang,multiple,perpage,ragged]{footmisc}
 
 \begin{document}
 $if(title)$
 \maketitle
+\thispagestyle{empty}
 $endif$
+\newpage
+\mbox{}
+\thispagestyle{empty}
+\newpage
+{\huge
+Virgil's\newline
+Commonplace\newline
+Book\newline
+\today\par
+}
+\thispagestyle{empty}
+\newpage
+\mbox{}
+\vfill
+Virgil's Commonplace Book \newline
+by Isaac Karth\newline
+and the Via Appia Novel Generator\newline
+November, 2015\newline
+This work includes extracts from texts provided by the Perseus Digital Library under a Creative Commons Attribution-ShareAlike 3.0 United States License \\
+\thispagestyle{empty}
 $if(abstract)$
 \begin{abstract}
 $abstract$
 \end{abstract}
+\thispagestyle{empty}
 $endif$
 
 $for(include-before)$
+\thispagestyle{empty}
 $include-before$
-
 $endfor$
-\newpage
 $if(toc)$
 {
 $if(colorlinks)$

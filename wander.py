@@ -3,7 +3,7 @@ import data
 import random
 import time
 
-DELAY_FOR_BANDWIDTH = True #if true, sleeps a bit between tasks that might call for network resources
+DELAY_FOR_BANDWIDTH = False #if true, sleeps a bit between tasks that might call for network resources
 WRITE_THE_STORIES = False # if false, skip writing the actual stories, so we can speed up testing
 
 wanderer_story = []
@@ -24,7 +24,8 @@ def descriptionJourneyType(type):
                             "road":"by road",
                             "coastal":"by ship, down the coast",
                             "overseas":"by ship, crossing the sea",
-                            "slowcoast":"on a local coastal ship, travelling only by day"
+                            "slowcoast":"on a local coastal ship, travelling only by day",
+                            "ferry":"across by ferry"
                             }
     type_description = type_description_subs[type]
     return type_description
@@ -59,13 +60,16 @@ def renderPlaceQuotation(wander:dict):
     talking_about = data.hydrateLocation(wander['location']).pleiades_id
     if not talking_about:
         print("Error: place not found")
+        if not WRITE_THE_STORIES:
+            writeStory({'type':'placeholder', 'text':str("There was no story for " + str(talking_about)) , 'state':wander})
         return renderNearbyPlaceQuotation(wander, data.hydrateLocation(wander['location']))
     #    return {'type':'quotation', 'state':wander}.update(data.renderPerseusFromPleiades(talking_about))
     output_text = None
     if WRITE_THE_STORIES:
         output_text = data.renderPerseusFromPleiades(talking_about)
     else:
-        writeStory({'type':'placeholder', 'text':str("Insert story about ", str(talking_about.pleiades_id)) , 'state':wander})
+        print("Skipping story for " + str(talking_about))
+        writeStory({'type':'placeholder', 'text':str("Insert story about " + str(talking_about)) , 'state':wander})
     #print(output_text)
     if output_text:
         render_base = {'type':'quotation', 'state':wander}
