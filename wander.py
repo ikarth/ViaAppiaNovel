@@ -3,7 +3,7 @@ import data
 import random
 import time
 
-DELAY_FOR_BANDWIDTH = False #if true, sleeps a bit between tasks that might call for network resources
+DELAY_FOR_BANDWIDTH = True #if true, sleeps a bit between tasks that might call for network resources
 
 wanderer_story = []
 
@@ -132,9 +132,9 @@ def makeWanderer():
             'journey':{'type':'', 'distance':'0.0', 'expense':'0.0', 'days':'0.0'}}
 
 def processWanderer(wander:dict):
-    for i in range(0,90):
+    for i in range(0,180):
         if DELAY_FOR_BANDWIDTH:
-            print(time.process_time)
-            time.sleep(3)            
+            print(time.process_time())
+            time.sleep(1)            
         wander = wander['state'](wander)
     return wander
