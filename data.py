@@ -848,15 +848,15 @@ previously_used_perseus_extracts = []
 def renderPerseusFromPleiades(pleiades_number):
     t = findPleiadesInPerseus(pleiades_number)
     if len(t) == 0:
-        print ("Error: no quotations found")
+        print ("Warning: no quotations found")
         return
-    
     
     t_restricted = [i for i in t if not (str(i[0].toPython()) in previously_used_perseus_extracts)]
     if len(t_restricted) > 0:
         t = t_restricted
     else:
-        pass # todo: grab a story from a nearby location instead
+        print ("Warning: all quotations have already been used")
+        return # todo: grab a story from a nearby location instead
     choice = random.choice(t)[0].toPython()
     
     base_choice = choice.split(", ")[0].strip()

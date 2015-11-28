@@ -7,7 +7,7 @@ import math
 
 DELAY_FOR_BANDWIDTH = settings.DELAY_FOR_BANDWIDTH #if true, sleeps a bit between tasks that might call for network resources
 WRITE_THE_STORIES = settings.WRITE_THE_STORIES # if false, skip writing the actual stories, so we can speed up testing
-
+DISPLAY_WANDERING_PROGRESS = settings.DISPLAY_WANDERING_PROGRESS
 wanderer_story = []
 
 def writeStory(story_data:dict):
@@ -24,7 +24,7 @@ def descriptionJourneyType(type):
                             "upstream":"on a boat heading upstream",
                             "downstream":"on a boat heading downstream",
                             "road":"by road",
-                            "coastal":"by ship, down the coast",
+                            "coastal":"by ship down the coast",
                             "overseas":"by ship, crossing the sea",
                             "slowcoast":"on a local coastal ship, travelling only by day",
                             "ferry":"across by ferry"
@@ -86,6 +86,8 @@ def wanderTravel(wander):
     """
     Update the Wanderer's travelling state.
     """
+    if DISPLAY_WANDERING_PROGRESS:
+        print("wanderTravel")
     # TODO - travelling loop for the journey and nearby places that get passed
     # TODO - events along the way, shipwrecks, escapades, etc.
 
@@ -97,6 +99,8 @@ def wanderAtPlace(wander):
     """
     The wanderer is at a location; take part in any activities there.
     """
+    if DISPLAY_WANDERING_PROGRESS:
+        print("wanderAtPlace")
     wander['state'] = wanderSelectDestination
     return wander
 
@@ -104,6 +108,8 @@ def wanderArrive(wander):
     """
     The wanderer has arrived at the travel destination.
     """
+    if DISPLAY_WANDERING_PROGRESS:
+        print("wanderArrive")
     wander['previous_locations'].append(wander['location'])
     wander['location'] = wander['destination']
     renderPlaceQuotation(wander)    
@@ -114,6 +120,8 @@ def wanderDepart(wander):
     """
     The wanderer is leaving the current location.
     """
+    if DISPLAY_WANDERING_PROGRESS:
+        print("wanderDepart")
     wander['state'] = wanderTravel
     return wander
 
@@ -149,6 +157,8 @@ def wanderSelectDestination(wander):
     """
     The wanderer needs to select the next destination.
     """
+    if DISPLAY_WANDERING_PROGRESS:
+        print("wanderSelectDestination")
     current = data.hydrateLocation(wander['location']).orbis_id
     edges = data.findOrbisEdges(current)
     weighted_edges = scoreEdgesByVisits(wander, edges)
