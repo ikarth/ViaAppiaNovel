@@ -7,8 +7,9 @@ import bs4
 import re
 import hoedown
 import ftfy
+import random
 
-DISPLAY_TEXT_WHILE_WRITING = False
+DISPLAY_TEXT_WHILE_WRITING = settings.DISPLAY_TEXT_WHILE_WRITING
 
 h = html2text.HTML2Text()
 h.ignore_links = False
@@ -43,13 +44,14 @@ The book generator is a Python program that outputs a Markdown text file designe
 
 ~~~
 pandoc output.markdown -S --normalize --toc \\
- -o via_appia.pdf --latex-engine=xelatex \\
- --template novel_template.latex \\
-  --variable otherlangs=polutonikogreek,greek \\
-  --variable lang="english" -V geometry:paperwidth=5.5in \\
-  -V geometry:paperheight=8.25in -V geometry:margin=.7in \\
-  -V geometry:inner=1.0in -V geometry:outer=0.5in \\
-  -V fontfamily:"DejaVu Serif" -V linestretch:1.2
+-o via_appia_test.pdf --latex-engine=xelatex \\
+--template novel_template.latex \\
+--variable otherlangs=polutonikogreek,greek \\
+--variable lang="english" -V geometry:paperwidth=5.5in \\
+-V geometry:paperheight=8.25in -V geometry:margin=.9in \\
+-V geometry:inner=1.0in -V geometry:outer=0.5in \\
+-V fontfamily:"DejaVu Serif" -V linestretch:1.2 \\
+-V documentclass=book
 ~~~
 \n
 \\newpage
@@ -73,13 +75,23 @@ def textQuotation(t):
                              "What {author} once said about {place}",
                              "A story by {author} about {place} from {book}",
                              "An extract from {book} by {author}",
+                             "On {place}, according to {author}",
+                             "On the subject of {place}",
+                             "{place} in {book}",
+                             "An account of {place}",
+                             "A story about {place} by {author}",
+                             "The story of {place}"
                              ]
     place_name = data.getNearestName(t['place'])
     if not place_name:
         place_name = data.getNearestName(data.hydrateLocation(t['state']['location']))
     author_name = t['author']
     title_data = {'place': place_name, 'author': author_name, 'book': t['book_title']}
-    writeToBook("### A story by {author} about {place} from {book}\n".format(**title_data))
+    if author_name == "Virgil":
+        writeToBook("### {place} in Virgil's {book}\n".format(**title_data))
+    else:    
+        book_string = "### " + str(random.choice(possible_story_titles)) + "\n"
+        writeToBook(book_string.format(**title_data))
     writeToBook(h.handle(t['text']))
     #writeToBook(t['text'])
     pass

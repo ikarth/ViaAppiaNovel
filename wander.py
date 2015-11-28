@@ -5,8 +5,8 @@ import time
 import numpy
 import math
 
-DELAY_FOR_BANDWIDTH = False #if true, sleeps a bit between tasks that might call for network resources
-WRITE_THE_STORIES = False # if false, skip writing the actual stories, so we can speed up testing
+DELAY_FOR_BANDWIDTH = settings.DELAY_FOR_BANDWIDTH #if true, sleeps a bit between tasks that might call for network resources
+WRITE_THE_STORIES = settings.WRITE_THE_STORIES # if false, skip writing the actual stories, so we can speed up testing
 
 wanderer_story = []
 
@@ -142,7 +142,7 @@ def scoreEdgesByVisits(wander, edges) -> dict:
     prob_max = max(1.0, max(score)) + 1
     prob = numpy.array([(max(0, prob_max - i) / prob_max) for i in score])
     prob /= prob.sum()
-    print(prob)
+    #print(prob)
     return prob
 
 def wanderSelectDestination(wander):
@@ -155,7 +155,7 @@ def wanderSelectDestination(wander):
     #weighted_edges = data.scoreByDistance(data.hydrateLocation(wander['location']), edges)
     try:
         #destination = random.choice(edges)
-        destination = numpy.random.choice(edges, p=weighted_edges)
+        destination = rng.choice(edges, p=weighted_edges)
     except Exception as err:
         print (err)
         return
@@ -175,8 +175,12 @@ def makeWanderer():
             'previous_locations': list(),
             'journey':{'type':'', 'distance':'0.0', 'expense':'0.0', 'days':'0.0'}}
 
+rng = None
 def processWanderer(wander:dict):
-    for i in range(0,180):
+    global rng
+    rng = numpy.random.RandomState()
+    rng.seed(753)    
+    for i in range(0,60):
         if DELAY_FOR_BANDWIDTH:
             print(time.process_time())
             time.sleep(1)            

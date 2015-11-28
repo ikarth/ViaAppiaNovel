@@ -14,11 +14,12 @@ from heapq import nlargest
 import ftfy
 from bs4 import BeautifulSoup
 import bs4
+import numpy
 
 import random
 
 
-DATA_FILEPATH = "../../data/ancient"
+DATA_FILEPATH = settings.DATA_FILEPATH
 
 PREFIX="""
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
@@ -761,6 +762,9 @@ def processPerseusText(soup:BeautifulSoup):
                 section.find('foreign', {'lang':'greek'}).replace_with(str("\\rendergreek{" + note_text + "}"))
             note = True
             while note:
+                if section.find('note',{'place':'marg'}):
+                    section.find('note',{'place':'marg'}).extract()
+                    continue
                 if not section.find('note'):
                     note = False
                     break
@@ -802,21 +806,19 @@ def getPerseusCatalogData(doc_url, no_urn = False):
     catalog_metadata = {'author':'Unknown','book_title':'Unknown','description':'Perseus Digital Library'}
     catalog_status_code = None
     if not no_urn:
-        print(doc_url)
+        #print(doc_url)
         urn = doc_url.split("urn:")[1] # Perseus URN identifier
-        print(urn)
+        #print(urn)
         urn = urn.rsplit(":", 1)[0]
         book_urn = "urn:" + urn.rsplit(".", 1)[0]
         author_urn = "urn:" + urn.rsplit(".", 2)[0]
         catalog_urn_url = "http://data.perseus.org/catalog/urn:" + str(urn) + "/atom"
-        print(catalog_urn_url)
+        #print(catalog_urn_url)
         catalog_data = requests.get(catalog_urn_url, "xml")
         catalog_status_code = catalog_data.status_code
-    #print(catalog_data)
     if (not no_urn) and catalog_status_code == 200:
         catalog_metadata['urn'] = catalog_urn_url
         soup_metadata_atom = BeautifulSoup(catalog_data.text, "xml")
-        #print(soup_metadata_atom.text)
         md = soup_metadata_atom.find("textgroup", {'urn':author_urn})
         catalog_metadata['author'] = md.find("groupname").text.strip()
         if catalog_metadata['author'].endswith("."):
@@ -828,7 +830,6 @@ def getPerseusCatalogData(doc_url, no_urn = False):
         book_page_data = requests.get(doc_url, "xml")
         soup_metadata_page = BeautifulSoup(book_page_data.text, "html")
         page_title = soup_metadata_page.find('h1')
-        #print(page_title.text)
         catalog_metadata['author'] = page_title.text.split(",")[0].strip()
         book_title = page_title.find(class_='title')
         catalog_metadata['book_title'] = book_title.text
@@ -838,17 +839,30 @@ def getPerseusCatalogData(doc_url, no_urn = False):
         if flip_name[1].isalpha():
             catalog_metadata['author_reordered'] = flip_name[1] + " " + flip_name[0]
             catalog_metadata['author'] = catalog_metadata['author_reordered']
-    print(catalog_metadata)
+    #print(catalog_metadata)
 
     return catalog_metadata
+
+previously_used_perseus_extracts = []
 
 def renderPerseusFromPleiades(pleiades_number):
     t = findPleiadesInPerseus(pleiades_number)
     if len(t) == 0:
         print ("Error: no quotations found")
         return
+    
+    
+    t_restricted = [i for i in t if not (str(i[0].toPython()) in previously_used_perseus_extracts)]
+    if len(t_restricted) > 0:
+        t = t_restricted
+    else:
+        pass # todo: grab a story from a nearby location instead
     choice = random.choice(t)[0].toPython()
+    
     base_choice = choice.split(", ")[0].strip()
+    previously_used_perseus_extracts.append(str(choice))
+    print(previously_used_perseus_extracts)
+    print("---")
 
     xml_url = None #str(base_choice).replace("text", "xmlchunk", 1)
 
@@ -896,14 +910,14 @@ def renderPerseusFromPleiades(pleiades_number):
     
     cite = ""
     if (not soup) and textmetadata:
-        cite = ftfy.fix_text("[^{citation_name}]: From the Perseus Digital Library: ".format(citation_name=cite_name) + textmetadata['description'] + "\n\r    \\url{" + base_choice + "} \n\r\n\r")
+        cite = ftfy.fix_text("[^{citation_name}]: From the Perseus Digital Library: ".format(citation_name=cite_name) + textmetadata['description'] + " \\url{" + base_choice + "} \n\r")
     if soup:
         find_cite_first_p = "Perseus Digital Library"
         if soup.find("div", id="text_footer"):
             if soup.find("div", id="text_footer").find(id="text_desc"):
                 find_cite = re.sub('[\t+]', ' ', (soup.find("div", id="text_footer").find(id="text_desc").text))
                 find_cite_first_p = find_cite.splitlines()[1]
-        cite = ftfy.fix_text("[^{citation_name}]: From the Perseus Digital Library: ".format(citation_name=cite_name) + find_cite_first_p + "\n\r    \\url{" + base_choice + "}   \n\r\n\r")
+        cite = ftfy.fix_text("[^{citation_name}]: From the Perseus Digital Library: ".format(citation_name=cite_name) + find_cite_first_p + " \\url{" + base_choice + "} \n\r")
     return {'text':output_string, 'cite': cite, 'uuid': cite_name, 'author':textmetadata['author'],'book_title':textmetadata['book_title'], 'metadata':textmetadata, 'place':makePleiadesLocation(pleiades_number) } # todo: include citation and name of author/book
 
 #    triple_list = list()
