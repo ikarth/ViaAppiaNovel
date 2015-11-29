@@ -15,6 +15,7 @@ import ftfy
 from bs4 import BeautifulSoup
 import bs4
 import numpy
+import math
 
 import random
 
@@ -116,9 +117,22 @@ def getPleiadesSiteList():
             pleiades_site_list.append(row)
     return
 
+pleiades_locations_list = []
+def getPleiadesLocationsList():
+    global pleiades_locations_list
+    pleiades_locations_list = []
+    with open(DATA_FILEPATH + os.sep + "pleiades" + os.sep + "pleiades-locations-20151122.csv", mode = 'r', encoding="utf-8") as csvfile:
+        reader = csv.DictReader(csvfile)
+        
+        for row in reader:
+            pleiades_locations_list.append(row)
+    return
+
 def checkPleiades():
     if not pleiades_site_list:
         getPleiadesSiteList()
+    if not pleiades_locations_list:
+        getPleiadesLocationsList()
     return
 
 def getPleiadesRecord(pleiades_id):
@@ -139,8 +153,6 @@ def getPleiadesData(loc):
         return None
     interest = getPleiadesRecord(loc.pleiades_id)
     return interest
-
-
 
 # Location ID Conversion
 # Functions to find equivalent location ids.
@@ -173,7 +185,40 @@ def getLatLonFromOrbis(o_id):
         latlon = [orbis_record[1][2], orbis_record[1][3]]
     return latlon
 
-def getLatLonFromPleiades(p_id):
+def getLatLonFromLocalPleiades(p_id):
+    checkPleiades()
+    p = [i for i in pleiades_site_list if str(i['id']) == str(p_id)]
+    if not p:
+        p = [i for i in pleiades_locations_list if int(i['pid']) == int(p_id)]
+        if not p:
+            print("Record not found: " + str(p_id) + " - " + str(p))
+            return getLatLonFromRemotePleiadesDisambiguate(p_id)
+        return p
+    return [p[0]['reprLat'] , p[0]['reprLong']]
+
+def getLatLonFromRemotePleiadesDisambiguate(p_id):
+    """
+    Some Pleiades ids are obsolete and we need to figure out what they're actually supposed to point at.
+    """
+    checkPleiades()
+    r = None
+    try:
+        r = requests.get("http://pleiades.stoa.org/places/" + str(p_id) + "#this")
+    except (ConnectionError, requests.packages.urllib3.exceptions.NewConnectionError, requests.packages.urllib3.exceptions.MaxRetryError, requests.exceptions.ConnectionError) as err:
+        raise settings.DataSourceAccessProblem("Could not get data from Pleiades: " + str(err))
+    except Exception as err:
+        raise settings.DataSourceAccessProblem("Could not get data from Pleiades: " + str(err))
+    soup = BeautifulSoup(r.text, "html")
+    try:
+        updated_link = soup.find('fieldset', {'id':'relatedItemBox'}).find('a')
+        if updated_link:
+            r = requests.get(updated_link['href'] + "/json")
+            return r.json()['reprPoint']
+    except AttributeError as err:
+        print(str(p_id) + " - " + str(err))
+        return
+
+def getLatLonFromRemotePleiades(p_id):
     checkPleiades()
     p = getPleiadesRecord(p_id)
     if not p:
@@ -181,9 +226,18 @@ def getLatLonFromPleiades(p_id):
     #print( p['reprPoint'])
     return p['reprPoint']
 
+def getLatLonFromPleiades(p_id):
+    try:
+        ll = getLatLonFromLocalPleiades(p_id)
+        if not ll:
+            ll = getLatLonFromRemotePleiades(p_id)
+        return ll
+    except Exception as err:
+        print("Exception: " + str(err))
+        raise #return err #getLatLonFromRemotePleiades(p_id)
 
 def findNearestSite(latlon):
-    return None # TODO
+    return None # TODO - find nearest site
 
 def latlonIsValid(latlon):
     if None == latlon or (not latlon):
@@ -343,13 +397,13 @@ def haversine(lon1, lat1, lon2, lat2):
     on the earth (specified in decimal degrees)
     """
     # convert decimal degrees to radians 
-    lon1, lat1, lon2, lat2 = map(radians, [lon1, lat1, lon2, lat2])
+    lon1, lat1, lon2, lat2 = map(math.radians, [lon1, lat1, lon2, lat2])
 
     # haversine formula 
     dlon = lon2 - lon1 
     dlat = lat2 - lat1 
-    a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
-    c = 2 * asin(sqrt(a)) 
+    a = math.sin(dlat/2)**2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon/2)**2
+    c = 2 * math.asin(math.sqrt(a)) 
     r = 6371 # Radius of earth in kilometers. Use 3956 for miles
     return c * r
 
@@ -676,6 +730,61 @@ def findPleiadesInPerseus(pleiades_number):
     #tl = list(r.query(PREFIX+"SELECT ?x WHERE { ?x rdf:resource } LIMIT 50"))
     return list(r.query(PREFIX + """ SELECT ?yo WHERE {?s oac:hasBody <""" + """http://pleiades.stoa.org/places/""" + str(pleiades_number) + """#this""" + """>; oac:hasTarget ?yo} LIMIT 15"""))
     
+def getAllPleiadesInPerseus():
+    r = perseusPleiadesMetadata()
+    pleiades_in_perseus_list = list(r.query(PREFIX + """ SELECT ?xo WHERE {?s oac:hasBody ?xo; oac:hasTarget ?yo}"""))
+    pleiades_in_perseus_list = [i[0].toPython().split("/places/")[1].strip("#this ") for i in pleiades_in_perseus_list]
+    #print(pleiades_in_perseus_list)
+    return pleiades_in_perseus_list
+
+
+def distanceToLatLon(one, two):
+    """
+    Returns the distance between two lat/lon coordinates.
+    Takes two [lat, lon] arrays as input.
+    Return value is in km.
+    """
+    if one and two:
+        try:
+            #print(one)
+            #print(two)
+            return haversine(float(one[0]), float(one[1]), float(two[0]), float(two[1]))
+        except IndexError as err:
+            print(err)
+            return None
+
+def distanceBetweenPleiadesAndLatLon(p_id, latlon):
+    return distanceToLatLon(latlon, getLatLonFromLocalPleiades(p_id))
+
+all_pleiades_in_perseus_list = []
+pleiades_latlon_list = {}
+
+def getPleiadesPerseusLatLonList():
+    global pleiades_in_perseus_list
+    global pleiades_latlon_list
+    if not pleiades_latlon_list:
+        try:
+            with open("data" + os.sep + "pleiades_latlon_list.pickle", "rb") as file:
+                pleiades_latlon_list = pickle.load(file)
+        except Exception as err:
+            print("Exception: " + str(err))
+            if not all_pleiades_in_perseus_list:
+                pleiades_in_perseus_list = getAllPleiadesInPerseus()
+            [pleiades_latlon_list.update({str(i):getLatLonFromLocalPleiades(i)}) for i in pleiades_in_perseus_list]
+    #pleiades_list = []
+    #pleiades_list = [print(str(i) + " " + str(getLatLonFromPleiades(i))) for i in pleiades_in_perseus_list]
+    #pleiades_list = [{'id':i, 'latlon':getLatLonFromLocalPleiades(i), 'distance':distanceBetweenPleiadesAndLatLon(i, latlon)} for i in pleiades_in_perseus_list]
+    if pleiades_latlon_list:
+        with open("data" + os.sep + "pleiades_latlon_list.pickle", "wb") as file:
+            pickle.dump(pleiades_latlon_list, file)
+    return pleiades_latlon_list
+
+def findNearbyPerseusFromLatLon(latlon):
+    getPleiadesPerseusLatLonList()
+    distance_list = {}
+    distance_list = [i.update({'distance':distanceToLatLon(i['latlon'], latlon)}) for i in pleiades_latlon_list]
+    return distance_list
+
 
 # list(r.query(data.PREFIX + """SELECT ?o WHERE {?s oac:hasBody ?o} LIMIT 15"""))
 # list(r.query(data.PREFIX + """SELECT ?yo WHERE {?s oac:hasBody ?o. ?ys oac:hasTarget ?yo} LIMIT 15"""))
@@ -918,7 +1027,7 @@ def renderPerseusFromPleiades(pleiades_number):
                 find_cite = re.sub('[\t+]', ' ', (soup.find("div", id="text_footer").find(id="text_desc").text))
                 find_cite_first_p = find_cite.splitlines()[1]
         cite = ftfy.fix_text("[^{citation_name}]: From the Perseus Digital Library: ".format(citation_name=cite_name) + find_cite_first_p + " \\url{" + base_choice + "} \n\r")
-    return {'text':output_string, 'cite': cite, 'uuid': cite_name, 'author':textmetadata['author'],'book_title':textmetadata['book_title'], 'metadata':textmetadata, 'place':makePleiadesLocation(pleiades_number) } # todo: include citation and name of author/book
+    return {'text':output_string, 'cite': cite, 'uuid': cite_name, 'author':textmetadata['author'],'book_title':textmetadata['book_title'], 'metadata':textmetadata, 'place':makePleiadesLocation(pleiades_number) }
 
 #    triple_list = list()
 #    t = findPleiadesInPerseus(pleiades_number)

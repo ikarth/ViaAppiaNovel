@@ -48,12 +48,16 @@ def renderTravelQuotation(wander:dict):
     """
     pass
 
-def renderNearbyPlaceQuotation(wander:dict, loc:data.Location):
+def renderNearbyPlaceQuotation(wander:dict, loc:data.Location, range:float = 0.0):
     """
     Given a latlon location, find a nearby place and 
     write a quote based on it.
     """
-    pass
+    if not loc.latlon:
+        print("Warning: Couldn't find latlon in {}".format(loc))
+        return
+    data.findNearbyPerseusFromLatLon(loc.latlon)
+    
 
 def renderPlaceQuotation(wander:dict):
     """
@@ -79,6 +83,7 @@ def renderPlaceQuotation(wander:dict):
         writeStory(render_base)
     else:
         print("No output text found for " + str(talking_about))
+        return renderNearbyPlaceQuotation(wander, data.hydrateLocation(wander['location']))
         # TODO: try to grab a nearby place quotation instead
     
 
