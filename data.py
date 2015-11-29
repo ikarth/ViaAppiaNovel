@@ -696,8 +696,9 @@ def loadPerseusCTS():
             input_string = file.read()
         soup = BeautifulSoup(input_string, 'xml')
         perseus_cts = soup
-        with open("data" + os.sep + "perseus_cts.pickle", mode='wb') as file:
-            pickle.dump(perseus_cts, file)
+        if settings.PICKLE_PERSEUS_CTS:
+            with open("data" + os.sep + "perseus_cts.pickle", mode='wb') as file:
+                pickle.dump(perseus_cts, file)
         return soup
 
 def testPerseusTextTwo():
@@ -719,8 +720,9 @@ def perseusPleiadesMetadata():
         except FileNotFoundError as err:
             print("Using RDF")
             perseus_pleiades_index = openRDF("perseus" + os.sep + "Perseus-collection-Greco-Roman.pleiades.rdf")
-        with open("data" + os.sep + "perseus_pleiades_index.pickle", mode='wb') as file:
-            pickle.dump(perseus_pleiades_index, file)
+        if settings.PICKLE_PERSEUS_PLEIADES_INDEX:
+            with open("data" + os.sep + "perseus_pleiades_index.pickle", mode='wb') as file:
+                pickle.dump(perseus_pleiades_index, file)
     return perseus_pleiades_index
 
 def findPleiadesInPerseus(pleiades_number):
