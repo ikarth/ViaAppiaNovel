@@ -16,6 +16,7 @@ from bs4 import BeautifulSoup
 import bs4
 import numpy
 import math
+import itertools
 
 import random
 
@@ -199,6 +200,7 @@ def getLatLonFromLocalPleiades(p_id):
 def getLatLonFromRemotePleiadesDisambiguate(p_id):
     """
     Some Pleiades ids are obsolete and we need to figure out what they're actually supposed to point at.
+    TODO: This just grabs the lat/lon from the json; it'd be nice to figure out the replacement pleiades id.
     """
     checkPleiades()
     r = None
@@ -770,7 +772,7 @@ def getPleiadesPerseusLatLonList():
             print("Exception: " + str(err))
             if not all_pleiades_in_perseus_list:
                 pleiades_in_perseus_list = getAllPleiadesInPerseus()
-            [pleiades_latlon_list.update({str(i):getLatLonFromLocalPleiades(i)}) for i in pleiades_in_perseus_list]
+            [pleiades_latlon_list.update({str(i):getLatLonFromLocalPleiades(i)}) for i in set(pleiades_in_perseus_list)]
     #pleiades_list = []
     #pleiades_list = [print(str(i) + " " + str(getLatLonFromPleiades(i))) for i in pleiades_in_perseus_list]
     #pleiades_list = [{'id':i, 'latlon':getLatLonFromLocalPleiades(i), 'distance':distanceBetweenPleiadesAndLatLon(i, latlon)} for i in pleiades_in_perseus_list]
@@ -779,11 +781,48 @@ def getPleiadesPerseusLatLonList():
             pickle.dump(pleiades_latlon_list, file)
     return pleiades_latlon_list
 
-def findNearbyPerseusFromLatLon(latlon):
+def getDistancesToPerseus(latlon, cutoff_radius = 0.0):
     getPleiadesPerseusLatLonList()
-    distance_list = {}
-    distance_list = [i.update({'distance':distanceToLatLon(i['latlon'], latlon)}) for i in pleiades_latlon_list]
-    return distance_list
+    #distance_list = [i.update({'distance':distanceToLatLon(i['latlon'], latlon)}) for i in pleiades_latlon_list]
+    list_with_distances = {k:{'latlon':v, 'distance':distanceToLatLon(v, latlon)} for k,v in pleiades_latlon_list.items()}
+    distances = {k:distanceToLatLon(v, latlon) for k,v in pleiades_latlon_list.items() if v}
+    if cutoff_radius > 0.0:
+        distances = dict((k, v) for k,v in distances.items() if (float(v) < cutoff_radius))
+    return distances
+
+def getProbabilitiesFromCounts(distances:dict):
+    """
+    Takes a dict of ids and their frequency.
+    Returns a dict with frequency replaced by
+    a scaled (inverse square law) probabilty
+    that choice will be chosen, normalized
+    to sum to 1.0.
+    """
+    prob_max = max(max(list(distances.values())), 0)
+    probabilities = numpy.array([max(0, (prob_max ** 2) - (i ** 2)) for i in distances.values()])
+    total_prob = probabilities.sum()
+    probabilities /= total_prob
+    return dict(zip(distances.keys(), probabilities))
+
+
+def findNearbyPerseusFromLatLon(latlon, radius = 200.0):
+    """
+    Returns list of perseus quotes weighted by inv sq distance,
+    suitable for use by numpy.random.choice()
+    """
+    distances = getDistancesToPerseus(latlon, radius)
+    local_perseus = {}
+    map_quotes_to_pleiades = {}
+    for i in distances.items():
+        t = findPleiadesInPerseus(i[0])
+        if len(t) == 0: continue
+        #[print(j[0].toPython()) for j in t]
+        #local_perseus.update( dict([str(j[0].toPython())]:i[0] for j in t))
+        local_perseus.update(dict(zip([j[0].toPython() for j in t if not (str(j[0].toPython()) in previously_used_perseus_extracts)], itertools.repeat(i[1]))))
+        map_quotes_to_pleiades.update(dict(zip([j[0].toPython() for j in t if not (str(j[0].toPython()) in previously_used_perseus_extracts)], itertools.repeat(i[0]))))
+
+
+    return getProbabilitiesFromCounts(local_perseus), map_quotes_to_pleiades
 
 
 # list(r.query(data.PREFIX + """SELECT ?o WHERE {?s oac:hasBody ?o} LIMIT 15"""))
@@ -954,24 +993,11 @@ def getPerseusCatalogData(doc_url, no_urn = False):
 
 previously_used_perseus_extracts = []
 
-def renderPerseusFromPleiades(pleiades_number):
-    t = findPleiadesInPerseus(pleiades_number)
-    if len(t) == 0:
-        print ("Warning: no quotations found")
-        return
-    
-    t_restricted = [i for i in t if not (str(i[0].toPython()) in previously_used_perseus_extracts)]
-    if len(t_restricted) > 0:
-        t = t_restricted
-    else:
-        print ("Warning: all quotations have already been used")
-        return # todo: grab a story from a nearby location instead
-    choice = random.choice(t)[0].toPython()
-    
+def renderPerseus(choice, pleiades_number):
     base_choice = choice.split(", ")[0].strip()
     previously_used_perseus_extracts.append(str(choice))
-    print(previously_used_perseus_extracts)
-    print("---")
+    #print(previously_used_perseus_extracts)
+    #print("---")
 
     xml_url = None #str(base_choice).replace("text", "xmlchunk", 1)
 
@@ -1028,6 +1054,31 @@ def renderPerseusFromPleiades(pleiades_number):
                 find_cite_first_p = find_cite.splitlines()[1]
         cite = ftfy.fix_text("[^{citation_name}]: From the Perseus Digital Library: ".format(citation_name=cite_name) + find_cite_first_p + " \\url{" + base_choice + "} \n\r")
     return {'text':output_string, 'cite': cite, 'uuid': cite_name, 'author':textmetadata['author'],'book_title':textmetadata['book_title'], 'metadata':textmetadata, 'place':makePleiadesLocation(pleiades_number) }
+
+def renderPerseusFromLatLon(latlon, range = 200.0):
+    quotes, pleiades_mapping = findNearbyPerseusFromLatLon(latlon, range)
+    if len(quotes) == 0:
+        print ("Warning: no quotations found")
+        return
+    choice = numpy.random.choice(list(quotes.keys()), p = list(quotes.values()))
+    return renderPerseus(choice, pleiades_mapping[choice])
+
+def renderPerseusFromPleiades(pleiades_number):
+    t = findPleiadesInPerseus(pleiades_number)
+    if len(t) == 0:
+        print ("Warning: no quotations found")
+        return
+    
+    t_restricted = [i for i in t if not (str(i[0].toPython()) in previously_used_perseus_extracts)]
+    if len(t_restricted) > 0:
+        t = t_restricted
+    else:
+        print ("Warning: all quotations have already been used")
+        return # todo: grab a story from a nearby location instead
+    choice = random.choice(t)[0].toPython()
+
+    return renderPerseus(choice, pleiades_number)
+    
 
 #    triple_list = list()
 #    t = findPleiadesInPerseus(pleiades_number)
