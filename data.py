@@ -241,12 +241,6 @@ def getLatLonFromPleiades(p_id):
 def findNearestSite(latlon):
     return None # TODO - find nearest site
 
-def cleanLatLon(latlon):
-    if isinstance(latlon, str):
-        latlon = latlon.strip("[] ").split(", ")
-    if isinstance(latlon, list) or isinstance(latlon, tuple):
-        return [ float(latlon[0]), float(latlon[1]) ]
-
 def latlonIsValid(latlon):
     if None == latlon or (not latlon):
         print("INVALID LAT/LON")
@@ -254,7 +248,21 @@ def latlonIsValid(latlon):
     if (0.0 == latlon[0] and 0.0 == latlon[1]):
         print("LAT/LON WAS DEFAULT")
         return False
+    if (None == latlon[0]) or (None == latlon[1]):
+        print("BLANK LAT/LON IS INVALID")
+        return False
     return True
+
+def cleanLatLon(latlon):
+    if not latlonIsValid(latlon):
+        return [0,0]
+    if isinstance(latlon, str):
+        if latlon != None:
+            latlon = latlon.strip("[] ").split(", ")
+        else:
+            return [0,0]
+    if isinstance(latlon, list) or isinstance(latlon, tuple):
+        return [ float(latlon[0]), float(latlon[1]) ]
 
 ###########################
 #
@@ -505,12 +513,15 @@ def pickValidOrbisRoute(start_id):
 def getNearbyPerseusName(latlon):
     latlon = cleanLatLon(latlon)
     quotes, places = findNearbyPerseusFromLatLon(latlon, radius = 20.0)
-
-    choice = numpy.random.choice(list(places.keys()), p = list(places.values()))
-    loc = makePleiadesLocation(choice)
-    n = getNameFromPleiades(loc)
-    if n:
-        n = " near " + str(n)
+    n = ""
+    try:
+        choice = numpy.random.choice(list(places.keys()), p = list(places.values()))
+        loc = makePleiadesLocation(choice)
+        n = getNameFromPleiades(loc)
+        if n:
+            n = " near " + str(n)
+    except ValueError as err:
+        print("getNearbyPerseusName Exception: " + str(err))
     return n
 
 def getNearbyPleiadesName(p_id):
@@ -525,7 +536,7 @@ def getNearbyPleiadesName(p_id):
             n = " near " + str(n)
         return n
     except ValueError as err:
-        print("Exception: " + str(err))
+        print("getNearbyPleiadesName Exception: " + str(err))
         return " near that place"
 
 
@@ -538,10 +549,10 @@ class Location:
     def name(self):
         n = getNameFromOrbis(self.orbis_id)
         if "the countryside" == str(n):
-            print("---")
-            print(self.orbis_id)
-            print(self.pleiades_id)
-            print(self.latlon)
+            #print("---")
+            #print(self.orbis_id)
+            #print(self.pleiades_id)
+            #print(self.latlon)
             if self.pleiades_id:
                 n = n + getNearbyPleiadesName(self.pleiades_id)
             elif self.latlon:
@@ -821,7 +832,7 @@ def getPleiadesPerseusLatLonList():
             with open("data" + os.sep + "pleiades_latlon_list.pickle", "rb") as file:
                 pleiades_latlon_list = pickle.load(file)
         except Exception as err:
-            print("Exception: " + str(err))
+            print("getPleiadesPerseusLatLonList Exception: " + str(err))
             if not all_pleiades_in_perseus_list:
                 pleiades_in_perseus_list = getAllPleiadesInPerseus()
             [pleiades_latlon_list.update({str(i):getLatLonFromLocalPleiades(i)}) for i in set(pleiades_in_perseus_list)]
@@ -866,7 +877,7 @@ def getProbabilitiesFromCounts(distances:dict):
         #print(probabilities.sum())
         return dict(zip(distances.keys(), probabilities))
     except ValueError as err:
-        print("Exception: " + str(err))
+        print("getProbabilitiesFromCounts Exception: " + str(err))
         return
         
 
@@ -876,6 +887,9 @@ def findNearbyPerseusFromLatLon(latlon, radius = 200.0):
     Returns list of perseus quotes weighted by inv sq distance,
     suitable for use by numpy.random.choice()
     """
+    latlon = cleanLatLon(latlon)
+    if [0,0] == latlon:
+        print("Warning: default Lat/Lon")
     distances = getDistancesToPerseus(latlon, radius)
     local_perseus = {}
     map_quotes_to_pleiades = {}
@@ -887,12 +901,12 @@ def findNearbyPerseusFromLatLon(latlon, radius = 200.0):
         local_perseus.update(dict(zip([j[0].toPython() for j in t if not (str(j[0].toPython()) in previously_used_perseus_extracts)], itertools.repeat(i[1]))))
         map_quotes_to_pleiades.update(dict(zip([j[0].toPython() for j in t if not (str(j[0].toPython()) in previously_used_perseus_extracts)], itertools.repeat(i[0]))))
 
-        probs = getProbabilitiesFromCounts(local_perseus)
-        if not probs:
-            if radius < 3000.0:
-                probs, map_quotes_to_pleiades = findNearbyPerseusFromLatLon(latlon, (radius * 2) + 1.0)
-            else:
-                raise ValueError("No Perseus records within {} km of latlon".format(radius))
+    probs = getProbabilitiesFromCounts(local_perseus)
+    if not probs:
+        if radius < 3000.0:
+            probs, map_quotes_to_pleiades = findNearbyPerseusFromLatLon(latlon, (radius * 2) + 1.0)
+        else:
+            raise ValueError("No Perseus records within {} km of latlon".format(radius))
     return probs, map_quotes_to_pleiades
 
 
@@ -1128,13 +1142,20 @@ def renderPerseus(choice, pleiades_number):
         print({'cite': cite, 'uuid': cite_name, 'author':textmetadata['author'],'book_title':textmetadata['book_title'], 'metadata':textmetadata, 'place':pleiades_number })
     return {'text':output_string, 'cite': cite, 'uuid': cite_name, 'author':textmetadata['author'],'book_title':textmetadata['book_title'], 'metadata':textmetadata, 'place':makePleiadesLocation(pleiades_number) }
 
-def renderPerseusFromLatLon(latlon, range = 200.0):
+def renderPerseusFromLatLon(latlon, range = 200.0, retry = False):
     quotes, pleiades_mapping = findNearbyPerseusFromLatLon(latlon, range)
     if len(quotes) == 0:
         print ("Warning: no quotations found")
         return
     choice = numpy.random.choice(list(quotes.keys()), p = list(quotes.values()))
-    return renderPerseus(choice, pleiades_mapping[choice])
+    r = None
+    try:
+        r = renderPerseus(choice, pleiades_mapping[choice])
+    except requests.exceptions.ConnectionError as err:
+        print("renderPerseusFromLatLon Exception: " + str(err))
+        if not retry:
+            r = renderPerseusFromLatLon(latlon, range, retry=True)
+    return r
 
 def renderPerseusFromPleiades(pleiades_number):
     t = findPleiadesInPerseus(pleiades_number)

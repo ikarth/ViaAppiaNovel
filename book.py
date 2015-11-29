@@ -75,11 +75,11 @@ def readBook():
 def textQuotation(t):
     possible_story_titles = ["A story about {place}",
                              "What {author} once said about {place}",
-                             "A story by {author} about {place} from {book}",
-                             "An extract from {book} by {author}",
+                             "A story by {author} about {place} from _{book}_",
+                             "An extract from _{book}_ by {author}",
                              "On {place}, according to {author}",
                              "On the subject of {place}",
-                             "{place} in {book}",
+                             "{place} in _{book}_",
                              "An account of {place}",
                              "A story about {place} by {author}",
                              "The story of {place}"
@@ -90,9 +90,9 @@ def textQuotation(t):
     author_name = t['author']
     title_data = {'place': place_name, 'author': author_name, 'book': t['book_title']}
     if author_name == "Virgil":
-        writeToBook("### {place} in Virgil's {book}\n".format(**title_data))
+        writeToBook("## {place} in Virgil's _{book}_\n".format(**title_data))
     else:    
-        book_string = "### " + str(random.choice(possible_story_titles)) + "\n"
+        book_string = "## " + str(random.choice(possible_story_titles)) + "\n"
         writeToBook(book_string.format(**title_data))
     writeToBook(h.handle(t['text']))
     #writeToBook(t['text'])
@@ -115,9 +115,18 @@ def addCitation(t):
     #cite = strip_whitespace.sub(" ", cite)
     writeToBook(str(cite))
 
+def chapterStart(t):
+    pass
+
+def chapterEnd(t):
+    pass
+
 text_translate_table = {'quotation': textQuotation,
                        'travel-narration': textTravel,
-                       'placeholder': textPlaceholder}
+                       'placeholder': textPlaceholder,
+                       'chapterStart': chapterStart,
+                       'chapterEnd': chapterEnd
+                       }
 
 def transcribeStory(story:list):
     """

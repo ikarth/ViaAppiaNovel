@@ -53,13 +53,18 @@ def renderNearbyPlaceQuotation(wander:dict, loc:data.Location, range:float = 0.0
     Given a latlon location, find a nearby place and 
     write a quote based on it.
     """
-    if not loc.latlon:
-        print("Warning: Couldn't find latlon in {}".format(loc))
+    if not loc.latlon or (not loc.latlon[0]) or (not loc.latlon[1]):
+        print("Warning: Couldn't find latlon in {}".format([loc.orbis_id, loc.pleiades_id, loc.latlon]))
         return
     #data.findNearbyPerseusFromLatLon(loc.latlon)
-    render_base = {'type':'quotation', 'state':wander}
-    render_base.update(data.renderPerseusFromLatLon(loc.latlon)) # TODO: set range based on location
-    writeStory(render_base)    
+    if WRITE_THE_STORIES:
+        render_base = {'type':'quotation', 'state':wander}
+        render_base.update(data.renderPerseusFromLatLon(loc.latlon)) # TODO: set range based on location
+        writeStory(render_base)    
+    else:
+        print("Skipping story for " + str(loc.latlon))
+        writeStory({'type':'placeholder', 'text':str("Insert story about " + str(loc.latlon)) , 'state':wander})
+    
 
 def renderPlaceQuotation(wander:dict):
     """
@@ -197,7 +202,7 @@ def processWanderer(wander:dict):
     global rng
     rng = numpy.random.RandomState()
     rng.seed(753)    
-    for i in range(0,60):
+    for i in range(0,160):
         if DELAY_FOR_BANDWIDTH:
             print(time.process_time())
             time.sleep(1)            

@@ -10,7 +10,7 @@ class ViaAppiaException(Exception):
 random.seed("Rome wasn't built in a day")
 
 DELAY_FOR_BANDWIDTH = False #if true, sleeps a bit between tasks that might call for network resources
-WRITE_THE_STORIES = True # if false, skip writing the actual stories, so we can speed up testing
+WRITE_THE_STORIES = False # if false, skip writing the actual stories, so we can speed up testing
 DISPLAY_TEXT_WHILE_WRITING = False
 DISPLAY_WANDERING_PROGRESS = False
 DISPLAY_CITES_WHILE_RENDERING = False
