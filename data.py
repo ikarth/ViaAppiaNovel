@@ -779,11 +779,13 @@ def getPleiadesPerseusLatLonList():
     #pleiades_list = [print(str(i) + " " + str(getLatLonFromPleiades(i))) for i in pleiades_in_perseus_list]
     #pleiades_list = [{'id':i, 'latlon':getLatLonFromLocalPleiades(i), 'distance':distanceBetweenPleiadesAndLatLon(i, latlon)} for i in pleiades_in_perseus_list]
     if pleiades_latlon_list:
-        with open("data" + os.sep + "pleiades_latlon_list.pickle", "wb") as file:
-            pickle.dump(pleiades_latlon_list, file)
+        if settings.PICKLE_PERSEUS_LATLON_LIST:
+            with open("data" + os.sep + "pleiades_latlon_list.pickle", "wb") as file:
+                pickle.dump(pleiades_latlon_list, file)
     return pleiades_latlon_list
 
 def getDistancesToPerseus(latlon, cutoff_radius = 0.0):
+    latlon = cleanLatLon(latlon)
     getPleiadesPerseusLatLonList()
     #distance_list = [i.update({'distance':distanceToLatLon(i['latlon'], latlon)}) for i in pleiades_latlon_list]
     list_with_distances = {k:{'latlon':v, 'distance':distanceToLatLon(v, latlon)} for k,v in pleiades_latlon_list.items()}
