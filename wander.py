@@ -56,8 +56,10 @@ def renderNearbyPlaceQuotation(wander:dict, loc:data.Location, range:float = 0.0
     if not loc.latlon:
         print("Warning: Couldn't find latlon in {}".format(loc))
         return
-    data.findNearbyPerseusFromLatLon(loc.latlon)
-    
+    #data.findNearbyPerseusFromLatLon(loc.latlon)
+    render_base = {'type':'quotation', 'state':wander}
+    render_base.update(data.renderPerseusFromLatLon(loc.latlon)) # TODO: set range based on location
+    writeStory(render_base)    
 
 def renderPlaceQuotation(wander:dict):
     """

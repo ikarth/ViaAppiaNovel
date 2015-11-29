@@ -241,6 +241,12 @@ def getLatLonFromPleiades(p_id):
 def findNearestSite(latlon):
     return None # TODO - find nearest site
 
+def cleanLatLon(latlon):
+    if isinstance(latlon, str):
+        latlon = latlon.strip("[] ").split(", ")
+    if isinstance(latlon, list) or isinstance(latlon, tuple):
+        return [ float(latlon[0]), float(latlon[1]) ]
+
 def latlonIsValid(latlon):
     if None == latlon or (not latlon):
         print("INVALID LAT/LON")
