@@ -435,6 +435,7 @@ def findIntermediatePointLatLon(start, end, percent):
     inter = [((float(end[0]) - float(start[0])) * percent) + (float(start[0])), ((float(end[1]) - float(start[1])) * percent) + (float(start[1]))]
     return inter
 
+
 def getNameFromOrbis(o_id):
     checkOrbis()
     orbis_record = next((elem for elem in orbis_sites_list if str(elem[1][0]) == str(o_id)), None)
@@ -442,6 +443,10 @@ def getNameFromOrbis(o_id):
     if orbis_record:
         n = str(orbis_record[1][1])
     return n
+
+def getNameFromPleiades(p_id):
+    p_record = getPleiadesRecord(p_id)
+    return p_id['title']
 
 def pickValidOrbisLocation():
     checkOrbis()
@@ -497,6 +502,33 @@ def pickValidOrbisRoute(start_id):
         end_id = None
     return end_id, route
 
+def getNearbyPerseusName(latlon):
+    latlon = cleanLatLon(latlon)
+    quotes, places = findNearbyPerseusFromLatLon(latlon, radius = 20.0)
+
+    choice = numpy.random.choice(list(places.keys()), p = list(places.values()))
+    loc = makePleiadesLocation(choice)
+    n = getNameFromPleiades(loc)
+    if n:
+        n = " near " + str(n)
+    return n
+
+def getNearbyPleiadesName(p_id):
+    latlon = getLatLonFromPleiades(p_id)
+    quotes, places = findNearbyPerseusFromLatLon(latlon, radius = 20.0) # todo: extend this to all pleiades records
+
+    try:
+        choice = numpy.random.choice(list(places.keys()), p = list(places.values()))
+        loc = makePleiadesLocation(choice)
+        n = getNameFromPleiades(loc)
+        if n:
+            n = " near " + str(n)
+        return n
+    except ValueError as err:
+        print("Exception: " + str(err))
+        return " near that place"
+
+
 class Location:
     def __init__(self, orbis_id=None, pleiades_id=None,latlon=None):
         self.data = []
@@ -504,7 +536,19 @@ class Location:
         self.pleiades_id = pleiades_id
         self.latlon = latlon
     def name(self):
-        return getNameFromOrbis(self.orbis_id)
+        n = getNameFromOrbis(self.orbis_id)
+        if "the countryside" == str(n):
+            print("---")
+            print(self.orbis_id)
+            print(self.pleiades_id)
+            print(self.latlon)
+            if self.pleiades_id:
+                n = n + getNearbyPleiadesName(self.pleiades_id)
+            elif self.latlon:
+                n = n + getNearbyPerseusName(self.latlon)
+            elif self.orbis_id:
+                n = n + getNearbyPerseusName(getLatLonFromOrbis(self.orbis_id))
+        return n
     def id(self):
         return getLocationId(self)
 
@@ -524,7 +568,7 @@ def LocationToJSON(loc):
 def getNearestName(loc:Location):
     # TODO: try to get names from other sources as well...
     #print(loc.orbis_id)
-    n = getNameFromOrbis(loc.orbis_id)
+    n = loc.name()
     return n
 
 def locationFromId(id:str) -> Location:
@@ -808,11 +852,23 @@ def getProbabilitiesFromCounts(distances:dict):
     that choice will be chosen, normalized
     to sum to 1.0.
     """
-    prob_max = max(max(list(distances.values())), 0)
-    probabilities = numpy.array([max(0, (prob_max ** 2) - (i ** 2)) for i in distances.values()])
-    total_prob = probabilities.sum()
-    probabilities /= total_prob
-    return dict(zip(distances.keys(), probabilities))
+    try:
+        prob_max = max(max(list(distances.values())), 0) + 1
+        probabilities = numpy.array([max(0, (prob_max ** 2) - (i ** 2)) for i in distances.values()])
+        total_prob = probabilities.sum()
+        #print(probabilities)
+        #print(total_prob)
+        if total_prob == 0:
+            print ("Error: No probabilities listed.")
+            return
+        probabilities /= total_prob
+        #print(probabilities)
+        #print(probabilities.sum())
+        return dict(zip(distances.keys(), probabilities))
+    except ValueError as err:
+        print("Exception: " + str(err))
+        return
+        
 
 
 def findNearbyPerseusFromLatLon(latlon, radius = 200.0):
@@ -831,8 +887,13 @@ def findNearbyPerseusFromLatLon(latlon, radius = 200.0):
         local_perseus.update(dict(zip([j[0].toPython() for j in t if not (str(j[0].toPython()) in previously_used_perseus_extracts)], itertools.repeat(i[1]))))
         map_quotes_to_pleiades.update(dict(zip([j[0].toPython() for j in t if not (str(j[0].toPython()) in previously_used_perseus_extracts)], itertools.repeat(i[0]))))
 
-
-    return getProbabilitiesFromCounts(local_perseus), map_quotes_to_pleiades
+        probs = getProbabilitiesFromCounts(local_perseus)
+        if not probs:
+            if radius < 3000.0:
+                probs, map_quotes_to_pleiades = findNearbyPerseusFromLatLon(latlon, (radius * 2) + 1.0)
+            else:
+                raise ValueError("No Perseus records within {} km of latlon".format(radius))
+    return probs, map_quotes_to_pleiades
 
 
 # list(r.query(data.PREFIX + """SELECT ?o WHERE {?s oac:hasBody ?o} LIMIT 15"""))
@@ -1063,6 +1124,8 @@ def renderPerseus(choice, pleiades_number):
                 find_cite = re.sub('[\t+]', ' ', (soup.find("div", id="text_footer").find(id="text_desc").text))
                 find_cite_first_p = find_cite.splitlines()[1]
         cite = ftfy.fix_text("[^{citation_name}]: From the Perseus Digital Library: ".format(citation_name=cite_name) + find_cite_first_p + " \\url{" + base_choice + "} \n\r")
+    if settings.DISPLAY_CITES_WHILE_RENDERING:
+        print({'cite': cite, 'uuid': cite_name, 'author':textmetadata['author'],'book_title':textmetadata['book_title'], 'metadata':textmetadata, 'place':pleiades_number })
     return {'text':output_string, 'cite': cite, 'uuid': cite_name, 'author':textmetadata['author'],'book_title':textmetadata['book_title'], 'metadata':textmetadata, 'place':makePleiadesLocation(pleiades_number) }
 
 def renderPerseusFromLatLon(latlon, range = 200.0):
