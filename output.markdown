@@ -371,13 +371,13 @@ Insert story about 393421
 
 Insert story about ['44.495', '11.349']
 
-Leaving Bononia, Virgil set out for None on a military boat floating downstream, a journey of about 39 miles. 
+Leaving Bononia, Virgil set out for a village on a military boat floating downstream, a journey of about 39 miles. 
 
 A breeze from an unexpected quarter cools the air. He presses onward. 
 
 There was no story for None
 
-From None to Placentia is about 140 miles away when travelling on a military boat headed upstream. 
+From a village to Placentia is about 140 miles away when travelling on a military boat headed upstream. 
 
 The sun beats down. No backward glances for the city left behind. The countryside is quieter than the city. 
 
@@ -390,13 +390,13 @@ Insert story about ['45.052', '9.699']
 
 # Placentia to Altinum
 
-From Placentia to None is a distance of about 11 miles when travelling by road. 
+From Placentia to a village is a distance of about 11 miles when travelling by road. 
 
 As they go up from {from}, they see the ruined walls. He left the city early, before the rising of the sun. He passes another milestone. By the road is a salt spring. They pass a pillar on the right surmounted by a stone urn. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. 
 
 There was no story for None
 
-From None to Mediolanum is a distance of about 27 miles when travelling by road. 
+From a village to Mediolanum is a distance of about 27 miles when travelling by road. 
 
 The sun beats down.. By the road is a salt spring. He passes another milestone. A cloud passes in front of the sun. He set out from {from} amidst a throng travelling the same way. As they go up from {from}, they see the ruined walls. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. 
 
@@ -420,13 +420,13 @@ Insert story about 393473
 
 Insert story about ['45.41', '11.877']
 
-Leaving Patavium, Virgil set out for None by road, about 13 miles away. 
+Leaving Patavium, Virgil set out for a village by road, about 13 miles away. 
 
 A caravan from {destination} passed by. On the road from {from} to {destination} there is a village, in which there is a temple and grove. He passes another milestone. He set out from {from} amidst a throng travelling the same way. 
 
 There was no story for None
 
-Leaving None, Virgil set out for Altinum by road, a distance of about 14 miles. 
+Leaving a village, Virgil set out for Altinum by road, a distance of about 14 miles. 
 
 They pass a pillar on the right surmounted by a stone urn. He set out from {from} amidst a throng travelling the same way. He passes another milestone. The sun beats down.. His shoes are covered in dust from the road. 
 
@@ -524,13 +524,13 @@ Insert story about ['46.497', '11.358']
 
 # Pons Drusi to Brigantium
 
-From Pons Drusi to None is at least 28 miles when travelling by road. 
+From Pons Drusi to a village is at least 28 miles when travelling by road. 
 
 Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. Now the road is quieter. He passes another milestone. 
 
 There was no story for None
 
-Leaving None, Virgil set out for Veldidena by road, at least 41 miles. 
+Leaving a village, Virgil set out for Veldidena by road, at least 41 miles. 
 
 Along the road are graves, and a cenotaph. On the road from {from} to {destination} there is a village, in which there is a temple and grove. A caravan from {destination} passed by. Now the road is quieter. He passes another milestone. They pass a pillar on the right surmounted by a stone urn. 
 
@@ -538,13 +538,13 @@ Insert story about 187608
 
 Insert story about ['47.254', '11.4']
 
-Leaving Veldidena, Virgil set out for None by road, a journey of about 41 miles. 
+Leaving Veldidena, Virgil set out for a village by road, a journey of about 41 miles. 
 
 Above the roads are ruins, among which is a cave sacred to Asclepius. A caravan from {destination} passed by. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. 
 
 There was no story for None
 
-Intending to travel by road to Pons Drusi, Virgil left None. It was a journey of about 28 miles. 
+Intending to travel by road to Pons Drusi, Virgil left a village. It was a journey of about 28 miles. 
 
 His shoes are covered in dust from the road. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. Now the road is quieter. The sun beats down.. 
 
@@ -725,7 +725,7 @@ Insert story about ['47.254', '11.4']
 \newpage
 
 
-# Veldidena to None
+# Veldidena to a village
 
 Virgil departed from Veldidena, intending to travel by road to Parthanum, at least 32 miles. 
 
@@ -743,13 +743,13 @@ Insert story about 187608
 
 Insert story about ['47.254', '11.4']
 
-Leaving Veldidena, Virgil set out for None by road, a journey of about 41 miles. 
+Leaving Veldidena, Virgil set out for a village by road, a journey of about 41 miles. 
 
 A cloud passes in front of the sun. There is a fountain of cold water springing from the rock. They pass a pillar on the right surmounted by a stone urn. He passes another milestone. 
 
 There was no story for None
 
-From None to Aguntum is about 60 miles away when travelling by road. 
+From a village to Aguntum is about 60 miles away when travelling by road. 
 
 There is a fountain of cold water springing from the rock. His shoes are covered in dust from the road. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. 
 
@@ -765,13 +765,13 @@ Insert story about 187430
 
 Insert story about ['46.461', '13.026']
 
-Intending to travel by road to None, Virgil left Iulium Carnicum. It was at least 9 miles. 
+Intending to travel by road to a village, Virgil left Iulium Carnicum. It was at least 9 miles. 
 
 He left the city early, before the rising of the sun. They pass a pillar on the right surmounted by a stone urn. 
 
 There was no story for None
 
-Virgil departed from None, intending to travel by road to Santicum, about 47 miles away. 
+Virgil departed from a village, intending to travel by road to Santicum, about 47 miles away. 
 
 Now the road is quieter. A caravan from {destination} passed by. He passes another milestone. 
 
@@ -779,7 +779,7 @@ Insert story about 187537
 
 Insert story about ['46.616', '13.849']
 
-Intending to travel by road to None, Virgil left Santicum. It was at least 47 miles. 
+Intending to travel by road to a village, Virgil left Santicum. It was at least 47 miles. 
 
 On the road from {from} to {destination} there is a village, in which there is a temple and grove. He passes another milestone. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. 
 
@@ -788,9 +788,9 @@ There was no story for None
 \newpage
 
 
-# None to None
+# a village to a village
 
-From None to Santicum is at least 47 miles when travelling by road. 
+From a village to Santicum is at least 47 miles when travelling by road. 
 
 By the road is a salt spring. As they go up from {from}, they see the ruined walls. He passes another milestone. Above the roads are ruins, among which is a cave sacred to Asclepius. 
 
@@ -838,13 +838,13 @@ Insert story about 207447
 
 Insert story about ['44.966', '19.61']
 
-Leaving Sirmium, Virgil set out for None by road, at least 56 miles. 
+Leaving Sirmium, Virgil set out for a village by road, at least 56 miles. 
 
 Along the road are graves, and a cenotaph. A cloud passes in front of the sun. By the road is a salt spring. 
 
 There was no story for None
 
-Leaving None, Virgil set out for None by road, a journey of about 130 miles. 
+Leaving a village, Virgil set out for a village by road, a journey of about 130 miles. 
 
 Now the road is quieter. Along the road are graves, and a cenotaph. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. The sun beats down.. A caravan from {destination} passed by. A cloud passes in front of the sun. 
 
@@ -853,9 +853,9 @@ There was no story for None
 \newpage
 
 
-# None to Viminacium
+# a village to Viminacium
 
-Leaving None, Virgil set out for Narona by road, about 15 miles away. 
+Leaving a village, Virgil set out for Narona by road, about 15 miles away. 
 
 Now the road is quieter. Along the road are graves, and a cenotaph. 
 
@@ -863,19 +863,19 @@ Insert story about 197400
 
 Insert story about ['43.081', '17.628']
 
-Intending to travel by road to None, Virgil left Narona. It was about 15 miles away. 
+Intending to travel by road to a village, Virgil left Narona. It was about 15 miles away. 
 
 There is a fountain of cold water springing from the rock. He left the city early, before the rising of the sun. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. He set out from {from} amidst a throng travelling the same way. 
 
 There was no story for None
 
-Virgil departed from None, intending to travel by road to None, a journey of about 130 miles. 
+Virgil departed from a village, intending to travel by road to a village, a journey of about 130 miles. 
 
 A caravan from {destination} passed by. He left the city early, before the rising of the sun. His shoes are covered in dust from the road. On the road from {from} to {destination} there is a village, in which there is a temple and grove. 
 
 There was no story for None
 
-Virgil departed from None, intending to travel by road to Domavium, a journey of about 18 miles. 
+Virgil departed from a village, intending to travel by road to Domavium, a journey of about 18 miles. 
 
 A caravan from {destination} passed by. He set out from {from} amidst a throng travelling the same way. The sun beats down.. 
 
@@ -883,13 +883,13 @@ Insert story about 207088
 
 Insert story about ['44.144', '19.363']
 
-From Domavium to None is about 18 miles away when travelling by road. 
+From Domavium to a village is about 18 miles away when travelling by road. 
 
 He passes another milestone. They pass a pillar on the right surmounted by a stone urn. Now the road is quieter. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. His shoes are covered in dust from the road. 
 
 There was no story for None
 
-Intending to travel by road to Sirmium, Virgil left None. It was a distance of about 56 miles. 
+Intending to travel by road to Sirmium, Virgil left a village. It was a distance of about 56 miles. 
 
 A cloud passes in front of the sun. He left the city early, before the rising of the sun. On the road from {from} to {destination} there is a village, in which there is a temple and grove. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. As they go up from {from}, they see the ruined walls. His shoes are covered in dust from the road. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. 
 
@@ -1094,13 +1094,13 @@ Insert story about 481861
 
 Insert story about ['41.032', '21.336']
 
-Intending to travel by road to None, Virgil left Heraklea. It was about 109 miles away. 
+Intending to travel by road to a village, Virgil left Heraklea. It was about 109 miles away. 
 
 He set out from {from} amidst a throng travelling the same way. Along the road are graves, and a cenotaph. There is a fountain of cold water springing from the rock. As they go up from {from}, they see the ruined walls. 
 
 There was no story for None
 
-Leaving None, Virgil set out for Apollonia (Epirus) by road, a distance of about 23 miles. 
+Leaving a village, Virgil set out for Apollonia (Epirus) by road, a distance of about 23 miles. 
 
 By the road is a salt spring. A cloud passes in front of the sun. As they go up from {from}, they see the ruined walls. Now the road is quieter. A caravan from {destination} passed by. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. He passes another milestone. 
 

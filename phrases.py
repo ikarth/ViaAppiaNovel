@@ -1,4 +1,4 @@
-storm = ["Then comes the creak of cables and the cries of seamen",
+﻿storm = ["Then comes the creak of cables and the cries of seamen",
          "Clouds the darkened heavens have drowned, and snatched the daylight from their eyes",
          "Black night broods on the waters",
          "All around from pole to pole the rattling peals resound",
@@ -33,7 +33,7 @@ walking=["He set out from {from} amidst a throng travelling the same way",
          "There is a fountain of cold water springing from the rock",
          "By the road is a salt spring",
          "He passes another milestone",
-         "The sun beats down.",
+         "The sun beats down",
          "A cloud passes in front of the sun",
          "His shoes are covered in dust from the road"]
 
