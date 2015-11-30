@@ -244,6 +244,7 @@ def findNearestSite(latlon):
 def latlonIsValid(latlon):
     if None == latlon or (not latlon):
         print("INVALID LAT/LON")
+        raise settings.InvalidLatLon
         return False
     if (0.0 == latlon[0] and 0.0 == latlon[1]):
         print("LAT/LON WAS DEFAULT")
@@ -547,18 +548,21 @@ class Location:
         self.pleiades_id = pleiades_id
         self.latlon = latlon
     def name(self):
-        n = getNameFromOrbis(self.orbis_id)
-        if "the countryside" == str(n):
-            #print("---")
-            #print(self.orbis_id)
-            #print(self.pleiades_id)
-            #print(self.latlon)
-            if self.pleiades_id:
-                n = n + getNearbyPleiadesName(self.pleiades_id)
-            elif self.latlon:
-                n = n + getNearbyPerseusName(self.latlon)
-            elif self.orbis_id:
-                n = n + getNearbyPerseusName(getLatLonFromOrbis(self.orbis_id))
+        try:
+            n = getNameFromOrbis(self.orbis_id)
+            if "the countryside" == str(n):
+                #print("---")
+                #print(self.orbis_id)
+                #print(self.pleiades_id)
+                #print(self.latlon)
+                if self.pleiades_id:
+                    n = n + getNearbyPleiadesName(self.pleiades_id)
+                elif self.latlon:
+                    n = n + getNearbyPerseusName(self.latlon)
+                elif self.orbis_id:
+                    n = n + getNearbyPerseusName(getLatLonFromOrbis(self.orbis_id))
+        except settings.InvalidLatLon as err:
+            n = "a village"
         return n
     def id(self):
         return getLocationId(self)

@@ -7,6 +7,9 @@ class DataSourceAccessProblem(Exception):
 class ViaAppiaException(Exception):
     pass
 
+class InvalidLatLon(Exception):
+    pass
+
 # Random Generator
 random.seed("Rome wasn't built in a day")
 

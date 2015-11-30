@@ -25,8 +25,8 @@ def processStory(story):
             for j in new_story:
                 if j['type'] == "chapterStart":
                     if j['chapter'] == i['chapter']:
-                        start_loc = data.getNameFromLoc(j['state']['location'])
-                        end_loc = data.getNameFromLoc(i['state']['location'])
+                        start_loc = j['state']['location'].name()
+                        end_loc = (i['state']['destination']).name()
                         chapter_title = str(start_loc) + " to " + str(end_loc)
                         j['text'] = str("\n\n# " + chapter_title + "\n")
     return new_story
@@ -81,27 +81,35 @@ def phrasesElision(input_phrases, minmum = 3):
     """
     Given a list of phrases, remove most of them and join the rest together.
     """
-    phrases = copy.deepcopy(input_phrases)
+    iphrases = input_phrases[:]
     minumum = max(minmum,1)
-    total_l = len(phrases)
+    if not iphrases:
+        print("PHRASE ERROR")
+        print (input_phrases)
+        print(iphrases)
+    total_l = len(iphrases)
     if total_l < minmum:
-        print(phrases)
+        print(iphrases)
         return
     max_l = int(math.floor(total_l * 0.5))
     min_l = max(int(max_l * 0.3), 1)
     max_l = max(max_l, min_l + 1)
     length = settings.TEXT_RNG.choice(range(min_l, max_l))
-    while len(phrases) > length:
-        phrases.remove(settings.TEXT_RNG.choice(phrases))
-    return str(". ".join(phrases)) + ". "
+    while len(iphrases) > length:
+        iphrases.remove(settings.TEXT_RNG.choice(iphrases))
+    return str(". ".join(iphrases)) + ". "
 
-def phrasesShuffle(phrases):
-    return settings.TEXT_RNG.shuffle(phrases)
+def phrasesShuffle(iphrases):
+    phr = iphrases[:]
+    settings.TEXT_RNG.shuffle(phr)
+    return phr
 
-def phrasesDeal(phrases):
-    return phrasesElision(phrasesShuffle(phrases))
+def phrasesDeal(iphrases):
+    phr = iphrases[:]
+    shuf = phrasesShuffle(phr)
+    return phrasesElision(shuf)
 
-def phrasesDeck(phrases):
+def phrasesDeck(iphrases):
     """
     Take the supplied phrase deck. 
     Remove previously used phrases. 
@@ -116,9 +124,12 @@ def renderTravelShipStorm(wander:dict):
 def renderTravelShip(wander:dict):
     return renderTravelShipStorm(wander)
     
+def renderTravelWalk(wander:dict):
+    return phrasesDeal(phrases.walking)
 
 def renderTravelGeneric(wander:dict):
-    return []
+    print (phrases.travel)
+    return phrasesDeal(phrases.travel)
 
 def renderTravelText(wander:dict):
     """
@@ -128,15 +139,15 @@ def renderTravelText(wander:dict):
                "fastup": renderTravelGeneric,
                "upstream": renderTravelGeneric,
                "downstream": renderTravelGeneric,
-               "road": renderTravelGeneric,
+               "road": renderTravelWalk,
                "coastal": renderTravelShip,
                "overseas": renderTravelShip,
                "slowcoast": renderTravelShip,
                "ferry": renderTravelShip}
                             
-    type_desc[str(wander['journey']['type'])](wander)
+    desc = type_desc[str(wander['journey']['type'])](wander)
 
-    writeStory({'type':'travel', 'text':renderTravelShip(wander), 'state':copy.deepcopy(wander)})
+    writeStory({'type':'travel', 'text':desc, 'state':copy.deepcopy(wander)})
     pass
 
 def renderNearbyPlaceQuotation(wander:dict, loc:data.Location, range:float = 0.0):
@@ -183,7 +194,32 @@ def renderPlaceQuotation(wander:dict):
         print("No output text found for " + str(talking_about))
         return renderNearbyPlaceQuotation(wander, data.hydrateLocation(wander['location']))
         # TODO: try to grab a nearby place quotation instead
-    
+
+
+def eventStorm(wander):
+    pass
+
+def eventShipwreck(wander):
+    pass
+
+def eventTravelWalk(wander):
+    writeStory({'type':'travel', 'text':renderTravelWalk(wander), 'state':copy.deepcopy(wander)})
+    pass
+
+def eventTravelRiver(wander):
+    renderTravelText(wander)
+    pass
+
+def eventTravelShip(wander):
+    writeStory({'type':'travel', 'text':renderTravelShip(wander), 'state':copy.deepcopy(wander)})
+
+def eventTravelFerry(wander):
+    renderTravelText(wander)
+    pass    
+
+def eventTravel(wander):
+    renderTravelText(wander)
+    pass
 
 def wanderTravel(wander):
     """
@@ -194,8 +230,20 @@ def wanderTravel(wander):
     # TODO - travelling loop for the journey and nearby places that get passed
     # TODO - events along the way, shipwrecks, escapades, etc.
 
-    renderTravelText(wander)
-
+    type_desc={"fastdown": [eventTravelRiver],
+               "fastup": [eventTravelRiver],
+               "upstream": [eventTravelRiver],
+               "downstream": [eventTravelRiver],
+               "road": [eventTravelWalk],
+               "coastal": [eventTravelShip],
+               "overseas": [eventTravelShip],
+               "slowcoast": [eventTravelShip],
+               "ferry": [eventTravelFerry]}
+    
+    # Do events                        
+    type_desc[str(wander['journey']['type'])][0](wander)
+    # todo: select events from a shuffled deck
+     
     # Arrived at destination
     wander['state'] = wanderArrive
     return wander
@@ -304,16 +352,23 @@ def chapterEnd(wander:dict):
 
 def wanderChapter(wander:dict):
     chapterBegin(wander)
-    for i in range(0,30):
+    passage_count = 0
+    chapter_done = False
+    while not chapter_done:
+        passage_count += 1
         if DELAY_FOR_BANDWIDTH:
             print(time.process_time())
             time.sleep(1)
         wander = wander['state'](wander)
+        if (passage_count > 30) and wander['state'] == wanderSelectDestination:
+            chapter_done = True
     chapterEnd(wander)
+    return wander
 
 def processWanderer(wander:dict):
     global current_chapter
     current_chapter = 0
     settings.setRNG()
-    wanderChapter(wander)
+    for i in range(0,16):
+        wander = wanderChapter(wander)
     return wander
