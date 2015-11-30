@@ -53,7 +53,10 @@ pandoc output.markdown -S --normalize --toc \\
 -V documentclass=book
 ~~~
 
-This copy was generated \\today, with seeds of """ + str(settings.travel_rng_seed) + """ and """ + str(settings.text_rng_seed) + """
+This copy was generated \\today, with seeds of """ + str(settings.travel_rng_seed) + """ and """ + str(settings.text_rng_seed) + """.\n
+
+The book generator uses data from the Perseus Digital Library, the Pelagios Project, the Pleiades Project, and ORBIS: The Stanford Geospatial Network Model of the Roman World.\n
+
 
 \n
 \\cleardoublepage"""
