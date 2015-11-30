@@ -53,10 +53,10 @@ def descriptionJourneyType(type):
 
 def descriptionJourneyTypeName(type):
     type_description = type
-    type_description_subs= {"fastdown":"downriver",
-                            "fastup":"upstream",
-                            "upstream":"upriver",
-                            "downstream":"downstream",
+    type_description_subs= {"fastdown":"river",
+                            "fastup":"river, upstream",
+                            "upstream":"river, upstream",
+                            "downstream":"river",
                             "road":"road",
                             "coastal":"ship",
                             "overseas":"ship",
