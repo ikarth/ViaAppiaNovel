@@ -16,6 +16,9 @@ h.ignore_links = False
 h.unicode_snob = False
 h.body_width = 0
 
+def convertHTML(text):
+    return h.handle(text.replace("\n", "<br/>"))
+
 book_text = []
 
 def flushBook():
@@ -39,7 +42,7 @@ Isaac Karth \n
 2015-11-28 \n
 \\newpage
 \n## Technical Notes \n
-The book generator is a Python program that outputs a Markdown text file designed to be converted into PDF form via Pandoc. \n
+The book generator that produced this novel is a Python program that outputs a Markdown text file designed to be converted into PDF form via Pandoc. The source code for the NaNoGenMo version can be found at https://github.com/ikarth/ViaAppiaNovel in a git repository. \n
 
 ~~~
 pandoc output.markdown -S --normalize --toc \\
@@ -59,7 +62,8 @@ The book generator uses data from the Perseus Digital Library, the Pelagios Proj
 
 
 \n
-\\cleardoublepage"""
+\\cleardoublepage
+\n"""
     return intro_text
 
 def writeToBook(text):
@@ -67,7 +71,7 @@ def writeToBook(text):
         return
     global book_text
     if DISPLAY_TEXT_WHILE_WRITING:
-        pprint.pprint(text)
+        print(text)
     book_text.append(text)
 
 def readBook():
@@ -94,23 +98,23 @@ def textQuotation(t):
     author_name = t['author']
     title_data = {'place': place_name, 'author': author_name, 'book': t['book_title']}
     if author_name == "Virgil":
-        writeToBook("## {place} in Virgil's _{book}_".format(**title_data))
+        writeToBook("## {place} in Virgil's _{book}_".format(**title_data).title())
     else:    
         book_string = "## " + str(random.choice(possible_story_titles)) + ""
-        writeToBook(book_string.format(**title_data))
-    writeToBook(h.handle(t['text']))
+        writeToBook(book_string.format(**title_data).title())
+    writeToBook(convertHTML(t['text']))
     #writeToBook(t['text'])
     pass
 
 def textTravel(t):
     print(t)
     if t['text']:
-        writeToBook(h.handle(t['text']))
+        writeToBook(convertHTML(t['text']))
     #writeToBook(t['text'])
     pass
 
 def textPlaceholder(t):
-    writeToBook(h.handle(t['text']))
+    writeToBook(convertHTML(t['text']))
     pass
 
 def addCitation(t):
@@ -123,7 +127,7 @@ def addCitation(t):
 
 
 def chapterStart(t):
-    writeToBook(t['text'])
+    writeToBook(t['text'].title())
     pass
 
 def chapterEnd(t):

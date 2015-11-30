@@ -28,7 +28,7 @@ Isaac Karth
 
 ## Technical Notes 
 
-The book generator is a Python program that outputs a Markdown text file designed to be converted into PDF form via Pandoc. 
+The book generator that produced this novel is a Python program that outputs a Markdown text file designed to be converted into PDF form via Pandoc. The source code for the NaNoGenMo version can be found at https://github.com/ikarth/ViaAppiaNovel in a git repository. 
 
 
 ~~~
@@ -43,73 +43,116 @@ pandoc output.markdown -S --normalize --toc \
 -V documentclass=book
 ~~~
 
-This copy was generated \today, with seeds of 753 and 3468
+This copy was generated \today, with seeds of 753 and 3468.
+
+
+The book generator uses data from the Perseus Digital Library, the Pelagios Project, the Pleiades Project, and ORBIS: The Stanford Geospatial Network Model of the Roman World.
+
+
 
 
 
 \cleardoublepage
 
-# Roma to Iader
 
-Virgil departed from Roma, intending to travel on a boat heading upstream to Ocriculum, a journey of about 64 miles. 
+# Roma To Iader
+  
+## After Roma
 
-A breeze from an unexpected quarter cools the air. A cloud passes in front of the sun. 
+Virgil departed from Roma, intending to travel on a boat heading upstream to Ocriculum, about 64 miles away. 
+
+He presses onward. The sun beats down. A breeze from an unexpected quarter cools the air. 
 
 Insert story about 413231
 
 Insert story about ['42.412', '12.467']
 
-Leaving Ocriculum, Virgil set out for Narnia by road, a distance of about 8 miles. 
+  
+## Travelling by road
 
-Now the road is quieter. His shoes are covered in dust from the road. Along the road are graves, and a cenotaph. He passes another milestone. He set out from {from} amidst a throng travelling the same way. They pass a pillar on the right surmounted by a stone urn. By the road is a salt spring. 
+Virgil departed from Ocriculum, intending to travel by road to Narnia, a journey of about 8 miles. 
+
+A grove of Minerva is hard by the road, a grove of poplar trees. Now the road is quieter. As they go up from Ocriculum, they see the ruined walls. Water has washed out the road, making for slow going. He left the city early, before the rising of the sun. 
 
 Insert story about 413225
 
 Insert story about ['42.52', '12.516']
 
-From Narnia to Spoletium is about 22 miles away when travelling by road. 
+  
+## To Spoletium
 
-A caravan from {destination} passed by. He left the city early, before the rising of the sun. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. 
+Intending to travel by road to Spoletium, Virgil left Narnia. It was a distance of about 22 miles. 
+
+A grove of Minerva is hard by the road, a grove of poplar trees. Above the roads are ruins, among which is a cave sacred to Asclepius. A caravan from Spoletium passed by. There is a fountain of cold water springing from the rock. The road narrows here, an orchard wall encroaching on it. Water has washed out the road, making for slow going. As they go up from Narnia, they see the ruined walls. He had set out from Narnia amidst a throng travelling the same way. 
 
 Insert story about 413320
 
 Insert story about ['42.745', '12.738']
 
-Virgil departed from Spoletium, intending to travel by road to Fanum Fortunae, at least 90 miles. 
+  
+## To Fanum Fortunae by road
 
-Now the road is quieter. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. A caravan from {destination} passed by. There is a fountain of cold water springing from the rock. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. He left the city early, before the rising of the sun. 
+Intending to travel by road to Fanum Fortunae, Virgil left Spoletium. It was at least 90 miles. 
+
+He left the city early, before the rising of the sun. A caravan from Fanum Fortunae passed by. A cloud passes in front of the sun. An oxcart passes, loaded with grain. He had set out from Spoletium amidst a throng travelling the same way. A grove of Minerva is hard by the road, a grove of poplar trees. 
 
 Insert story about 413129
 
 Insert story about ['43.845', '13.017']
 
-From Fanum Fortunae to Ariminum is at least 38 miles when travelling by ship down the coast. 
+  
+## Leaving Fanum Fortunae by ship
 
-A gust of the shrill north strikes full on the sail and raises the waves up to heaven. Down in a heap comes a broken mountain of water. The yawning billow shows ground amid the surge, where the sea churns with sand. As she lies the billow sends her spinning thrice round with it, and engulfs her in the swift whirl. Scattered swimmers appear in the vast eddy; armour of men, timbers and treasure amid the water. 
+Leaving Fanum Fortunae, Virgil set out for Ariminum by ship down the coast, a distance of about 38 miles. 
+
+The wave shuddered and gloomed.   
+  
+They are tossed asunder over the dreary gulf. Then was land at last seen to rise, discovering distant hills and sending up wreaths of smoke.   
+  
+A fair harbor lies on either side of the city and the entrance is narrow. 
 
 Insert story about 393379
 
 Insert story about ['44.059', '12.563']
 
-From Ariminum to Fanum Fortunae is at least 38 miles when travelling by ship down the coast. 
+  
+## After Ariminum
 
-Black night broods on the waters. All nature, big with instant ruin, frowned destruction. Down in a heap comes a broken mountain of water. The yawning billow shows ground amid the surge, where the sea churns with sand. They hang on the wave's ridge. The helmsman is dashed away and rolled forward headlong. As she lies the billow sends her spinning thrice round with it, and engulfs her in the swift whirl. Scattered swimmers appear in the vast eddy; armour of men, timbers and treasure amid the water. 
+Virgil departed from Ariminum, intending to travel by ship down the coast to Fanum Fortunae, a distance of about 38 miles. 
+
+A dusky shower drew up overhead carrying night and tempest. The wave shuddered and gloomed.   
+  
+They all have stations for their ships, each man one for himself. They care for the shapely ships, rejoicing in that which they cross over the grey sea. 
 
 Insert story about 413129
 
 Insert story about ['43.845', '13.017']
 
-Leaving Fanum Fortunae, Virgil set out for Ancona by ship down the coast, a distance of about 42 miles. 
+  
+## Departing from Fanum Fortunae
 
-Then comes the creak of cables and the cries of seamen. All around from pole to pole the rattling peals resound. The oars are snapped. The south wind catches and hurls a ship on hidden rocks. Rocks amid the waves, a vast reef banking the sea. Before their eyes a vast sea descending strikes astern. 
+Leaving Fanum Fortunae, Virgil set out for Ancona by ship down the coast, at least 42 miles. 
+
+The wave shuddered and gloomed.   
+  
+They are tossed asunder over the dreary gulf. Out of the clouds bursts fire fast upon fire. Then was land at last seen to rise, discovering distant hills and sending up wreaths of smoke.   
+  
+Here they shape the thin oar-blades. 
 
 Insert story about 413014
 
 Insert story about ['43.616', '13.519']
 
-Intending to travel by ship down the coast to Iader, Virgil left Ancona. It was about 107 miles away. 
+  
+## After Ancona
 
-A gust of the shrill north strikes full on the sail and raises the waves up to heaven. The yawning billow shows ground amid the surge, where the sea churns with sand. As she lies the billow sends her spinning thrice round with it, and engulfs her in the swift whirl. 
+Virgil departed from Ancona, intending to travel by ship down the coast to Iader, a distance of about 107 miles. 
+
+A dusky shower drew up overhead carrying night and tempest.   
+  
+Stormclouds enwrap the day, and rainy gloom blots out the sky. Out of the clouds bursts fire fast upon fire. The sails drop; they swing back to the oars.   
+  
+For they care not for bow or quiver, but for masts and oars of ships. They care for the shapely ships, rejoicing in that which they cross over the grey sea. 
 
 Insert story about 197312
 
@@ -117,68 +160,104 @@ Insert story about ['44.115', '15.229']
 
 \newpage
 
+# Iader To Reate
+  
+## 48 miles to Titius (river)
 
-# Iader to Reate
+From Iader to Titius (river) is at least 48 miles when travelling by ship down the coast. 
 
-From Iader to Titius (river) is a distance of about 48 miles when travelling by ship down the coast. 
-
-Clouds the darkened heavens have drowned, and snatched the daylight from their eyes. Black night broods on the waters. All around from pole to pole the rattling peals resound. Piteous to see, it dashes on shoals and girdles with a sandbank. Scattered swimmers appear in the vast eddy; armour of men, timbers and treasure amid the water. 
+The navigator professes he cannot tell day from night on the sky, nor remember the way amid the waters. Clouds the darkened heavens have drowned, and snatched the daylight from their eyes. Black night broods on the waters. Even as he cried, the hurricane from the North struck with a roar against the sailThe shattered oars start forth. The oars are snapped. The yawning billow shows ground amid the surge, where the sea churns with sand. They hang on the wave's ridge. Piteous to see, it dashes on shoals and girdles with a sandbank.   
+  
+The sails drop; they swing back to the oars.   
+  
+Towards the deep doth stand an island, on whose jutting headlands beat the broken billows, shivered into sleet. Betwixt two rows of rocks a sylvan scene appears above, and groves for ever green. Glad at length to greet the welcome earth, the sailors leap to land. 
 
 There was no story for None
 
 Insert story about ['43.72', '15.86']
 
-From Titius (river) to Iader is a distance of about 48 miles when travelling by ship down the coast. 
+  
+## Titius (river) to Iader by ship
 
-A gust of the shrill north strikes full on the sail and raises the waves up to heaven. The prow swings away and gives her side to the waves. Rocks amid the waves, a vast reef banking the sea. The east wind forces a ship from the deep into shallows and quicksands. Before their eyes a vast sea descending strikes astern. Scattered swimmers appear in the vast eddy; armour of men, timbers and treasure amid the water. 
+Intending to travel by ship down the coast to Iader, Virgil left Titius (river). It was a distance of about 48 miles. 
+
+A dusky shower drew up overhead carrying night and tempest. The wave shuddered and gloomed.   
+  
+There, too, is their place of assembly about the fair temple of Poseidon, fitted with huge stones set deep in the earth. For they care not for bow or quiver, but for masts and oars of ships. 
 
 Insert story about 197312
 
 Insert story about ['44.115', '15.229']
 
-Virgil departed from Iader, intending to travel by road to Burnum, a journey of about 40 miles. 
+  
+## After Iader
 
-Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. Above the roads are ruins, among which is a cave sacred to Asclepius. 
+Intending to travel by road to Burnum, Virgil left Iader. It was about 40 miles away. 
+
+A grove of Minerva is hard by the road, a grove of poplar trees. A caravan from Burnum passed by. This is a smooth road, by which many wagons were bringing wood to Burnum. His shoes are covered in dust from the road. Water has washed out the road, making for slow going. 
 
 Insert story about 197184
 
 Insert story about ['44.032', '15.994']
 
-Virgil departed from Burnum, intending to travel by road to Salona, about 50 miles away. 
+  
+## 50 miles to Salona
 
-Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. He left the city early, before the rising of the sun. 
+From Burnum to Salona is at least 50 miles when travelling by road. 
+
+Water has washed out the road, making for slow going. A cloud passes in front of the sun. This is a smooth road, by which many wagons were bringing wood to Salona. They pass a pillar on the right surmounted by a stone urn. He left the city early, before the rising of the sun. A grove of Minerva is hard by the road, a grove of poplar trees. By the road is a salt spring. The sun beats down. Workers are raising the level of the road. 
 
 Insert story about 197488
 
 Insert story about ['43.54', '16.483']
 
-Virgil departed from Salona, intending to travel by ship down the coast to Aternum, a journey of about 153 miles. 
+  
+## Leaving Salona by ship
 
-Clouds the darkened heavens have drowned, and snatched the daylight from their eyes. Frequent flashes light the lurid air. All nature, big with instant ruin, frowned destruction. They hang on the wave's ridge. Scattered swimmers appear in the vast eddy; armour of men, timbers and treasure amid the water. 
+Leaving Salona, Virgil set out for Aternum by ship down the coast, a journey of about 153 miles. 
+
+The sky all round them and all round them the deep. A dusky shower drew up overhead carrying night and tempest.   
+  
+Straightway the winds upturn the main, and great seas rise. Driven from our course, we go wandering on the blind waves. They sweep through the green water.   
+  
+Here they shape the thin oar-blades. They care for the shapely ships, rejoicing in that which they cross over the grey sea. 
 
 Insert story about 413039
 
 Insert story about ['42.465', '14.214']
 
-From Aternum to Castrum Truentinum is about 38 miles away when travelling by ship down the coast. 
+  
+## After Aternum
 
-Clouds the darkened heavens have drowned, and snatched the daylight from their eyes. Frequent flashes light the lurid air. A gust of the shrill north strikes full on the sail and raises the waves up to heaven. The oars are snapped. The prow swings away and gives her side to the waves. The east wind forces a ship from the deep into shallows and quicksands. The helmsman is dashed away and rolled forward headlong. 
+Leaving Aternum, Virgil set out for Castrum Truentinum by ship down the coast, a distance of about 38 miles. 
+
+Straightway the winds upturn the main, and great seas rise. Driven from our course, we go wandering on the blind waves. Black night broods on the waters. A gust of the shrill north strikes full on the sail and raises the waves up to heaven. Up leaped the waves to heaven. The prow swings away and gives her side to the waves. The yawning billow shows ground amid the surge, where the sea churns with sand. They are in the wave's huge hollow. Piteous to see, it dashes on shoals and girdles with a sandbank. Before their eyes a vast sea descending strikes astern. Scattered swimmers appear in the vast eddy; armour of men, timbers and treasure amid the water.   
+  
+The sails drop; they swing back to the oars.   
+  
+Towards the deep doth stand an island, on whose jutting headlands beat the broken billows, shivered into sleet. The waters at their feet sleep hushed, and, like a curtain, frowns above, mixt with the glancing green, the darkness of the grove. A grotto is formed beneath, with mossy seats, to rest the Nereids, and exclude the heats. Down through the crannies of the living walls the crystal streams descend in murmuring falls. The sailors, worn with toils, and spent with woes, leap on the welcome land, and seek their wished-for repose. They lay their weary limbs still dripping on the sand. 
 
 Insert story about 413074
 
 Insert story about ['42.914', '13.904']
 
-Leaving Castrum Truentinum, Virgil set out for Asculum by road, at least 17 miles. 
+  
+## Castrum Truentinum to Asculum by road
 
-He left the city early, before the rising of the sun. Above the roads are ruins, among which is a cave sacred to Asclepius. As they go up from {from}, they see the ruined walls. His shoes are covered in dust from the road. He set out from {from} amidst a throng travelling the same way. 
+Virgil departed from Castrum Truentinum, intending to travel by road to Asculum, a journey of about 17 miles. 
+
+By the road is a salt spring. On the road from Castrum Truentinum to Asculum there is a village, in which there is a temple and grove. His shoes are covered in dust from the road. Above the roads are ruins, among which is a cave sacred to Asclepius. 
 
 Insert story about 413036
 
 Insert story about ['42.855', '13.575']
 
-Intending to travel by road to Reate, Virgil left Asculum. It was at least 59 miles. 
+  
+## Travelling by road to Reate
 
-He passes another milestone. Along the road are graves, and a cenotaph. They pass a pillar on the right surmounted by a stone urn. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. On the road from {from} to {destination} there is a village, in which there is a temple and grove. A caravan from {destination} passed by. There is a fountain of cold water springing from the rock. 
+Leaving Asculum, Virgil set out for Reate by road, about 59 miles away. 
+
+He had set out from Asculum amidst a throng travelling the same way. They pass a pillar on the right surmounted by a stone urn. As they go up from Asculum, they see the ruined walls. There is a fountain of cold water springing from the rock. An oxcart passes, loaded with grain. This is a smooth road, by which many wagons were bringing wood to Reate. 
 
 Insert story about 413283
 
@@ -186,68 +265,106 @@ Insert story about ['42.403', '12.861']
 
 \newpage
 
+# Reate To Formiae
+  
+## Travelling by road
 
-# Reate to Formiae
+Leaving Reate, Virgil set out for Roma by road, a distance of about 44 miles. 
 
-Leaving Reate, Virgil set out for Roma by road, a journey of about 44 miles. 
-
-There is a fountain of cold water springing from the rock. He set out from {from} amidst a throng travelling the same way. His shoes are covered in dust from the road. 
+His shoes are covered in dust from the road. Workers are raising the level of the road. Now the road is quieter. There is a fountain of cold water springing from the rock. The sun beats down. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. A cloud passes in front of the sun. He passes another milestone. He had set out from Reate amidst a throng travelling the same way. 
 
 Insert story about 423025
 
 Insert story about ['41.892', '12.486']
 
-Intending to travel on a boat heading downstream to Ostia/Portus, Virgil left Roma. It was about 17 miles away. 
+  
+## From Roma to Ostia/Portus
 
-The countryside is quieter than the city. 
+Virgil departed from Roma, intending to travel on a boat heading downstream to Ostia/Portus, a distance of about 17 miles. 
+
+Birds sing their greetings. 
 
 Insert story about 422995
 
 Insert story about ['41.755', '12.288']
 
-Intending to travel by ship down the coast to Tarracina, Virgil left Ostia/Portus. It was a journey of about 77 miles. 
+  
+## 77 miles to Tarracina
 
-A gust of the shrill north strikes full on the sail and raises the waves up to heaven. The oars are snapped. Down in a heap comes a broken mountain of water. 
+Virgil departed from Ostia/Portus, intending to travel by ship down the coast to Tarracina, a distance of about 77 miles. 
+
+A dusky shower drew up overhead carrying night and tempest. The breezes woo the sails, and the canvas blows out to the swelling south.   
+  
+The navigator professes he cannot tell day from night on the sky, nor remember the way amid the waters. The sails drop; they swing back to the oars.   
+  
+They all have stations for their ships, each man one for himself. For they care not for bow or quiver, but for masts and oars of ships. 
 
 Insert story about 433143
 
 Insert story about ['41.291', '13.249']
 
-Leaving Tarracina, Virgil set out for Formiae by ship down the coast, a journey of about 24 miles. 
+  
+## Travelling by ship
 
-Black night broods on the waters. All around from pole to pole the rattling peals resound. Frequent flashes light the lurid air. A gust of the shrill north strikes full on the sail and raises the waves up to heaven. The oars are snapped. The south wind catches and hurls a ship on hidden rocks. The helmsman is dashed away and rolled forward headlong. As she lies the billow sends her spinning thrice round with it, and engulfs her in the swift whirl. Scattered swimmers appear in the vast eddy; armour of men, timbers and treasure amid the water. 
+Virgil departed from Tarracina, intending to travel by ship down the coast to Formiae, a distance of about 24 miles. 
 
-Insert story about 432839
-
-Insert story about ['41.256', '13.606']
-
-Virgil departed from Formiae, intending to travel by ship down the coast to Minturnae, about 18 miles away. 
-
-Then comes the creak of cables and the cries of seamen. Black night broods on the waters. All around from pole to pole the rattling peals resound. Frequent flashes light the lurid air. All nature, big with instant ruin, frowned destruction. Rocks amid the waves, a vast reef banking the sea. The helmsman is dashed away and rolled forward headlong. As she lies the billow sends her spinning thrice round with it, and engulfs her in the swift whirl. 
-
-Insert story about 432940
-
-Insert story about ['41.242', '13.769']
-
-Leaving Minturnae, Virgil set out for Formiae by ship down the coast, about 18 miles away. 
-
-Clouds the darkened heavens have drowned, and snatched the daylight from their eyes. Black night broods on the waters. All around from pole to pole the rattling peals resound. The yawning billow shows ground amid the surge, where the sea churns with sand. Piteous to see, it dashes on shoals and girdles with a sandbank. Scattered swimmers appear in the vast eddy; armour of men, timbers and treasure amid the water. 
+The sky all round them and all round them the deep. A dusky shower drew up overhead carrying night and tempest.   
+  
+They all have stations for their ships, each man one for himself. 
 
 Insert story about 432839
 
 Insert story about ['41.256', '13.606']
 
-Intending to travel by ship down the coast to Minturnae, Virgil left Formiae. It was about 18 miles away. 
+  
+## Travelling by ship down the coast to Minturnae
 
-Then comes the creak of cables and the cries of seamen. Clouds the darkened heavens have drowned, and snatched the daylight from their eyes. A gust of the shrill north strikes full on the sail and raises the waves up to heaven. The prow swings away and gives her side to the waves. Down in a heap comes a broken mountain of water. The south wind catches and hurls a ship on hidden rocks. Rocks amid the waves, a vast reef banking the sea. Piteous to see, it dashes on shoals and girdles with a sandbank. Before their eyes a vast sea descending strikes astern. 
+Intending to travel by ship down the coast to Minturnae, Virgil left Formiae. It was a distance of about 18 miles. 
+
+The sky all round them and all round them the deep.   
+  
+Here the men are busied with the tackle of their black ships, with cables and sails. 
 
 Insert story about 432940
 
 Insert story about ['41.242', '13.769']
 
-Leaving Minturnae, Virgil set out for Formiae by ship down the coast, a distance of about 18 miles. 
+  
+## To Formiae
 
-Black night broods on the waters. All nature, big with instant ruin, frowned destruction. Rocks amid the waves, a vast reef banking the sea. The east wind forces a ship from the deep into shallows and quicksands. 
+Leaving Minturnae, Virgil set out for Formiae by ship down the coast, a journey of about 18 miles. 
+
+They spread their sails and ran over the waste sea in their hollow wood. The wave shuddered and gloomed.   
+  
+They all have stations for their ships, each man one for himself. 
+
+Insert story about 432839
+
+Insert story about ['41.256', '13.606']
+
+  
+## From Formiae to Minturnae
+
+From Formiae to Minturnae is at least 18 miles when travelling by ship down the coast. 
+
+The breezes woo the sails, and the canvas blows out to the swelling south.   
+  
+Here they shape the thin oar-blades. 
+
+Insert story about 432940
+
+Insert story about ['41.242', '13.769']
+
+  
+## After Minturnae
+
+Virgil departed from Minturnae, intending to travel by ship down the coast to Formiae, about 18 miles away. 
+
+The sky all round them and all round them the deep.   
+  
+The navigator professes he cannot tell day from night on the sky, nor remember the way amid the waters. Then was land at last seen to rise, discovering distant hills and sending up wreaths of smoke.   
+  
+Here they shape the thin oar-blades. 
 
 Insert story about 432839
 
@@ -255,64 +372,90 @@ Insert story about ['41.256', '13.606']
 
 \newpage
 
+# Formiae To Ocriculum
+  
+## Leaving Formiae by ship
 
-# Formiae to Ocriculum
+Leaving Formiae, Virgil set out for Tarracina by ship down the coast, a journey of about 24 miles. 
 
-Intending to travel by ship down the coast to Tarracina, Virgil left Formiae. It was a distance of about 24 miles. 
-
-Then comes the creak of cables and the cries of seamen. Rocks amid the waves, a vast reef banking the sea. The east wind forces a ship from the deep into shallows and quicksands. Before their eyes a vast sea descending strikes astern. The helmsman is dashed away and rolled forward headlong. 
-
-Insert story about 433143
-
-Insert story about ['41.291', '13.249']
-
-Virgil departed from Tarracina, intending to travel on a boat heading upstream to Forum Appii, at least 14 miles. 
-
-Birds sing their greetings. No backward glances for the city left behind. 
-
-There was no story for None
-
-From Forum Appii to Tarracina is a journey of about 14 miles when travelling on a boat heading downstream. 
-
-A breeze from an unexpected quarter cools the air. No backward glances for the city left behind. 
+The sky all round them and all round them the deep.   
+  
+They are tossed asunder over the dreary gulf. The navigator professes he cannot tell day from night on the sky, nor remember the way amid the waters. The sails drop; they swing back to the oars.   
+  
+A fair harbor lies on either side of the city and the entrance is narrow. They all have stations for their ships, each man one for himself. 
 
 Insert story about 433143
 
 Insert story about ['41.291', '13.249']
+
+  
+## Leaving Tarracina by upriver
 
 Leaving Tarracina, Virgil set out for Forum Appii on a boat heading upstream, a journey of about 14 miles. 
 
-No backward glances for the city left behind. The sun beats down. A cloud passes in front of the sun. 
+The countryside is quieter than the city. A cloud passes in front of the sun. 
 
 There was no story for None
 
-Leaving Forum Appii, Virgil set out for Roma by road, a distance of about 42 miles. 
+  
+## Travelling by downstream
 
-He set out from {from} amidst a throng travelling the same way. A caravan from {destination} passed by. They pass a pillar on the right surmounted by a stone urn. He left the city early, before the rising of the sun. There is a fountain of cold water springing from the rock. A cloud passes in front of the sun. 
+From Forum Appii to Tarracina is about 14 miles away when travelling on a boat heading downstream. 
+
+He presses onward. 
+
+Insert story about 433143
+
+Insert story about ['41.291', '13.249']
+
+  
+## Leaving Tarracina by upriver
+
+From Tarracina to Forum Appii is about 14 miles away when travelling on a boat heading upstream. 
+
+He presses onward. The sun beats down. 
+
+There was no story for None
+
+  
+## Departing from Forum Appii
+
+From Forum Appii to Roma is a distance of about 42 miles when travelling by road. 
+
+He had set out from Forum Appii amidst a throng travelling the same way. On the road from Forum Appii to Roma there is a village, in which there is a temple and grove. Workers are raising the level of the road. Next to the straight road that leads to Roma, there is visible a sculpted tomb. He left the city early, before the rising of the sun. This is a smooth road, by which many wagons were bringing wood to Roma. Water has washed out the road, making for slow going. As they go up from Forum Appii, they see the ruined walls. 
 
 Insert story about 423025
 
 Insert story about ['41.892', '12.486']
 
-Virgil departed from Roma, intending to travel on a boat heading upstream to Ocriculum, a distance of about 64 miles. 
+  
+## To Ocriculum by upriver
 
-A cloud passes in front of the sun. 
+Virgil departed from Roma, intending to travel on a boat heading upstream to Ocriculum, about 64 miles away. 
+
+The journey is more tiring than you might expect. 
 
 Insert story about 413231
 
 Insert story about ['42.412', '12.467']
 
-Leaving Ocriculum, Virgil set out for Narnia by road, about 8 miles away. 
+  
+## To Narnia
 
-Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. Above the roads are ruins, among which is a cave sacred to Asclepius. He passes another milestone. The sun beats down.. 
+Virgil departed from Ocriculum, intending to travel by road to Narnia, at least 8 miles. 
+
+A grove of Minerva is hard by the road, a grove of poplar trees. By the road is a salt spring. An oxcart passes, loaded with grain. Above the roads are ruins, among which is a cave sacred to Asclepius. Along the road are graves, and a cenotaph. His shoes are covered in dust from the road. 
 
 Insert story about 413225
 
 Insert story about ['42.52', '12.516']
 
-From Narnia to Ocriculum is about 8 miles away when travelling by road. 
+  
+## Travelling by road
 
-Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. He passes another milestone. Above the roads are ruins, among which is a cave sacred to Asclepius. 
+From Narnia to Ocriculum is a distance of about 8 miles when travelling by road. 
+
+They pass a pillar on the right surmounted by a stone urn. On the road from Narnia to Ocriculum there is a village, in which there is a temple and grove. He left the city early, before the rising of the sun. There a spring wells up, and around about it is a meadow. Water has washed out the road, making for slow going. An oxcart passes, loaded with grain. Next to the straight road that leads to Ocriculum, there is visible a sculpted tomb. Above the roads are ruins, among which is a cave sacred to Asclepius. 
 
 Insert story about 413231
 
@@ -320,66 +463,92 @@ Insert story about ['42.412', '12.467']
 
 \newpage
 
-
-# Ocriculum to Placentia
+# Ocriculum To Placentia
+  
+## Departing from Ocriculum
 
 Leaving Ocriculum, Virgil set out for Narnia by road, a journey of about 8 miles. 
 
-As they go up from {from}, they see the ruined walls. The sun beats down.. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. 
+Above the roads are ruins, among which is a cave sacred to Asclepius. His shoes are covered in dust from the road. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. He passes another milestone. Along the road are graves, and a cenotaph. An oxcart passes, loaded with grain. 
 
 Insert story about 413225
 
 Insert story about ['42.52', '12.516']
 
-Virgil departed from Narnia, intending to travel by road to Spoletium, a distance of about 22 miles. 
+  
+## From Narnia to Spoletium
 
-Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. Now the road is quieter. By the road is a salt spring. There is a fountain of cold water springing from the rock. A caravan from {destination} passed by. On the road from {from} to {destination} there is a village, in which there is a temple and grove. 
+From Narnia to Spoletium is about 22 miles away when travelling by road. 
+
+There a spring wells up, and around about it is a meadow. Above the roads are ruins, among which is a cave sacred to Asclepius. A cloud passes in front of the sun. Now the road is quieter. He had set out from Narnia amidst a throng travelling the same way. 
 
 Insert story about 413320
 
 Insert story about ['42.745', '12.738']
 
-Virgil departed from Spoletium, intending to travel by road to Fanum Fortunae, about 90 miles away. 
+  
+## To Fanum Fortunae
 
-He set out from {from} amidst a throng travelling the same way. His shoes are covered in dust from the road. They pass a pillar on the right surmounted by a stone urn. The sun beats down.. 
+Virgil departed from Spoletium, intending to travel by road to Fanum Fortunae, a distance of about 90 miles. 
+
+A cloud passes in front of the sun. A grove of Minerva is hard by the road, a grove of poplar trees. The road narrows here, an orchard wall encroaching on it. A caravan from Fanum Fortunae passed by. Water has washed out the road, making for slow going. There is a fountain of cold water springing from the rock. He had set out from Spoletium amidst a throng travelling the same way. By the road is a salt spring. 
 
 Insert story about 413129
 
 Insert story about ['43.845', '13.017']
 
-From Fanum Fortunae to Ariminum is at least 38 miles when travelling by ship down the coast. 
+  
+## Fanum Fortunae to Ariminum by ship
 
-Frequent flashes light the lurid air. The oars are snapped. Scattered swimmers appear in the vast eddy; armour of men, timbers and treasure amid the water. 
+Leaving Fanum Fortunae, Virgil set out for Ariminum by ship down the coast, at least 38 miles. 
+
+A dusky shower drew up overhead carrying night and tempest. The wave shuddered and gloomed.   
+  
+The navigator professes he cannot tell day from night on the sky, nor remember the way amid the waters. They sweep through the green water.   
+  
+A fair harbor lies on either side of the city and the entrance is narrow. Curved ships are drawn up along the road. Here the men are busied with the tackle of their black ships, with cables and sails. 
 
 Insert story about 393379
 
 Insert story about ['44.059', '12.563']
 
-Intending to travel by road to Faventia, Virgil left Ariminum. It was a journey of about 38 miles. 
+  
+## The journey to Faventia
 
-The sun beats down.. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. As they go up from {from}, they see the ruined walls. A caravan from {destination} passed by. He passes another milestone. He left the city early, before the rising of the sun. On the road from {from} to {destination} there is a village, in which there is a temple and grove. 
+Virgil departed from Ariminum, intending to travel by road to Faventia, a journey of about 38 miles. 
+
+This is a smooth road, by which many wagons were bringing wood to Faventia. There a spring wells up, and around about it is a meadow. A grove of Minerva is hard by the road, a grove of poplar trees. The sun beats down. Next to the straight road that leads to Faventia, there is visible a sculpted tomb. 
 
 Insert story about 393420
 
 Insert story about ['44.286', '11.884']
 
-Leaving Faventia, Virgil set out for Bononia by road, about 30 miles away. 
+  
+## Leaving Faventia by road
 
-They pass a pillar on the right surmounted by a stone urn. There is a fountain of cold water springing from the rock. Above the roads are ruins, among which is a cave sacred to Asclepius. He left the city early, before the rising of the sun. 
+Virgil departed from Faventia, intending to travel by road to Bononia, about 30 miles away. 
+
+They pass a pillar on the right surmounted by a stone urn. His shoes are covered in dust from the road. Above the roads are ruins, among which is a cave sacred to Asclepius. A grove of Minerva is hard by the road, a grove of poplar trees. 
 
 Insert story about 393421
 
 Insert story about ['44.495', '11.349']
 
-Leaving Bononia, Virgil set out for a village on a military boat floating downstream, a journey of about 39 miles. 
+  
+## Departing from Bononia
 
-A breeze from an unexpected quarter cools the air. He presses onward. 
+Leaving Bononia, Virgil set out for a village on a military boat floating downstream, about 39 miles away. 
+
+A cloud passes in front of the sun. 
 
 There was no story for None
 
-From a village to Placentia is about 140 miles away when travelling on a military boat headed upstream. 
+  
+## Travelling on a military boat headed upstream to Placentia
 
-The sun beats down. No backward glances for the city left behind. The countryside is quieter than the city. 
+Leaving a village, Virgil set out for Placentia on a military boat headed upstream, at least 140 miles. 
+
+Birds sing their greetings. A cloud passes in front of the sun. 
 
 Insert story about 383741
 
@@ -387,64 +556,92 @@ Insert story about ['45.052', '9.699']
 
 \newpage
 
+# Placentia To Altinum
+  
+## To a village by road
 
-# Placentia to Altinum
+Leaving Placentia, Virgil set out for a village by road, at least 11 miles. 
 
-From Placentia to a village is a distance of about 11 miles when travelling by road. 
-
-As they go up from {from}, they see the ruined walls. He left the city early, before the rising of the sun. He passes another milestone. By the road is a salt spring. They pass a pillar on the right surmounted by a stone urn. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. 
+He left the city early, before the rising of the sun. They pass a pillar on the right surmounted by a stone urn. On the road from Placentia to a village there is a village, in which there is a temple and grove. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. The road narrows here, an orchard wall encroaching on it. 
 
 There was no story for None
 
-From a village to Mediolanum is a distance of about 27 miles when travelling by road. 
+  
+## To Mediolanum by road
 
-The sun beats down.. By the road is a salt spring. He passes another milestone. A cloud passes in front of the sun. He set out from {from} amidst a throng travelling the same way. As they go up from {from}, they see the ruined walls. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. 
+Virgil departed from a village, intending to travel by road to Mediolanum, at least 27 miles. 
+
+As they go up from a village, they see the ruined walls. This is a smooth road, by which many wagons were bringing wood to Mediolanum. By the road is a salt spring. Now the road is quieter. 
 
 Insert story about 383706
 
 Insert story about ['45.464', '9.188']
 
-Virgil departed from Mediolanum, intending to travel by road to Verona, a journey of about 101 miles. 
+  
+## Travelling by road
 
-A caravan from {destination} passed by. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. Now the road is quieter. His shoes are covered in dust from the road. On the road from {from} to {destination} there is a village, in which there is a temple and grove. He left the city early, before the rising of the sun. 
+From Mediolanum to Verona is a journey of about 101 miles when travelling by road. 
+
+This is a smooth road, by which many wagons were bringing wood to Verona. On the road from Mediolanum to Verona there is a village, in which there is a temple and grove. Along the road are graves, and a cenotaph. The road narrows here, an orchard wall encroaching on it. There a spring wells up, and around about it is a meadow. Water has washed out the road, making for slow going. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. 
 
 Insert story about 383816
 
 Insert story about ['45.439', '10.994']
 
-Leaving Verona, Virgil set out for Patavium by road, a distance of about 50 miles. 
+  
+## Departing from Verona
 
-As they go up from {from}, they see the ruined walls. Along the road are graves, and a cenotaph. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. A caravan from {destination} passed by. He passes another milestone. Above the roads are ruins, among which is a cave sacred to Asclepius. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. 
+From Verona to Patavium is at least 50 miles when travelling by road. 
+
+The road narrows here, an orchard wall encroaching on it. A cloud passes in front of the sun. By the road is a salt spring. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. His shoes are covered in dust from the road. There a spring wells up, and around about it is a meadow. There is a fountain of cold water springing from the rock. An oxcart passes, loaded with grain. 
 
 Insert story about 393473
 
 Insert story about ['45.41', '11.877']
 
-Leaving Patavium, Virgil set out for a village by road, about 13 miles away. 
+  
+## To a village
 
-A caravan from {destination} passed by. On the road from {from} to {destination} there is a village, in which there is a temple and grove. He passes another milestone. He set out from {from} amidst a throng travelling the same way. 
+Intending to travel by road to a village, Virgil left Patavium. It was about 13 miles away. 
+
+An oxcart passes, loaded with grain. Next to the straight road that leads to a village, there is visible a sculpted tomb. A cloud passes in front of the sun. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. Workers are raising the level of the road. He had set out from Patavium amidst a throng travelling the same way. 
 
 There was no story for None
 
-Leaving a village, Virgil set out for Altinum by road, a distance of about 14 miles. 
+  
+## Travelling by road
 
-They pass a pillar on the right surmounted by a stone urn. He set out from {from} amidst a throng travelling the same way. He passes another milestone. The sun beats down.. His shoes are covered in dust from the road. 
+Leaving a village, Virgil set out for Altinum by road, at least 14 miles. 
+
+He had set out from a village amidst a throng travelling the same way. Workers are raising the level of the road. As they go up from a village, they see the ruined walls. By the road is a salt spring. They pass a pillar on the right surmounted by a stone urn. Water has washed out the road, making for slow going. A grove of Minerva is hard by the road, a grove of poplar trees. 
 
 Insert story about 393374
 
 Insert story about ['45.579', '12.373']
 
-Intending to travel by ship down the coast to Brundulum, Virgil left Altinum. It was a distance of about 27 miles. 
+  
+## 27 miles to Brundulum
 
-Clouds the darkened heavens have drowned, and snatched the daylight from their eyes. Black night broods on the waters. All around from pole to pole the rattling peals resound. Frequent flashes light the lurid air. Down in a heap comes a broken mountain of water. The east wind forces a ship from the deep into shallows and quicksands. Piteous to see, it dashes on shoals and girdles with a sandbank. Before their eyes a vast sea descending strikes astern. 
+Virgil departed from Altinum, intending to travel by ship down the coast to Brundulum, a distance of about 27 miles. 
+
+A dusky shower drew up overhead carrying night and tempest.   
+  
+A fair harbor lies on either side of the city and the entrance is narrow. They all have stations for their ships, each man one for himself. 
 
 There was no story for None
 
 Insert story about ['45.19', '12.31']
 
-From Brundulum to Altinum is about 27 miles away when travelling by ship down the coast. 
+  
+## The journey to Altinum
 
-Then comes the creak of cables and the cries of seamen. The oars are snapped. They hang on the wave's ridge. The east wind forces a ship from the deep into shallows and quicksands. 
+Intending to travel by ship down the coast to Altinum, Virgil left Brundulum. It was a distance of about 27 miles. 
+
+They spread their sails and ran over the waste sea in their hollow wood. The breezes woo the sails, and the canvas blows out to the swelling south.   
+  
+Driven from our course, we go wandering on the blind waves. Dubious days of blind darkness we wander on the deep, nights without a star. Without delay the sailors strongly toss up the foam.   
+  
+For they care not for bow or quiver, but for masts and oars of ships. They care for the shapely ships, rejoicing in that which they cross over the grey sea. 
 
 Insert story about 393374
 
@@ -452,68 +649,90 @@ Insert story about ['45.579', '12.373']
 
 \newpage
 
-
-# Altinum to Pons Drusi
+# Altinum To Pons Drusi
+  
+## Altinum to Iulia Concordia by road
 
 Virgil departed from Altinum, intending to travel by road to Iulia Concordia, at least 26 miles. 
 
-Above the roads are ruins, among which is a cave sacred to Asclepius. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. 
+The road narrows here, an orchard wall encroaching on it. The sun beats down. He passes another milestone. He left the city early, before the rising of the sun. Water has washed out the road, making for slow going. He had set out from Altinum amidst a throng travelling the same way. This is a smooth road, by which many wagons were bringing wood to Iulia Concordia. 
 
 Insert story about 393441
 
 Insert story about ['45.757', '12.844']
 
-Leaving Iulia Concordia, Virgil set out for Aquileia by road, about 26 miles away. 
+  
+## Iulia Concordia to Aquileia by road
 
-By the road is a salt spring. Above the roads are ruins, among which is a cave sacred to Asclepius. He left the city early, before the rising of the sun. As they go up from {from}, they see the ruined walls. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. A cloud passes in front of the sun. 
+Intending to travel by road to Aquileia, Virgil left Iulia Concordia. It was a distance of about 26 miles. 
+
+By the road is a salt spring. This is a smooth road, by which many wagons were bringing wood to Aquileia. Now the road is quieter. His shoes are covered in dust from the road. A caravan from Aquileia passed by. They pass a pillar on the right surmounted by a stone urn. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. There is a fountain of cold water springing from the rock. 
 
 Insert story about 187290
 
 Insert story about ['45.768', '13.365']
 
-Leaving Aquileia, Virgil set out for Ad Tricesimum by road, a distance of about 28 miles. 
+  
+## To Ad Tricesimum by road
 
-Along the road are graves, and a cenotaph. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. 
+Leaving Aquileia, Virgil set out for Ad Tricesimum by road, at least 28 miles. 
+
+An oxcart passes, loaded with grain. The sun beats down. A caravan from Ad Tricesimum passed by. His shoes are covered in dust from the road. There is a fountain of cold water springing from the rock. Above the roads are ruins, among which is a cave sacred to Asclepius. By the road is a salt spring. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. 
 
 Insert story about 187259
 
 Insert story about ['46.158', '13.216']
 
+  
+## To Aquileia by road
+
 Leaving Ad Tricesimum, Virgil set out for Aquileia by road, at least 28 miles. 
 
-They pass a pillar on the right surmounted by a stone urn. A cloud passes in front of the sun. 
+Next to the straight road that leads to Aquileia, there is visible a sculpted tomb. Workers are raising the level of the road. A grove of Minerva is hard by the road, a grove of poplar trees. There is a fountain of cold water springing from the rock. There a spring wells up, and around about it is a meadow. They pass a pillar on the right surmounted by a stone urn. 
 
 Insert story about 187290
 
 Insert story about ['45.768', '13.365']
 
+  
+## Travelling by road
+
 Leaving Aquileia, Virgil set out for Iulia Concordia by road, about 26 miles away. 
 
-He left the city early, before the rising of the sun. There is a fountain of cold water springing from the rock. He set out from {from} amidst a throng travelling the same way. By the road is a salt spring. 
+Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. On the road from Aquileia to Iulia Concordia there is a village, in which there is a temple and grove. He left the city early, before the rising of the sun. Along the road are graves, and a cenotaph. 
 
 Insert story about 393441
 
 Insert story about ['45.757', '12.844']
 
-Intending to travel by road to Tridentum, Virgil left Iulia Concordia. It was about 103 miles away. 
+  
+## To Tridentum
 
-They pass a pillar on the right surmounted by a stone urn. Now the road is quieter. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. 
+Virgil departed from Iulia Concordia, intending to travel by road to Tridentum, a journey of about 103 miles. 
+
+Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. He left the city early, before the rising of the sun. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. As they go up from Iulia Concordia, they see the ruined walls. This is a smooth road, by which many wagons were bringing wood to Tridentum. There is a fountain of cold water springing from the rock. 
 
 Insert story about 383804
 
 Insert story about ['46.067', '11.119']
 
-Virgil departed from Tridentum, intending to travel by road to Endidae, about 20 miles away. 
+  
+## To Endidae by road
 
-On the road from {from} to {destination} there is a village, in which there is a temple and grove. There is a fountain of cold water springing from the rock. He set out from {from} amidst a throng travelling the same way. As they go up from {from}, they see the ruined walls. 
+From Tridentum to Endidae is about 20 miles away when travelling by road. 
+
+An oxcart passes, loaded with grain. Above the roads are ruins, among which is a cave sacred to Asclepius. He passes another milestone. Now the road is quieter. A cloud passes in front of the sun. They pass a pillar on the right surmounted by a stone urn. Water has washed out the road, making for slow going. As they go up from Tridentum, they see the ruined walls. 
 
 Insert story about 187368
 
 Insert story about ['46.318', '11.274']
 
-Leaving Endidae, Virgil set out for Pons Drusi by road, a distance of about 13 miles. 
+  
+## After Endidae
 
-The sun beats down.. His shoes are covered in dust from the road. By the road is a salt spring. Along the road are graves, and a cenotaph. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. A caravan from {destination} passed by. He passes another milestone. 
+From Endidae to Pons Drusi is a distance of about 13 miles when travelling by road. 
+
+There is a fountain of cold water springing from the rock. By the road is a salt spring. He had set out from Endidae amidst a throng travelling the same way. An oxcart passes, loaded with grain. A grove of Minerva is hard by the road, a grove of poplar trees. He passes another milestone. 
 
 Insert story about 187518
 
@@ -521,64 +740,86 @@ Insert story about ['46.497', '11.358']
 
 \newpage
 
+# Pons Drusi To Brigantium
+  
+## To a village by road
 
-# Pons Drusi to Brigantium
+Intending to travel by road to a village, Virgil left Pons Drusi. It was about 28 miles away. 
 
-From Pons Drusi to a village is at least 28 miles when travelling by road. 
-
-Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. Now the road is quieter. He passes another milestone. 
+He passes another milestone. The sun beats down. Above the roads are ruins, among which is a cave sacred to Asclepius. This is a smooth road, by which many wagons were bringing wood to a village. Now the road is quieter. There is a fountain of cold water springing from the rock. By the road is a salt spring. He left the city early, before the rising of the sun. An oxcart passes, loaded with grain. 
 
 There was no story for None
 
-Leaving a village, Virgil set out for Veldidena by road, at least 41 miles. 
+  
+## After a village
 
-Along the road are graves, and a cenotaph. On the road from {from} to {destination} there is a village, in which there is a temple and grove. A caravan from {destination} passed by. Now the road is quieter. He passes another milestone. They pass a pillar on the right surmounted by a stone urn. 
+Intending to travel by road to Veldidena, Virgil left a village. It was a journey of about 41 miles. 
+
+Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. Above the roads are ruins, among which is a cave sacred to Asclepius. A cloud passes in front of the sun. His shoes are covered in dust from the road. They pass a pillar on the right surmounted by a stone urn. Along the road are graves, and a cenotaph. 
 
 Insert story about 187608
 
 Insert story about ['47.254', '11.4']
 
-Leaving Veldidena, Virgil set out for a village by road, a journey of about 41 miles. 
+  
+## Leaving Veldidena by road
 
-Above the roads are ruins, among which is a cave sacred to Asclepius. A caravan from {destination} passed by. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. 
+From Veldidena to a village is at least 41 miles when travelling by road. 
+
+By the road is a salt spring. He passes another milestone. Workers are raising the level of the road. They pass a pillar on the right surmounted by a stone urn. Next to the straight road that leads to a village, there is visible a sculpted tomb. On the road from Veldidena to a village there is a village, in which there is a temple and grove. 
 
 There was no story for None
 
-Intending to travel by road to Pons Drusi, Virgil left a village. It was a journey of about 28 miles. 
+  
+## 28 miles to Pons Drusi
 
-His shoes are covered in dust from the road. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. Now the road is quieter. The sun beats down.. 
+Virgil departed from a village, intending to travel by road to Pons Drusi, a distance of about 28 miles. 
+
+There a spring wells up, and around about it is a meadow. His shoes are covered in dust from the road. As they go up from a village, they see the ruined walls. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. This is a smooth road, by which many wagons were bringing wood to Pons Drusi. 
 
 Insert story about 187518
 
 Insert story about ['46.497', '11.358']
 
-Virgil departed from Pons Drusi, intending to travel by road to Maiensis Statio, a distance of about 15 miles. 
+  
+## To Maiensis Statio
 
-A cloud passes in front of the sun. By the road is a salt spring. 
+Intending to travel by road to Maiensis Statio, Virgil left Pons Drusi. It was at least 15 miles. 
+
+On the road from Pons Drusi to Maiensis Statio there is a village, in which there is a temple and grove. An oxcart passes, loaded with grain. His shoes are covered in dust from the road. Now the road is quieter. There is a fountain of cold water springing from the rock. Water has washed out the road, making for slow going. Along the road are graves, and a cenotaph. This is a smooth road, by which many wagons were bringing wood to Maiensis Statio. 
 
 There was no story for None
 
 Insert story about ['0', '0']
 
-Virgil departed from Maiensis Statio, intending to travel by road to Abodiacum, about 140 miles away. 
+  
+## Departing from Maiensis Statio
 
-Above the roads are ruins, among which is a cave sacred to Asclepius. A caravan from {destination} passed by. 
+Leaving Maiensis Statio, Virgil set out for Abodiacum by road, a journey of about 140 miles. 
+
+He passes another milestone. On the road from Maiensis Statio to Abodiacum there is a village, in which there is a temple and grove. They pass a pillar on the right surmounted by a stone urn. By the road is a salt spring. A grove of Minerva is hard by the road, a grove of poplar trees. He left the city early, before the rising of the sun. A caravan from Abodiacum passed by. Workers are raising the level of the road. Water has washed out the road, making for slow going. 
 
 Insert story about 187242
 
 Insert story about ['47.91', '10.91']
 
-Virgil departed from Abodiacum, intending to travel by road to Cambodunum, at least 31 miles. 
+  
+## To Cambodunum
 
-He set out from {from} amidst a throng travelling the same way. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. He passes another milestone. On the road from {from} to {destination} there is a village, in which there is a temple and grove. His shoes are covered in dust from the road. The sun beats down.. Now the road is quieter. 
+Leaving Abodiacum, Virgil set out for Cambodunum by road, a journey of about 31 miles. 
+
+Along the road are graves, and a cenotaph. There is a fountain of cold water springing from the rock. An oxcart passes, loaded with grain. By the road is a salt spring. They pass a pillar on the right surmounted by a stone urn. 
 
 Insert story about 187335
 
 Insert story about ['47.727', '10.327']
 
-Leaving Cambodunum, Virgil set out for Brigantium by road, about 36 miles away. 
+  
+## From Cambodunum to Brigantium
 
-The sun beats down.. He passes another milestone. They pass a pillar on the right surmounted by a stone urn. Along the road are graves, and a cenotaph. He left the city early, before the rising of the sun. 
+Virgil departed from Cambodunum, intending to travel by road to Brigantium, about 36 miles away. 
+
+The road narrows here, an orchard wall encroaching on it. As they go up from Cambodunum, they see the ruined walls. Now the road is quieter. A caravan from Brigantium passed by. 
 
 Insert story about 187325
 
@@ -586,68 +827,90 @@ Insert story about ['47.503', '9.747']
 
 \newpage
 
+# Brigantium To Aventicum
+  
+## 50 miles to Curia
 
-# Brigantium to Aventicum
+Virgil departed from Brigantium, intending to travel by road to Curia, a distance of about 50 miles. 
 
-From Brigantium to Curia is a distance of about 50 miles when travelling by road. 
-
-Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. There is a fountain of cold water springing from the rock. By the road is a salt spring. His shoes are covered in dust from the road. He set out from {from} amidst a throng travelling the same way. As they go up from {from}, they see the ruined walls. 
+Water has washed out the road, making for slow going. On the road from Brigantium to Curia there is a village, in which there is a temple and grove. A caravan from Curia passed by. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. 
 
 Insert story about 187357
 
 Insert story about ['46.849', '9.531']
 
+  
+## Leaving Curia by road
+
 From Curia to Comum is about 92 miles away when travelling by road. 
 
-As they go up from {from}, they see the ruined walls. He passes another milestone. Now the road is quieter. He set out from {from} amidst a throng travelling the same way. He left the city early, before the rising of the sun. A cloud passes in front of the sun. By the road is a salt spring. 
+There is a fountain of cold water springing from the rock. Next to the straight road that leads to Comum, there is visible a sculpted tomb. There a spring wells up, and around about it is a meadow. He left the city early, before the rising of the sun. The sun beats down. A grove of Minerva is hard by the road, a grove of poplar trees. 
 
 Insert story about 383627
 
 Insert story about ['45.812', '9.086']
 
-From Comum to Curia is at least 92 miles when travelling by road. 
+  
+## 92 miles to Curia
 
-He left the city early, before the rising of the sun. A caravan from {destination} passed by. He set out from {from} amidst a throng travelling the same way. As they go up from {from}, they see the ruined walls. The sun beats down.. By the road is a salt spring. Now the road is quieter. 
+Virgil departed from Comum, intending to travel by road to Curia, about 92 miles away. 
+
+An oxcart passes, loaded with grain. Along the road are graves, and a cenotaph. He left the city early, before the rising of the sun. He had set out from Comum amidst a throng travelling the same way. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. By the road is a salt spring. Next to the straight road that leads to Curia, there is visible a sculpted tomb. His shoes are covered in dust from the road. 
 
 Insert story about 187357
 
 Insert story about ['46.849', '9.531']
 
-Intending to travel by road to Brigantium, Virgil left Curia. It was a journey of about 50 miles. 
+  
+## To Brigantium by road
 
-On the road from {from} to {destination} there is a village, in which there is a temple and grove. He left the city early, before the rising of the sun. His shoes are covered in dust from the road. Now the road is quieter. By the road is a salt spring. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. The sun beats down.. 
+Intending to travel by road to Brigantium, Virgil left Curia. It was about 50 miles away. 
+
+The road narrows here, an orchard wall encroaching on it. As they go up from Curia, they see the ruined walls. Next to the straight road that leads to Brigantium, there is visible a sculpted tomb. Above the roads are ruins, among which is a cave sacred to Asclepius. Now the road is quieter. Workers are raising the level of the road. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. There a spring wells up, and around about it is a meadow. Water has washed out the road, making for slow going. 
 
 Insert story about 187325
 
 Insert story about ['47.503', '9.747']
 
-Intending to travel by road to Cambodunum, Virgil left Brigantium. It was at least 36 miles. 
+  
+## Brigantium to Cambodunum by road
 
-Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. There is a fountain of cold water springing from the rock. On the road from {from} to {destination} there is a village, in which there is a temple and grove. 
+From Brigantium to Cambodunum is at least 36 miles when travelling by road. 
+
+A grove of Minerva is hard by the road, a grove of poplar trees. Next to the straight road that leads to Cambodunum, there is visible a sculpted tomb. An oxcart passes, loaded with grain. Workers are raising the level of the road. Along the road are graves, and a cenotaph. He passes another milestone. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. 
 
 Insert story about 187335
 
 Insert story about ['47.727', '10.327']
 
-Virgil departed from Cambodunum, intending to travel by road to Brigantium, at least 36 miles. 
+  
+## 36 miles to Brigantium
 
-He set out from {from} amidst a throng travelling the same way. By the road is a salt spring. On the road from {from} to {destination} there is a village, in which there is a temple and grove. Along the road are graves, and a cenotaph. He left the city early, before the rising of the sun. 
+Intending to travel by road to Brigantium, Virgil left Cambodunum. It was a journey of about 36 miles. 
+
+A caravan from Brigantium passed by. By the road is a salt spring. Next to the straight road that leads to Brigantium, there is visible a sculpted tomb. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. A grove of Minerva is hard by the road, a grove of poplar trees. As they go up from Cambodunum, they see the ruined walls. On the road from Cambodunum to Brigantium there is a village, in which there is a temple and grove. Workers are raising the level of the road. There is a fountain of cold water springing from the rock. 
 
 Insert story about 187325
 
 Insert story about ['47.503', '9.747']
 
-Leaving Brigantium, Virgil set out for Augusta Raurica on a military boat headed upstream, at least 119 miles. 
+  
+## Brigantium to Augusta Raurica by upstream
 
-A breeze from an unexpected quarter cools the air. 
+From Brigantium to Augusta Raurica is a distance of about 119 miles when travelling on a military boat headed upstream. 
+
+Birds sing their greetings. He presses onward. 
 
 Insert story about 177494
 
 Insert story about ['47.533', '7.722']
 
-Intending to travel by road to Aventicum, Virgil left Augusta Raurica. It was at least 58 miles. 
+  
+## Departing from Augusta Raurica
 
-Now the road is quieter. A caravan from {destination} passed by. There is a fountain of cold water springing from the rock. 
+Leaving Augusta Raurica, Virgil set out for Aventicum by road, about 58 miles away. 
+
+Above the roads are ruins, among which is a cave sacred to Asclepius. There is a fountain of cold water springing from the rock. His shoes are covered in dust from the road. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. The sun beats down. 
 
 Insert story about 177495
 
@@ -655,68 +918,90 @@ Insert story about ['46.88', '7.041']
 
 \newpage
 
+# Aventicum To Veldidena
+  
+## To Augusta Raurica by road
 
-# Aventicum to Veldidena
+Intending to travel by road to Augusta Raurica, Virgil left Aventicum. It was at least 58 miles. 
 
-From Aventicum to Augusta Raurica is about 58 miles away when travelling by road. 
-
-He left the city early, before the rising of the sun. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. There is a fountain of cold water springing from the rock. As they go up from {from}, they see the ruined walls. He passes another milestone. 
+He passes another milestone. A cloud passes in front of the sun. The sun beats down. Workers are raising the level of the road. 
 
 Insert story about 177494
 
 Insert story about ['47.533', '7.722']
 
-From Augusta Raurica to Brigantium is at least 119 miles when travelling on a military boat floating downstream. 
+  
+## After Augusta Raurica
 
-The countryside is quieter than the city. A cloud passes in front of the sun. He presses onward. 
+From Augusta Raurica to Brigantium is a journey of about 119 miles when travelling on a military boat floating downstream. 
+
+A breeze from an unexpected quarter cools the air. No backward glances for the city left behind. The journey is more tiring than you might expect. 
 
 Insert story about 187325
 
 Insert story about ['47.503', '9.747']
 
-From Brigantium to Cambodunum is a distance of about 36 miles when travelling by road. 
+  
+## To Cambodunum by road
 
-Now the road is quieter. By the road is a salt spring. His shoes are covered in dust from the road. He left the city early, before the rising of the sun. A cloud passes in front of the sun. They pass a pillar on the right surmounted by a stone urn. 
+Virgil departed from Brigantium, intending to travel by road to Cambodunum, at least 36 miles. 
 
-Insert story about 187335
-
-Insert story about ['47.727', '10.327']
-
-Intending to travel by road to Abodiacum, Virgil left Cambodunum. It was at least 31 miles. 
-
-On the road from {from} to {destination} there is a village, in which there is a temple and grove. He set out from {from} amidst a throng travelling the same way. They pass a pillar on the right surmounted by a stone urn. There is a fountain of cold water springing from the rock. 
-
-Insert story about 187242
-
-Insert story about ['47.91', '10.91']
-
-From Abodiacum to Cambodunum is about 31 miles away when travelling by road. 
-
-The sun beats down.. His shoes are covered in dust from the road. He left the city early, before the rising of the sun. Along the road are graves, and a cenotaph. A cloud passes in front of the sun. By the road is a salt spring. 
+He left the city early, before the rising of the sun. On the road from Brigantium to Cambodunum there is a village, in which there is a temple and grove. This is a smooth road, by which many wagons were bringing wood to Cambodunum. They pass a pillar on the right surmounted by a stone urn. Along the road are graves, and a cenotaph. He had set out from Brigantium amidst a throng travelling the same way. Workers are raising the level of the road. The sun beats down. By the road is a salt spring. 
 
 Insert story about 187335
 
 Insert story about ['47.727', '10.327']
+
+  
+## 31 miles to Abodiacum
 
 From Cambodunum to Abodiacum is a distance of about 31 miles when travelling by road. 
 
-Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. He passes another milestone. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. As they go up from {from}, they see the ruined walls. His shoes are covered in dust from the road. A caravan from {destination} passed by. They pass a pillar on the right surmounted by a stone urn. 
+Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. There is a fountain of cold water springing from the rock. This is a smooth road, by which many wagons were bringing wood to Abodiacum. There a spring wells up, and around about it is a meadow. Workers are raising the level of the road. Water has washed out the road, making for slow going. As they go up from Cambodunum, they see the ruined walls. By the road is a salt spring. They pass a pillar on the right surmounted by a stone urn. 
 
 Insert story about 187242
 
 Insert story about ['47.91', '10.91']
 
-Virgil departed from Abodiacum, intending to travel by road to Parthanum, a distance of about 40 miles. 
+  
+## After Abodiacum
 
-A cloud passes in front of the sun. He left the city early, before the rising of the sun. By the road is a salt spring. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. Now the road is quieter. Along the road are graves, and a cenotaph. 
+From Abodiacum to Cambodunum is about 31 miles away when travelling by road. 
+
+The sun beats down. Now the road is quieter. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. Next to the straight road that leads to Cambodunum, there is visible a sculpted tomb. The road narrows here, an orchard wall encroaching on it. Above the roads are ruins, among which is a cave sacred to Asclepius. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. 
+
+Insert story about 187335
+
+Insert story about ['47.727', '10.327']
+
+  
+## After Cambodunum
+
+From Cambodunum to Abodiacum is a journey of about 31 miles when travelling by road. 
+
+He passes another milestone. They pass a pillar on the right surmounted by a stone urn. The road narrows here, an orchard wall encroaching on it. By the road is a salt spring. Now the road is quieter. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. Workers are raising the level of the road. On the road from Cambodunum to Abodiacum there is a village, in which there is a temple and grove. His shoes are covered in dust from the road. 
+
+Insert story about 187242
+
+Insert story about ['47.91', '10.91']
+
+  
+## Travelling by road to Parthanum
+
+Leaving Abodiacum, Virgil set out for Parthanum by road, a journey of about 40 miles. 
+
+As they go up from Abodiacum, they see the ruined walls. An oxcart passes, loaded with grain. They pass a pillar on the right surmounted by a stone urn. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. He passes another milestone. Now the road is quieter. Water has washed out the road, making for slow going. This is a smooth road, by which many wagons were bringing wood to Parthanum. His shoes are covered in dust from the road. 
 
 Insert story about 187505
 
 Insert story about ['47.492', '11.086']
 
-Virgil departed from Parthanum, intending to travel by road to Veldidena, about 32 miles away. 
+  
+## Parthanum to Veldidena by road
 
-He passes another milestone. Along the road are graves, and a cenotaph. He left the city early, before the rising of the sun. He set out from {from} amidst a throng travelling the same way. 
+From Parthanum to Veldidena is about 32 miles away when travelling by road. 
+
+On the road from Parthanum to Veldidena there is a village, in which there is a temple and grove. He left the city early, before the rising of the sun. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. The sun beats down. Workers are raising the level of the road. As they go up from Parthanum, they see the ruined walls. 
 
 Insert story about 187608
 
@@ -724,190 +1009,256 @@ Insert story about ['47.254', '11.4']
 
 \newpage
 
+# Veldidena To A Village
+  
+## To Parthanum by road
 
-# Veldidena to a village
+From Veldidena to Parthanum is a journey of about 32 miles when travelling by road. 
 
-Virgil departed from Veldidena, intending to travel by road to Parthanum, at least 32 miles. 
-
-A cloud passes in front of the sun. A caravan from {destination} passed by. As they go up from {from}, they see the ruined walls. On the road from {from} to {destination} there is a village, in which there is a temple and grove. Now the road is quieter. 
+He left the city early, before the rising of the sun. On the road from Veldidena to Parthanum there is a village, in which there is a temple and grove. Water has washed out the road, making for slow going. Next to the straight road that leads to Parthanum, there is visible a sculpted tomb. A grove of Minerva is hard by the road, a grove of poplar trees. A caravan from Parthanum passed by. 
 
 Insert story about 187505
 
 Insert story about ['47.492', '11.086']
 
-Virgil departed from Parthanum, intending to travel by road to Veldidena, a distance of about 32 miles. 
+  
+## Travelling by road to Veldidena
 
-There is a fountain of cold water springing from the rock. He left the city early, before the rising of the sun. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. A cloud passes in front of the sun. Along the road are graves, and a cenotaph. As they go up from {from}, they see the ruined walls. 
+From Parthanum to Veldidena is at least 32 miles when travelling by road. 
+
+He passes another milestone. On the road from Parthanum to Veldidena there is a village, in which there is a temple and grove. As they go up from Parthanum, they see the ruined walls. There is a fountain of cold water springing from the rock. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. 
 
 Insert story about 187608
 
 Insert story about ['47.254', '11.4']
 
-Leaving Veldidena, Virgil set out for a village by road, a journey of about 41 miles. 
+  
+## After Veldidena
 
-A cloud passes in front of the sun. There is a fountain of cold water springing from the rock. They pass a pillar on the right surmounted by a stone urn. He passes another milestone. 
+Virgil departed from Veldidena, intending to travel by road to a village, about 41 miles away. 
+
+Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. On the road from Veldidena to a village there is a village, in which there is a temple and grove. There is a fountain of cold water springing from the rock. A caravan from a village passed by. This is a smooth road, by which many wagons were bringing wood to a village. 
 
 There was no story for None
 
-From a village to Aguntum is about 60 miles away when travelling by road. 
+  
+## From a village to Aguntum
 
-There is a fountain of cold water springing from the rock. His shoes are covered in dust from the road. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. 
+Intending to travel by road to Aguntum, Virgil left a village. It was about 60 miles away. 
+
+They pass a pillar on the right surmounted by a stone urn. On the road from a village to Aguntum there is a village, in which there is a temple and grove. Workers are raising the level of the road. A grove of Minerva is hard by the road, a grove of poplar trees. 
 
 Insert story about 187265
 
 Insert story about ['46.827', '12.823']
 
-Intending to travel by road to Iulium Carnicum, Virgil left Aguntum. It was a distance of about 33 miles. 
+  
+## After Aguntum
 
-Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. His shoes are covered in dust from the road. Along the road are graves, and a cenotaph. There is a fountain of cold water springing from the rock. Now the road is quieter. 
+From Aguntum to Iulium Carnicum is at least 33 miles when travelling by road. 
+
+Next to the straight road that leads to Iulium Carnicum, there is visible a sculpted tomb. He left the city early, before the rising of the sun. Workers are raising the level of the road. Along the road are graves, and a cenotaph. 
 
 Insert story about 187430
 
 Insert story about ['46.461', '13.026']
 
-Intending to travel by road to a village, Virgil left Iulium Carnicum. It was at least 9 miles. 
+  
+## The journey to a village
 
-He left the city early, before the rising of the sun. They pass a pillar on the right surmounted by a stone urn. 
+Intending to travel by road to a village, Virgil left Iulium Carnicum. It was a distance of about 9 miles. 
+
+Now the road is quieter. By the road is a salt spring. An oxcart passes, loaded with grain. Along the road are graves, and a cenotaph. He had set out from Iulium Carnicum amidst a throng travelling the same way. On the road from Iulium Carnicum to a village there is a village, in which there is a temple and grove. The sun beats down. 
 
 There was no story for None
 
-Virgil departed from a village, intending to travel by road to Santicum, about 47 miles away. 
+  
+## a village to Santicum by road
 
-Now the road is quieter. A caravan from {destination} passed by. He passes another milestone. 
+Virgil departed from a village, intending to travel by road to Santicum, a distance of about 47 miles. 
+
+A cloud passes in front of the sun. There is a fountain of cold water springing from the rock. His shoes are covered in dust from the road. Above the roads are ruins, among which is a cave sacred to Asclepius. 
 
 Insert story about 187537
 
 Insert story about ['46.616', '13.849']
 
-Intending to travel by road to a village, Virgil left Santicum. It was at least 47 miles. 
+  
+## To a village
 
-On the road from {from} to {destination} there is a village, in which there is a temple and grove. He passes another milestone. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. 
+Virgil departed from Santicum, intending to travel by road to a village, a journey of about 47 miles. 
+
+A grove of Minerva is hard by the road, a grove of poplar trees. An oxcart passes, loaded with grain. He had set out from Santicum amidst a throng travelling the same way. By the road is a salt spring. Above the roads are ruins, among which is a cave sacred to Asclepius. Next to the straight road that leads to a village, there is visible a sculpted tomb. He passes another milestone. This is a smooth road, by which many wagons were bringing wood to a village. There is a fountain of cold water springing from the rock. 
 
 There was no story for None
 
 \newpage
 
+# A Village To A Village
+  
+## After a village
 
-# a village to a village
+Virgil departed from a village, intending to travel by road to Santicum, about 47 miles away. 
 
-From a village to Santicum is at least 47 miles when travelling by road. 
-
-By the road is a salt spring. As they go up from {from}, they see the ruined walls. He passes another milestone. Above the roads are ruins, among which is a cave sacred to Asclepius. 
+Water has washed out the road, making for slow going. The road narrows here, an orchard wall encroaching on it. There is a fountain of cold water springing from the rock. An oxcart passes, loaded with grain. The sun beats down. They pass a pillar on the right surmounted by a stone urn. By the road is a salt spring. 
 
 Insert story about 187537
 
 Insert story about ['46.616', '13.849']
 
-From Santicum to Virunum is at least 28 miles when travelling by road. 
+  
+## The journey to Virunum
 
-Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. He left the city early, before the rising of the sun. Along the road are graves, and a cenotaph. His shoes are covered in dust from the road. He set out from {from} amidst a throng travelling the same way. 
+Virgil departed from Santicum, intending to travel by road to Virunum, a distance of about 28 miles. 
+
+They pass a pillar on the right surmounted by a stone urn. His shoes are covered in dust from the road. Now the road is quieter. A caravan from Virunum passed by. He had set out from Santicum amidst a throng travelling the same way. As they go up from Santicum, they see the ruined walls. Workers are raising the level of the road. A grove of Minerva is hard by the road, a grove of poplar trees. He passes another milestone. 
 
 Insert story about 197583
 
 Insert story about ['46.703', '14.36']
 
-Virgil departed from Virunum, intending to travel on a boat heading downstream to Poetovio, a journey of about 96 miles. 
+  
+## Travelling by downstream
 
-A cloud passes in front of the sun. Birds sing their greetings. 
+Leaving Virunum, Virgil set out for Poetovio on a boat heading downstream, about 96 miles away. 
+
+Birds sing their greetings. 
 
 Insert story about 197446
 
 Insert story about ['46.42', '15.87']
 
-From Poetovio to Mursa is at least 187 miles when travelling on a military boat floating downstream. 
+  
+## To Mursa
 
-Birds sing their greetings. 
+Intending to travel on a military boat floating downstream to Mursa, Virgil left Poetovio. It was a distance of about 187 miles. 
+
+The journey is more tiring than you might expect. 
 
 Insert story about 197389
 
 Insert story about ['45.56', '18.676']
 
-Leaving Mursa, Virgil set out for Cibalae by road, a distance of about 21 miles. 
+  
+## To Cibalae by road
 
-He set out from {from} amidst a throng travelling the same way. There is a fountain of cold water springing from the rock. He passes another milestone. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. A cloud passes in front of the sun. He left the city early, before the rising of the sun. A caravan from {destination} passed by. 
+Virgil departed from Mursa, intending to travel by road to Cibalae, a journey of about 21 miles. 
+
+The road narrows here, an orchard wall encroaching on it. Above the roads are ruins, among which is a cave sacred to Asclepius. Along the road are graves, and a cenotaph. His shoes are covered in dust from the road. 
 
 Insert story about 197207
 
 Insert story about ['45.291', '18.801']
 
+  
+## The journey to Sirmium
+
 Virgil departed from Cibalae, intending to travel by road to Sirmium, a journey of about 46 miles. 
 
-On the road from {from} to {destination} there is a village, in which there is a temple and grove. He passes another milestone. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. The sun beats down.. 
+His shoes are covered in dust from the road. Water has washed out the road, making for slow going. There a spring wells up, and around about it is a meadow. Above the roads are ruins, among which is a cave sacred to Asclepius. The road narrows here, an orchard wall encroaching on it. They pass a pillar on the right surmounted by a stone urn. 
 
 Insert story about 207447
 
 Insert story about ['44.966', '19.61']
 
-Leaving Sirmium, Virgil set out for a village by road, at least 56 miles. 
+  
+## Departing from Sirmium
 
-Along the road are graves, and a cenotaph. A cloud passes in front of the sun. By the road is a salt spring. 
+Intending to travel by road to a village, Virgil left Sirmium. It was a distance of about 56 miles. 
+
+Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. He passes another milestone. His shoes are covered in dust from the road. A cloud passes in front of the sun. Above the roads are ruins, among which is a cave sacred to Asclepius. As they go up from Sirmium, they see the ruined walls. They pass a pillar on the right surmounted by a stone urn. 
 
 There was no story for None
 
-Leaving a village, Virgil set out for a village by road, a journey of about 130 miles. 
+  
+## Leaving a village by road
 
-Now the road is quieter. Along the road are graves, and a cenotaph. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. The sun beats down.. A caravan from {destination} passed by. A cloud passes in front of the sun. 
+From a village to a village is a distance of about 130 miles when travelling by road. 
+
+By the road is a salt spring. There is a fountain of cold water springing from the rock. The road narrows here, an orchard wall encroaching on it. Now the road is quieter. As they go up from a village, they see the ruined walls. A grove of Minerva is hard by the road, a grove of poplar trees. Next to the straight road that leads to a village, there is visible a sculpted tomb. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. The sun beats down. 
 
 There was no story for None
 
 \newpage
 
+# A Village To Viminacium
+  
+## To Narona
 
-# a village to Viminacium
+Leaving a village, Virgil set out for Narona by road, a journey of about 15 miles. 
 
-Leaving a village, Virgil set out for Narona by road, about 15 miles away. 
-
-Now the road is quieter. Along the road are graves, and a cenotaph. 
+He passes another milestone. As they go up from a village, they see the ruined walls. They pass a pillar on the right surmounted by a stone urn. On the road from a village to Narona there is a village, in which there is a temple and grove. Now the road is quieter. The sun beats down. 
 
 Insert story about 197400
 
 Insert story about ['43.081', '17.628']
 
-Intending to travel by road to a village, Virgil left Narona. It was about 15 miles away. 
+  
+## 15 miles to a village
 
-There is a fountain of cold water springing from the rock. He left the city early, before the rising of the sun. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. He set out from {from} amidst a throng travelling the same way. 
+Intending to travel by road to a village, Virgil left Narona. It was a distance of about 15 miles. 
 
-There was no story for None
-
-Virgil departed from a village, intending to travel by road to a village, a journey of about 130 miles. 
-
-A caravan from {destination} passed by. He left the city early, before the rising of the sun. His shoes are covered in dust from the road. On the road from {from} to {destination} there is a village, in which there is a temple and grove. 
+A caravan from a village passed by. On the road from Narona to a village there is a village, in which there is a temple and grove. They pass a pillar on the right surmounted by a stone urn. He had set out from Narona amidst a throng travelling the same way. This is a smooth road, by which many wagons were bringing wood to a village. He left the city early, before the rising of the sun. Now the road is quieter. Next to the straight road that leads to a village, there is visible a sculpted tomb. 
 
 There was no story for None
 
-Virgil departed from a village, intending to travel by road to Domavium, a journey of about 18 miles. 
+  
+## a village to a village by road
 
-A caravan from {destination} passed by. He set out from {from} amidst a throng travelling the same way. The sun beats down.. 
+Virgil departed from a village, intending to travel by road to a village, about 130 miles away. 
+
+The sun beats down. He left the city early, before the rising of the sun. This is a smooth road, by which many wagons were bringing wood to a village. His shoes are covered in dust from the road. The road narrows here, an orchard wall encroaching on it. 
+
+There was no story for None
+
+  
+## After a village
+
+Intending to travel by road to Domavium, Virgil left a village. It was a journey of about 18 miles. 
+
+Along the road are graves, and a cenotaph. His shoes are covered in dust from the road. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. They pass a pillar on the right surmounted by a stone urn. Water has washed out the road, making for slow going. He passes another milestone. He left the city early, before the rising of the sun. 
 
 Insert story about 207088
 
 Insert story about ['44.144', '19.363']
 
-From Domavium to a village is about 18 miles away when travelling by road. 
+  
+## To a village
 
-He passes another milestone. They pass a pillar on the right surmounted by a stone urn. Now the road is quieter. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. His shoes are covered in dust from the road. 
+Leaving Domavium, Virgil set out for a village by road, about 18 miles away. 
+
+By the road is a salt spring. Along the road are graves, and a cenotaph. There is a fountain of cold water springing from the rock. They pass a pillar on the right surmounted by a stone urn. A caravan from a village passed by. 
 
 There was no story for None
 
-Intending to travel by road to Sirmium, Virgil left a village. It was a distance of about 56 miles. 
+  
+## To Sirmium by road
 
-A cloud passes in front of the sun. He left the city early, before the rising of the sun. On the road from {from} to {destination} there is a village, in which there is a temple and grove. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. As they go up from {from}, they see the ruined walls. His shoes are covered in dust from the road. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. 
+Virgil departed from a village, intending to travel by road to Sirmium, a distance of about 56 miles. 
+
+There is a fountain of cold water springing from the rock. By the road is a salt spring. They pass a pillar on the right surmounted by a stone urn. As they go up from a village, they see the ruined walls. 
 
 Insert story about 207447
 
 Insert story about ['44.966', '19.61']
 
+  
+## Travelling on a military boat floating downstream to Singidunum
+
 Intending to travel on a military boat floating downstream to Singidunum, Virgil left Sirmium. It was a distance of about 85 miles. 
 
-He presses onward. 
+The countryside is quieter than the city. 
 
 Insert story about 207443
 
 Insert story about ['44.802', '20.466']
 
-Virgil departed from Singidunum, intending to travel on a military boat floating downstream to Viminacium, about 49 miles away. 
+  
+## After Singidunum
 
-The sun beats down. The journey is more tiring than you might expect. 
+Leaving Singidunum, Virgil set out for Viminacium on a military boat floating downstream, at least 49 miles. 
+
+He presses onward. A breeze from an unexpected quarter cools the air. 
 
 Insert story about 207549
 
@@ -915,66 +1266,88 @@ Insert story about ['44.716', '21.167']
 
 \newpage
 
+# Viminacium To Naissus
+  
+## From Viminacium to Tibiscum
 
-# Viminacium to Naissus
+From Viminacium to Tibiscum is a journey of about 96 miles when travelling by road. 
 
-Leaving Viminacium, Virgil set out for Tibiscum by road, at least 96 miles. 
-
-Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. He set out from {from} amidst a throng travelling the same way. Above the roads are ruins, among which is a cave sacred to Asclepius. 
+There a spring wells up, and around about it is a meadow. The road narrows here, an orchard wall encroaching on it. They pass a pillar on the right surmounted by a stone urn. His shoes are covered in dust from the road. A grove of Minerva is hard by the road, a grove of poplar trees. 
 
 Insert story about 207495
 
 Insert story about ['45.459', '22.186']
 
-Virgil departed from Tibiscum, intending to travel by road to Viminacium, a journey of about 96 miles. 
+  
+## From Tibiscum to Viminacium
 
-On the road from {from} to {destination} there is a village, in which there is a temple and grove. He left the city early, before the rising of the sun. There is a fountain of cold water springing from the rock. Above the roads are ruins, among which is a cave sacred to Asclepius. He passes another milestone. Along the road are graves, and a cenotaph. A cloud passes in front of the sun. 
+Leaving Tibiscum, Virgil set out for Viminacium by road, about 96 miles away. 
+
+Workers are raising the level of the road. An oxcart passes, loaded with grain. On the road from Tibiscum to Viminacium there is a village, in which there is a temple and grove. A grove of Minerva is hard by the road, a grove of poplar trees. 
 
 Insert story about 207549
 
 Insert story about ['44.716', '21.167']
 
-Virgil departed from Viminacium, intending to travel on a military boat headed upstream to Singidunum, at least 49 miles. 
+  
+## From Viminacium to Singidunum
 
-A breeze from an unexpected quarter cools the air. He presses onward. A cloud passes in front of the sun. 
+Leaving Viminacium, Virgil set out for Singidunum on a military boat headed upstream, at least 49 miles. 
+
+A cloud passes in front of the sun. 
 
 Insert story about 207443
 
 Insert story about ['44.802', '20.466']
 
-Virgil departed from Singidunum, intending to travel on a military boat floating downstream to Viminacium, at least 49 miles. 
+  
+## Travelling on a military boat floating downstream to Viminacium
 
-No backward glances for the city left behind. The countryside is quieter than the city. 
+Intending to travel on a military boat floating downstream to Viminacium, Virgil left Singidunum. It was about 49 miles away. 
+
+The countryside is quieter than the city. 
 
 Insert story about 207549
 
 Insert story about ['44.716', '21.167']
 
-From Viminacium to Horreum Margi is about 57 miles away when travelling by road. 
+  
+## Travelling by road
 
-The sun beats down.. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. By the road is a salt spring. Above the roads are ruins, among which is a cave sacred to Asclepius. 
+Intending to travel by road to Horreum Margi, Virgil left Viminacium. It was a distance of about 57 miles. 
+
+An oxcart passes, loaded with grain. The sun beats down. There a spring wells up, and around about it is a meadow. He passes another milestone. 
 
 There was no story for None
 
-Leaving Horreum Margi, Virgil set out for Naissus by road, a journey of about 51 miles. 
+  
+## 51 miles to Naissus
 
-He left the city early, before the rising of the sun. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. Above the roads are ruins, among which is a cave sacred to Asclepius. A caravan from {destination} passed by. As they go up from {from}, they see the ruined walls. 
+Leaving Horreum Margi, Virgil set out for Naissus by road, about 51 miles away. 
+
+A caravan from Naissus passed by. His shoes are covered in dust from the road. There is a fountain of cold water springing from the rock. By the road is a salt spring. The road narrows here, an orchard wall encroaching on it. Along the road are graves, and a cenotaph. Next to the straight road that leads to Naissus, there is visible a sculpted tomb. 
 
 Insert story about 207303
 
 Insert story about ['43.316', '21.894']
 
-Leaving Naissus, Virgil set out for Ulpiana by road, about 80 miles away. 
+  
+## 80 miles to Ulpiana
 
-By the road is a salt spring. Along the road are graves, and a cenotaph. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. He passes another milestone. He left the city early, before the rising of the sun. They pass a pillar on the right surmounted by a stone urn. 
+Virgil departed from Naissus, intending to travel by road to Ulpiana, at least 80 miles. 
+
+On the road from Naissus to Ulpiana there is a village, in which there is a temple and grove. By the road is a salt spring. The sun beats down. A caravan from Ulpiana passed by. 
 
 There was no story for None
 
 Insert story about ['0', '0']
 
-From Ulpiana to Naissus is about 80 miles away when travelling by road. 
+  
+## To Naissus by road
 
-Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. As they go up from {from}, they see the ruined walls. 
+Intending to travel by road to Naissus, Virgil left Ulpiana. It was a distance of about 80 miles. 
+
+He left the city early, before the rising of the sun. As they go up from Ulpiana, they see the ruined walls. Along the road are graves, and a cenotaph. On the road from Ulpiana to Naissus there is a village, in which there is a temple and grove. A caravan from Naissus passed by. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. 
 
 Insert story about 207303
 
@@ -982,68 +1355,90 @@ Insert story about ['43.316', '21.894']
 
 \newpage
 
+# Naissus To Taliata
+  
+## The journey to Bononia (Moesia)
 
-# Naissus to Taliata
+Leaving Naissus, Virgil set out for Bononia (Moesia) by road, a journey of about 76 miles. 
 
-Virgil departed from Naissus, intending to travel by road to Bononia (Moesia), a journey of about 76 miles. 
-
-He left the city early, before the rising of the sun. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. 
-
-Insert story about 206975
-
-Insert story about ['43.993', '22.876']
-
-From Bononia (Moesia) to Taliata is a journey of about 58 miles when travelling by road. 
-
-Now the road is quieter. Above the roads are ruins, among which is a cave sacred to Asclepius. They pass a pillar on the right surmounted by a stone urn. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. His shoes are covered in dust from the road. 
-
-Insert story about 207485
-
-Insert story about ['44.444', '22.144']
-
-Virgil departed from Taliata, intending to travel by road to Bononia (Moesia), about 58 miles away. 
-
-A caravan from {destination} passed by. On the road from {from} to {destination} there is a village, in which there is a temple and grove. The sun beats down.. 
+A caravan from Bononia (Moesia) passed by. Now the road is quieter. Water has washed out the road, making for slow going. On the road from Naissus to Bononia (Moesia) there is a village, in which there is a temple and grove. He passes another milestone. The sun beats down. 
 
 Insert story about 206975
 
 Insert story about ['43.993', '22.876']
 
-Leaving Bononia (Moesia), Virgil set out for Taliata by road, a distance of about 58 miles. 
+  
+## Bononia (Moesia) to Taliata by road
 
-On the road from {from} to {destination} there is a village, in which there is a temple and grove. He passes another milestone. Now the road is quieter. 
+From Bononia (Moesia) to Taliata is a distance of about 58 miles when travelling by road. 
+
+Next to the straight road that leads to Taliata, there is visible a sculpted tomb. As they go up from Bononia (Moesia), they see the ruined walls. Water has washed out the road, making for slow going. Along the road are graves, and a cenotaph. He left the city early, before the rising of the sun. By the road is a salt spring. They pass a pillar on the right surmounted by a stone urn. 
 
 Insert story about 207485
 
 Insert story about ['44.444', '22.144']
 
-Virgil departed from Taliata, intending to travel by road to Drobeta, a distance of about 35 miles. 
+  
+## 58 miles to Bononia (Moesia)
 
-By the road is a salt spring. A caravan from {destination} passed by. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. There is a fountain of cold water springing from the rock. Along the road are graves, and a cenotaph. The sun beats down.. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. 
+Leaving Taliata, Virgil set out for Bononia (Moesia) by road, about 58 miles away. 
+
+Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. An oxcart passes, loaded with grain. There a spring wells up, and around about it is a meadow. As they go up from Taliata, they see the ruined walls. A caravan from Bononia (Moesia) passed by. A grove of Minerva is hard by the road, a grove of poplar trees. 
+
+Insert story about 206975
+
+Insert story about ['43.993', '22.876']
+
+  
+## After Bononia (Moesia)
+
+Virgil departed from Bononia (Moesia), intending to travel by road to Taliata, a journey of about 58 miles. 
+
+Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. There is a fountain of cold water springing from the rock. On the road from Bononia (Moesia) to Taliata there is a village, in which there is a temple and grove. There a spring wells up, and around about it is a meadow. Next to the straight road that leads to Taliata, there is visible a sculpted tomb. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. 
+
+Insert story about 207485
+
+Insert story about ['44.444', '22.144']
+
+  
+## To Drobeta by road
+
+Intending to travel by road to Drobeta, Virgil left Taliata. It was a distance of about 35 miles. 
+
+Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. The sun beats down. By the road is a salt spring. They pass a pillar on the right surmounted by a stone urn. A cloud passes in front of the sun. A caravan from Drobeta passed by. 
 
 Insert story about 207100
 
 Insert story about ['44.636', '22.66']
 
-Leaving Drobeta, Virgil set out for Taliata by road, a distance of about 35 miles. 
+  
+## Travelling by road
 
-As they go up from {from}, they see the ruined walls. A caravan from {destination} passed by. The sun beats down.. 
+Intending to travel by road to Taliata, Virgil left Drobeta. It was at least 35 miles. 
+
+His shoes are covered in dust from the road. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. There a spring wells up, and around about it is a meadow. Above the roads are ruins, among which is a cave sacred to Asclepius. 
 
 Insert story about 207485
 
 Insert story about ['44.444', '22.144']
 
-From Taliata to Dierna is a journey of about 22 miles when travelling on a military boat floating downstream. 
+  
+## Travelling on a military boat floating downstream to Dierna
 
-A breeze from an unexpected quarter cools the air. 
+Virgil departed from Taliata, intending to travel on a military boat floating downstream to Dierna, a journey of about 22 miles. 
+
+A cloud passes in front of the sun. 
 
 Insert story about 207078
 
 Insert story about ['44.725', '22.396']
 
-Leaving Dierna, Virgil set out for Taliata on a boat heading upstream, a journey of about 22 miles. 
+  
+## Departing from Dierna
 
-A breeze from an unexpected quarter cools the air. No backward glances for the city left behind. He presses onward. 
+Virgil departed from Dierna, intending to travel on a boat heading upstream to Taliata, about 22 miles away. 
+
+The countryside is quieter than the city. A breeze from an unexpected quarter cools the air. He presses onward. 
 
 Insert story about 207485
 
@@ -1051,66 +1446,90 @@ Insert story about ['44.444', '22.144']
 
 \newpage
 
+# Taliata To Dyrrhachium
+  
+## To Bononia (Moesia)
 
-# Taliata to Dyrrhachium
+Leaving Taliata, Virgil set out for Bononia (Moesia) by road, a journey of about 58 miles. 
 
-Virgil departed from Taliata, intending to travel by road to Bononia (Moesia), a distance of about 58 miles. 
-
-Now the road is quieter. Along the road are graves, and a cenotaph. By the road is a salt spring. On the road from {from} to {destination} there is a village, in which there is a temple and grove. He left the city early, before the rising of the sun. Above the roads are ruins, among which is a cave sacred to Asclepius. The sun beats down.. 
+Along the road are graves, and a cenotaph. His shoes are covered in dust from the road. The road narrows here, an orchard wall encroaching on it. The sun beats down. An oxcart passes, loaded with grain. By the road is a salt spring. He had set out from Taliata amidst a throng travelling the same way. 
 
 Insert story about 206975
 
 Insert story about ['43.993', '22.876']
 
-From Bononia (Moesia) to Naissus is about 76 miles away when travelling by road. 
+  
+## Bononia (Moesia) to Naissus by road
 
-Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. A caravan from {destination} passed by. 
+Virgil departed from Bononia (Moesia), intending to travel by road to Naissus, a journey of about 76 miles. 
+
+There is a fountain of cold water springing from the rock. Along the road are graves, and a cenotaph. On the road from Bononia (Moesia) to Naissus there is a village, in which there is a temple and grove. His shoes are covered in dust from the road. Next to the straight road that leads to Naissus, there is visible a sculpted tomb. 
 
 Insert story about 207303
 
 Insert story about ['43.316', '21.894']
 
-Virgil departed from Naissus, intending to travel by road to Serdica, a distance of about 92 miles. 
+  
+## Leaving Naissus by road
 
-He passes another milestone. By the road is a salt spring. They pass a pillar on the right surmounted by a stone urn. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. He set out from {from} amidst a throng travelling the same way. 
+Leaving Naissus, Virgil set out for Serdica by road, a distance of about 92 miles. 
+
+The sun beats down. Above the roads are ruins, among which is a cave sacred to Asclepius. There is a fountain of cold water springing from the rock. A grove of Minerva is hard by the road, a grove of poplar trees. He left the city early, before the rising of the sun. A cloud passes in front of the sun. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. On the road from Naissus to Serdica there is a village, in which there is a temple and grove. As they go up from Naissus, they see the ruined walls. 
 
 Insert story about 207439
 
 Insert story about ['42.723', '23.343']
 
-Leaving Serdica, Virgil set out for Stobi by road, at least 125 miles. 
+  
+## After Serdica
 
-A caravan from {destination} passed by. On the road from {from} to {destination} there is a village, in which there is a temple and grove. His shoes are covered in dust from the road. There is a fountain of cold water springing from the rock. The sun beats down.. 
+Intending to travel by road to Stobi, Virgil left Serdica. It was a distance of about 125 miles. 
+
+Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. They pass a pillar on the right surmounted by a stone urn. This is a smooth road, by which many wagons were bringing wood to Stobi. A caravan from Stobi passed by. On the road from Serdica to Stobi there is a village, in which there is a temple and grove. The sun beats down. 
 
 Insert story about 491731
 
 Insert story about ['41.531', '21.978']
 
-From Stobi to Heraklea is a distance of about 54 miles when travelling by road. 
+  
+## Departing from Stobi
 
-Now the road is quieter. He set out from {from} amidst a throng travelling the same way. As they go up from {from}, they see the ruined walls. Not far from the road is a grave, on which is mounted a soldier standing by a horse. Who it is I do not know, but both horse and soldier were carved by Praxiteles. By the road is a salt spring. 
+Intending to travel by road to Heraklea, Virgil left Stobi. It was about 54 miles away. 
+
+On the road from Stobi to Heraklea there is a village, in which there is a temple and grove. The road narrows here, an orchard wall encroaching on it. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. Now the road is quieter. 
 
 Insert story about 481861
 
 Insert story about ['41.032', '21.336']
 
-Intending to travel by road to a village, Virgil left Heraklea. It was about 109 miles away. 
+  
+## Travelling by road to a village
 
-He set out from {from} amidst a throng travelling the same way. Along the road are graves, and a cenotaph. There is a fountain of cold water springing from the rock. As they go up from {from}, they see the ruined walls. 
+Leaving Heraklea, Virgil set out for a village by road, a journey of about 109 miles. 
+
+Workers are raising the level of the road. Water has washed out the road, making for slow going. There a spring wells up, and around about it is a meadow. A cloud passes in front of the sun. A caravan from a village passed by. He left the city early, before the rising of the sun. As they go up from Heraklea, they see the ruined walls. The road narrows here, an orchard wall encroaching on it. 
 
 There was no story for None
 
-Leaving a village, Virgil set out for Apollonia (Epirus) by road, a distance of about 23 miles. 
+  
+## a village to Apollonia (Epirus) by road
 
-By the road is a salt spring. A cloud passes in front of the sun. As they go up from {from}, they see the ruined walls. Now the road is quieter. A caravan from {destination} passed by. Here is an ancient sanctuary common to all the gods, and around it is a grove containing springs. He passes another milestone. 
+Intending to travel by road to Apollonia (Epirus), Virgil left a village. It was at least 23 miles. 
+
+The road narrows here, an orchard wall encroaching on it. This is a smooth road, by which many wagons were bringing wood to Apollonia (Epirus). Water has washed out the road, making for slow going. There is a fountain of cold water springing from the rock. Above the roads are ruins, among which is a cave sacred to Asclepius. A caravan from Apollonia (Epirus) passed by. 
 
 There was no story for None
 
 Insert story about ['40.77', '19.43']
 
-From Apollonia (Epirus) to Dyrrhachium is a distance of about 42 miles when travelling by ship down the coast. 
+  
+## Apollonia (Epirus) to Dyrrhachium by ship
 
-All nature, big with instant ruin, frowned destruction. A gust of the shrill north strikes full on the sail and raises the waves up to heaven. The yawning billow shows ground amid the surge, where the sea churns with sand. The south wind catches and hurls a ship on hidden rocks. Rocks amid the waves, a vast reef banking the sea. The east wind forces a ship from the deep into shallows and quicksands. Piteous to see, it dashes on shoals and girdles with a sandbank. Before their eyes a vast sea descending strikes astern. 
+Intending to travel by ship down the coast to Dyrrhachium, Virgil left Apollonia (Epirus). It was at least 42 miles. 
+
+The ship held the high seas, no land yet appearing. The sky all round them and all round them the deep.   
+  
+They all have stations for their ships, each man one for himself. For they care not for bow or quiver, but for masts and oars of ships. 
 
 Insert story about 481818
 

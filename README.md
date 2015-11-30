@@ -22,3 +22,8 @@ The book generator is a Python program that outputs a Markdown text file designe
 
 Requirements.txt specifies an overkill of libraries because I used the same virtual environment to develop three separate procedural generation projects this month. You probably don't need two separate twitter libraries and NLTK to run this. Probably.
 
+## License
+
+Copyright © 2015 Isaac J. Karth
+
+Distributed under the MIT License. See LICENSE for details.

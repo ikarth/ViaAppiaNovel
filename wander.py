@@ -16,6 +16,8 @@ wanderer_story = []
 
 def writeStory(story_data:dict):
     global wanderer_story
+    #print("========================")
+    #print(story_data)
     wanderer_story.append(story_data)
 
 def processStory(story):
@@ -28,7 +30,7 @@ def processStory(story):
                         start_loc = j['state']['location'].name()
                         end_loc = (i['state']['destination']).name()
                         chapter_title = str(start_loc) + " to " + str(end_loc)
-                        j['text'] = str("\n\n# " + chapter_title + "\n")
+                        j['text'] = str("\n# " + chapter_title + "")
     return new_story
 
 def getStory():
@@ -49,24 +51,67 @@ def descriptionJourneyType(type):
     type_description = type_description_subs[type]
     return type_description
 
+def descriptionJourneyTypeName(type):
+    type_description = type
+    type_description_subs= {"fastdown":"downriver",
+                            "fastup":"upstream",
+                            "upstream":"upriver",
+                            "downstream":"downstream",
+                            "road":"road",
+                            "coastal":"ship",
+                            "overseas":"ship",
+                            "slowcoast":"ship",
+                            "ferry":"ferry"
+                            }
+    type_description = type_description_subs[type]
+    return type_description
 
-def renderSelectDestination(wander:dict):
+def fleshOutDescription(wander:dict, desc):
+    """
+    Given a paragraph of text, go through it, replacing the variables with those extracted from the wanderer state.
+    """
     text_departing_from_name = data.getNearestName(data.hydrateLocation(wander['last_city']))
     text_travel_route_type = descriptionJourneyType(wander['journey']['type'])
+    text_travel_route_type_name = descriptionJourneyTypeName(wander['journey']['type'])
     text_destination_name = data.getNearestName(data.hydrateLocation(wander['destination']))
-    text_distance = (float(wander['journey']['distance']) * settings.KILOMETERS_TO_MILES) # km-to-miles
-    text_distance = ["a journey of about {} miles".format(str(math.floor(text_distance))),
-                     "about {} miles away".format(str(math.floor(text_distance))),
-                     "a distance of about {} miles".format(str(math.floor(text_distance))),
-                     "at least {} miles".format(str(math.floor(text_distance)))]
-    text_distance = settings.TEXT_RNG.choice(text_distance)
+    miles_distance = (float(wander['journey']['distance']) * settings.KILOMETERS_TO_MILES) # km-to-miles
+    distance_text = ["a journey of about {} miles".format(str(math.floor(miles_distance))),
+                     "about {} miles away".format(str(math.floor(miles_distance))),
+                     "a distance of about {} miles".format(str(math.floor(miles_distance))),
+                     "at least {} miles".format(str(math.floor(miles_distance)))]
+    text_distance = settings.TEXT_RNG.choice(distance_text)
+
+    variable_swap = {'from':text_departing_from_name, 'type':text_travel_route_type, 'type_name':text_travel_route_type_name, 'destination':text_destination_name, 'distance':text_distance, 'miles':str(math.floor(miles_distance))}
+
+    output = str(desc.format(**variable_swap))
+    if (output != desc):
+        return fleshOutDescription(wander, output) # recurse so we can handle nested variables TODO: add nested variables
+    return output
+
+def renderSelectDestination(wander:dict):
     story_templates = ["Virgil departed from {from}, intending to travel {type} to {destination}, {distance}. ",
                        "Leaving {from}, Virgil set out for {destination} {type}, {distance}. ",
                        "From {from} to {destination} is {distance} when travelling {type}. ",
                        "Intending to travel {type} to {destination}, Virgil left {from}. It was {distance}. "]
     story_text = settings.TEXT_RNG.choice(story_templates)
-    variable_swap = {'from':text_departing_from_name, 'type':text_travel_route_type, 'destination':text_destination_name, 'distance':text_distance}
-    story = str(story_text.format(**variable_swap))
+
+    header_templates = ["The journey to {destination}",
+                        "From {from} to {destination}",
+                        "Departing from {from}",
+                        "To {destination}",
+                        "After {from}",
+                        "{miles} miles to {destination}",
+                        "{from} to {destination} by {type_name}",
+                        "To {destination} by {type_name}",
+                        "Leaving {from} by {type_name}",
+                        "Travelling {type} to {destination}",
+                        "Travelling by {type_name}"]
+    header_choice_text = "\n## " + settings.TEXT_RNG.choice(header_templates)
+    header_text = fleshOutDescription(wander, header_choice_text)
+    header_data = {'type':'travel', 'text':header_text, 'metadata':[], 'state':copy.deepcopy(wander)}
+    writeStory(header_data)
+
+    story = fleshOutDescription(wander, story_text)
     story_data = {'type':'travel', 'text':story, 'metadata':[], 'state':copy.deepcopy(wander)}
     writeStory(story_data)
 
@@ -91,8 +136,8 @@ def phrasesElision(input_phrases, minmum = 3):
     if total_l < minmum:
         print(iphrases)
         return
-    max_l = int(math.floor(total_l * 0.5))
-    min_l = max(int(max_l * 0.3), 1)
+    max_l = min(int(math.floor(total_l * 0.5)), 10)
+    min_l = max(int(max_l * 0.4), 1)
     max_l = max(max_l, min_l + 1)
     length = settings.TEXT_RNG.choice(range(min_l, max_l))
     while len(iphrases) > length:
@@ -119,10 +164,14 @@ def phrasesDeck(iphrases):
     return ""
 
 def renderTravelShipStorm(wander:dict):
-    return phrasesElision(phrases.storm)
+    return phrasesElision(phrases.storm) + phrasesElision(phrases.wreck) + " \n\n" + phrasesElision(phrases.storm_end) + " \n\n" + phrasesElision(phrases.wreck_landing)
 
 def renderTravelShip(wander:dict):
-    return renderTravelShipStorm(wander)
+    if settings.TEXT_RNG.choice([True, False, False, False]):
+        return renderTravelShipStorm(wander)
+    if settings.TEXT_RNG.choice([True, False]):
+        return phrasesElision(phrases.sailing) + " \n\n" + phrasesElision(phrases.harbor)
+    return phrasesElision(phrases.sailing) + " \n\n" + phrasesElision(phrases.storm) + phrasesElision(phrases.storm_end) + " \n\n" + phrasesElision(phrases.harbor)
     
 def renderTravelWalk(wander:dict):
     return phrasesDeal(phrases.walking)
@@ -146,7 +195,8 @@ def renderTravelText(wander:dict):
                "ferry": renderTravelShip}
                             
     desc = type_desc[str(wander['journey']['type'])](wander)
-
+    desc = fleshOutDescription(wander, desc)
+    
     writeStory({'type':'travel', 'text':desc, 'state':copy.deepcopy(wander)})
     pass
 
@@ -203,7 +253,8 @@ def eventShipwreck(wander):
     pass
 
 def eventTravelWalk(wander):
-    writeStory({'type':'travel', 'text':renderTravelWalk(wander), 'state':copy.deepcopy(wander)})
+    desc = fleshOutDescription(wander, renderTravelWalk(wander))
+    writeStory({'type':'travel', 'text':desc, 'state':copy.deepcopy(wander)})
     pass
 
 def eventTravelRiver(wander):
@@ -211,7 +262,8 @@ def eventTravelRiver(wander):
     pass
 
 def eventTravelShip(wander):
-    writeStory({'type':'travel', 'text':renderTravelShip(wander), 'state':copy.deepcopy(wander)})
+    desc = fleshOutDescription(wander, renderTravelShip(wander))
+    writeStory({'type':'travel', 'text':desc, 'state':copy.deepcopy(wander)})
 
 def eventTravelFerry(wander):
     renderTravelText(wander)

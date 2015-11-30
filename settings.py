@@ -15,12 +15,13 @@ random.seed("Rome wasn't built in a day")
 
 DELAY_FOR_BANDWIDTH = False #if true, sleeps a bit between tasks that might call for network resources
 WRITE_THE_STORIES = False # if false, skip writing the actual stories, so we can speed up testing
-DISPLAY_TEXT_WHILE_WRITING = True
-DISPLAY_WANDERING_PROGRESS = False
+DISPLAY_TEXT_WHILE_WRITING = False
+DISPLAY_WANDERING_PROGRESS = True
 DISPLAY_CITES_WHILE_RENDERING = False
 
 DATA_FILEPATH = "../../data/ancient"
 
+# These control if the pickle data files should be overwritten
 PICKLE_PERSEUS_CTS = True
 PICKLE_PERSEUS_PLEIADES_INDEX = False
 PICKLE_PERSEUS_LATLON_LIST = False
