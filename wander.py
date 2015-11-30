@@ -4,22 +4,39 @@ import random
 import time
 import numpy
 import math
+import uuid
+import phrases
+import copy
 
 DELAY_FOR_BANDWIDTH = settings.DELAY_FOR_BANDWIDTH #if true, sleeps a bit between tasks that might call for network resources
 WRITE_THE_STORIES = settings.WRITE_THE_STORIES # if false, skip writing the actual stories, so we can speed up testing
 DISPLAY_WANDERING_PROGRESS = settings.DISPLAY_WANDERING_PROGRESS
+
 wanderer_story = []
 
 def writeStory(story_data:dict):
     global wanderer_story
     wanderer_story.append(story_data)
 
+def processStory(story):
+    new_story = copy.deepcopy(story)
+    for i in story:
+        if str(i['type']) == "chapterEnd":
+            for j in new_story:
+                if j['type'] == "chapterStart":
+                    if j['chapter'] == i['chapter']:
+                        start_loc = data.getNameFromLoc(j['state']['location'])
+                        end_loc = data.getNameFromLoc(i['state']['location'])
+                        chapter_title = str(start_loc) + " to " + str(end_loc)
+                        j['text'] = str("\n\n# " + chapter_title + "\n")
+    return new_story
+
 def getStory():
-    return wanderer_story
+    return processStory(wanderer_story)
 
 def descriptionJourneyType(type):
     type_description = type
-    type_description_subs= {"fastdown":"on a military boat downstream",
+    type_description_subs= {"fastdown":"on a military boat floating downstream",
                             "fastup":"on a military boat headed upstream",
                             "upstream":"on a boat heading upstream",
                             "downstream":"on a boat heading downstream",
@@ -37,15 +54,89 @@ def renderSelectDestination(wander:dict):
     text_departing_from_name = data.getNearestName(data.hydrateLocation(wander['last_city']))
     text_travel_route_type = descriptionJourneyType(wander['journey']['type'])
     text_destination_name = data.getNearestName(data.hydrateLocation(wander['destination']))
-    text_distance = str(float(wander['journey']['distance']) * settings.KILOMETERS_TO_MILES) # km-to-miles
-    story = "Virgil departed from {0}, intending to travel {1} to {2}, a {3} mile journey.\n\n".format(text_departing_from_name, text_travel_route_type, text_destination_name, text_distance)
-    writeStory({'type': 'travel-narration', 'text':story, 'metadata':[], 'state':wander})
+    text_distance = (float(wander['journey']['distance']) * settings.KILOMETERS_TO_MILES) # km-to-miles
+    text_distance = ["a journey of about {} miles".format(str(math.floor(text_distance))),
+                     "about {} miles away".format(str(math.floor(text_distance))),
+                     "a distance of about {} miles".format(str(math.floor(text_distance))),
+                     "at least {} miles".format(str(math.floor(text_distance)))]
+    text_distance = settings.TEXT_RNG.choice(text_distance)
+    story_templates = ["Virgil departed from {from}, intending to travel {type} to {destination}, {distance}. ",
+                       "Leaving {from}, Virgil set out for {destination} {type}, {distance}. ",
+                       "From {from} to {destination} is {distance} when travelling {type}. ",
+                       "Intending to travel {type} to {destination}, Virgil left {from}. It was {distance}. "]
+    story_text = settings.TEXT_RNG.choice(story_templates)
+    variable_swap = {'from':text_departing_from_name, 'type':text_travel_route_type, 'destination':text_destination_name, 'distance':text_distance}
+    story = str(story_text.format(**variable_swap))
+    story_data = {'type':'travel', 'text':story, 'metadata':[], 'state':copy.deepcopy(wander)}
+    writeStory(story_data)
 
 def renderTravelQuotation(wander:dict):
     """
     Given a travelling wanderer, come up with a quotatation from a place
     near the current location (on the travel path).
     """
+    pass
+
+def phrasesElision(input_phrases, minmum = 3):
+    """
+    Given a list of phrases, remove most of them and join the rest together.
+    """
+    phrases = copy.deepcopy(input_phrases)
+    minumum = max(minmum,1)
+    total_l = len(phrases)
+    if total_l < minmum:
+        print(phrases)
+        return
+    max_l = int(math.floor(total_l * 0.5))
+    min_l = max(int(max_l * 0.3), 1)
+    max_l = max(max_l, min_l + 1)
+    length = settings.TEXT_RNG.choice(range(min_l, max_l))
+    while len(phrases) > length:
+        phrases.remove(settings.TEXT_RNG.choice(phrases))
+    return str(". ".join(phrases)) + ". "
+
+def phrasesShuffle(phrases):
+    return settings.TEXT_RNG.shuffle(phrases)
+
+def phrasesDeal(phrases):
+    return phrasesElision(phrasesShuffle(phrases))
+
+def phrasesDeck(phrases):
+    """
+    Take the supplied phrase deck. 
+    Remove previously used phrases. 
+    Return a random phrase from the remaining set and mark it as used.
+    If remaining cards in deck are too low, reshuffle deck by clearing used phrase array.
+    """
+    return ""
+
+def renderTravelShipStorm(wander:dict):
+    return phrasesElision(phrases.storm)
+
+def renderTravelShip(wander:dict):
+    return renderTravelShipStorm(wander)
+    
+
+def renderTravelGeneric(wander:dict):
+    return []
+
+def renderTravelText(wander:dict):
+    """
+    Describe the wanderer's travels.
+    """
+    type_desc={"fastdown": renderTravelGeneric,
+               "fastup": renderTravelGeneric,
+               "upstream": renderTravelGeneric,
+               "downstream": renderTravelGeneric,
+               "road": renderTravelGeneric,
+               "coastal": renderTravelShip,
+               "overseas": renderTravelShip,
+               "slowcoast": renderTravelShip,
+               "ferry": renderTravelShip}
+                            
+    type_desc[str(wander['journey']['type'])](wander)
+
+    writeStory({'type':'travel', 'text':renderTravelShip(wander), 'state':copy.deepcopy(wander)})
     pass
 
 def renderNearbyPlaceQuotation(wander:dict, loc:data.Location, range:float = 0.0):
@@ -58,12 +149,12 @@ def renderNearbyPlaceQuotation(wander:dict, loc:data.Location, range:float = 0.0
         return
     #data.findNearbyPerseusFromLatLon(loc.latlon)
     if WRITE_THE_STORIES:
-        render_base = {'type':'quotation', 'state':wander}
+        render_base = {'type':'quotation', 'state':copy.deepcopy(wander)}
         render_base.update(data.renderPerseusFromLatLon(loc.latlon)) # TODO: set range based on location
         writeStory(render_base)    
     else:
         print("Skipping story for " + str(loc.latlon))
-        writeStory({'type':'placeholder', 'text':str("Insert story about " + str(loc.latlon)) , 'state':wander})
+        writeStory({'type':'placeholder', 'text':str("Insert story about " + str(loc.latlon)) , 'state':copy.deepcopy(wander)})
     
 
 def renderPlaceQuotation(wander:dict):
@@ -74,18 +165,18 @@ def renderPlaceQuotation(wander:dict):
     if not talking_about:
         print("Error: place not found")
         if not WRITE_THE_STORIES:
-            writeStory({'type':'placeholder', 'text':str("There was no story for " + str(talking_about)) , 'state':wander})
+            writeStory({'type':'placeholder', 'text':str("There was no story for " + str(talking_about)) , 'state':copy.deepcopy(wander)})
         return renderNearbyPlaceQuotation(wander, data.hydrateLocation(wander['location']))
-    #    return {'type':'quotation', 'state':wander}.update(data.renderPerseusFromPleiades(talking_about))
+    #    return {'type':'quotation', 'state':copy.deepcopy(wander)}.update(data.renderPerseusFromPleiades(talking_about))
     output_text = None
     if WRITE_THE_STORIES:
         output_text = data.renderPerseusFromPleiades(talking_about)
     else:
         print("Skipping story for " + str(talking_about))
-        writeStory({'type':'placeholder', 'text':str("Insert story about " + str(talking_about)) , 'state':wander})
+        writeStory({'type':'placeholder', 'text':str("Insert story about " + str(talking_about)) , 'state':copy.deepcopy(wander)})
     #print(output_text)
     if output_text:
-        render_base = {'type':'quotation', 'state':wander}
+        render_base = {'type':'quotation', 'state':copy.deepcopy(wander)}
         render_base.update(output_text)
         writeStory(render_base)
     else:
@@ -102,6 +193,8 @@ def wanderTravel(wander):
         print("wanderTravel")
     # TODO - travelling loop for the journey and nearby places that get passed
     # TODO - events along the way, shipwrecks, escapades, etc.
+
+    renderTravelText(wander)
 
     # Arrived at destination
     wander['state'] = wanderArrive
@@ -177,7 +270,7 @@ def wanderSelectDestination(wander):
     #weighted_edges = data.scoreByDistance(data.hydrateLocation(wander['location']), edges)
     try:
         #destination = random.choice(edges)
-        destination = rng.choice(edges, p=weighted_edges)
+        destination = settings.TRAVEL_RNG.choice(edges, p=weighted_edges)
     except Exception as err:
         print (err)
         return
@@ -197,14 +290,30 @@ def makeWanderer():
             'previous_locations': list(),
             'journey':{'type':'', 'distance':'0.0', 'expense':'0.0', 'days':'0.0'}}
 
-rng = None
-def processWanderer(wander:dict):
-    global rng
-    rng = numpy.random.RandomState()
-    rng.seed(753)    
-    for i in range(0,160):
+current_chapter = 0
+
+def chapterBegin(wander:dict):
+    global current_chapter
+    current_chapter += 1
+    writeStory({'type':'chapterStart', 'text':"\n# Chapter Title Placeholder\n" , 'state':copy.deepcopy(wander), 'chapter':current_chapter})
+    
+
+def chapterEnd(wander:dict):
+    writeStory({'type':'chapterEnd', 'text':"" , 'state':copy.deepcopy(wander), 'chapter':current_chapter})
+    
+
+def wanderChapter(wander:dict):
+    chapterBegin(wander)
+    for i in range(0,30):
         if DELAY_FOR_BANDWIDTH:
             print(time.process_time())
-            time.sleep(1)            
+            time.sleep(1)
         wander = wander['state'](wander)
+    chapterEnd(wander)
+
+def processWanderer(wander:dict):
+    global current_chapter
+    current_chapter = 0
+    settings.setRNG()
+    wanderChapter(wander)
     return wander

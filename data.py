@@ -458,7 +458,7 @@ def getNameFromPleiades(p_id):
 
 def pickValidOrbisLocation():
     checkOrbis()
-    chosen_loc = random.choice(orbis_sites_list)
+    chosen_loc = settings.TEXT_RNG.choice(orbis_sites_list)
     return chosen_loc
 
 def searchOrbisRoute(start_id:str, end_id:str):
@@ -515,7 +515,7 @@ def getNearbyPerseusName(latlon):
     quotes, places = findNearbyPerseusFromLatLon(latlon, radius = 20.0)
     n = ""
     try:
-        choice = numpy.random.choice(list(places.keys()), p = list(places.values()))
+        choice = settings.TEXT_RNG.choice(list(places.keys()), p = list(places.values()))
         loc = makePleiadesLocation(choice)
         n = getNameFromPleiades(loc)
         if n:
@@ -529,7 +529,7 @@ def getNearbyPleiadesName(p_id):
     quotes, places = findNearbyPerseusFromLatLon(latlon, radius = 20.0) # todo: extend this to all pleiades records
 
     try:
-        choice = numpy.random.choice(list(places.keys()), p = list(places.values()))
+        choice = settings.TEXT_RNG.choice(list(places.keys()), p = list(places.values()))
         loc = makePleiadesLocation(choice)
         n = getNameFromPleiades(loc)
         if n:
@@ -580,6 +580,14 @@ def getNearestName(loc:Location):
     # TODO: try to get names from other sources as well...
     #print(loc.orbis_id)
     n = loc.name()
+    return n
+
+def getNameFromLoc(loc:Location):
+    n = None
+    n = getNameFromOrbis(loc.orbis_id)
+    if not n or "the countryside" == n:
+        n = getNameFromPleiades(loc.pleiades_id)
+    # TODO: get name from latlon
     return n
 
 def locationFromId(id:str) -> Location:
@@ -1147,7 +1155,7 @@ def renderPerseusFromLatLon(latlon, range = 200.0, retry = False):
     if len(quotes) == 0:
         print ("Warning: no quotations found")
         return
-    choice = numpy.random.choice(list(quotes.keys()), p = list(quotes.values()))
+    choice = settings.TEXT_RNG.choice(list(quotes.keys()), p = list(quotes.values()))
     r = None
     try:
         r = renderPerseus(choice, pleiades_mapping[choice])
@@ -1169,7 +1177,7 @@ def renderPerseusFromPleiades(pleiades_number):
     else:
         print ("Warning: all quotations have already been used")
         return # todo: grab a story from a nearby location instead
-    choice = random.choice(t)[0].toPython()
+    choice = settings.TEXT_RNG.choice(t)[0].toPython()
 
     return renderPerseus(choice, pleiades_number)
     

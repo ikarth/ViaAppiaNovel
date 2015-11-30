@@ -1,15 +1,14 @@
 % Virgil's Commonplace Book
 % Isaac Karth
-\newpage
 
 ## Introduction
 It has long been a common practice to incorporate the works of earlier writers into new books. Indeed, many commonplace books consist of nothing _but_ quotations and similar notes. We have many surviving examples from the Roman Empire, such as Aulus Gellius' _Attic Nights_. These texts were not always attributed to the original source. Lacking the modern concept of plagiarism (and our post-printing-press system of uniform citations) writers sometimes come off as careless to modern sensibilities. Quotes could be paraphrased and rather vague citations were the norm. Indeed, some authors committed a kind of reverse plagiarism, [pseudepigraphically](https://en.wikipedia.org/wiki/Pseudepigrapha) attributing their work to an earlier, more famous author.
  
 In a way, this reuse is fortunate: many texts from the Classical period only exist in fragments quoted in other documents. Some works survive in [epitome](https://en.wikipedia.org/wiki/Epitome), distilled versions that summarized the text; for others we have fragments that later writers quoted or abridged as they wrote their compilations.
 
-Artists, of course, have been far looser with their borrowings than writers of mere facts, placing the present work solidly within a long tradition. The closest literary ancedents of NaNoGenMo--Dada and Oulipo--have often explored similar sampling approaches. Kathryn Hume has suggested that technical constratints have lead NaNoGenMo to "align itself with poetics of recontextualization and reassembly."^[Hume, Kathryn. "NaNoGenMo: Dada 2.0". URL:\url{http://arcade.stanford.edu/blogs/nanogenmo-dada-20}. Accessed: 2015-11-28. (Archived by WebCite® at \url{http://www.webcitation.org/6dNl9xpbY>})] 
+Artists, of course, have been far looser with their borrowings than writers of mere facts, placing the present work solidly within a long tradition. The closest literary ancedents of NaNoGenMo--Dada and Oulipo--have often explored similar sampling approaches. Kathryn Hume has suggested that technical constratints have lead NaNoGenMo to "align itself with poetics of recontextualization and reassembly."^[Hume, Kathryn. "NaNoGenMo: Dada 2.0". URL:\url{http://arcade.stanford.edu/blogs/nanogenmo-dada-20}. Accessed: 2015-11-28. (Archived by WebCite® at \url{http://www.webcitation.org/6dNl9xpbY})] 
 
-While I'd point out that NaNoGenMo also exhibits other aspects, such as the concrete poetry in thricedotted's _The Seeker_, or the way structurally-plotted works like _Hannah and The Twelve-Disk Tower of Hanoi_ evoke the chessboard constraints of _Life a User's Manual_ or _Through the Looking Glass_, there is an undeniable strand of appropreation as we teach our machines to imitate their human creators. Still, that's no reason to neglect giving credit, so this book attempts to cite the sources for the texts it borrows.
+NaNoGenMo has included other approaches, such as the concrete poetry in thricedotted's _The Seeker_, or the way structurally-plotted works like _Hannah and The Twelve-Disk Tower of Hanoi_ evoke the chessboard constraints of _Life a User's Manual_ or _Through the Looking Glass_. But there is an undeniable strand of appropreation as we teach our machines to imitate their human creators. Still, that's no reason to neglect giving credit, so this book attempts to cite the sources for the texts it borrows.
 
 In this work, that deliberate borrowing is the intent. Unlike an age of precious codices, the information age is a time of entirely too much to read. Search engines can find anything you ask for but, like a fairy-tale mirror, can only answer the questions you know enough to ask in the first place. The serendipity of browsing through a library is lost. Extracting the stories and arranging them in a new pattern presents a new angle. Rather than an exhaustive view of the forest, it picks out one or two trees you might have otherwise overlooked.
 
@@ -44,242 +43,72 @@ pandoc output.markdown -S --normalize --toc \
 -V documentclass=book
 ~~~
 
+This copy was generated \today, with seeds of 753 and 3468
 
-\newpage
-#Virgil's Commonplace Book 
 
-\newpage
-    Virgil departed from Roma, intending to travel on a boat heading upstream to Ocriculum, a 64.936997726 mile journey. 
+
+\cleardoublepage
+
+# Roma to Ancona
+
+Virgil departed from Roma, intending to travel on a boat heading upstream to Ocriculum, a journey of about 64 miles. 
+
+Black night broods on the waters. All nature, big with instant ruin, frowned destruction. Rocks amid the waves, a vast reef banking the sea. The east wind forces a ship from the deep into shallows and quicksands. Piteous to see, it dashes on shoals and girdles with a sandbank. 
 
 Insert story about 413231
 
 Insert story about ['42.412', '12.467']
 
-Virgil departed from Ocriculum, intending to travel by road to Narnia, a 8.118212115 mile journey. 
+Intending to travel by road to Narnia, Virgil left Ocriculum. It was about 8 miles away. 
+
+Then comes the creak of cables and the cries of seamen. A gust of the shrill north strikes full on the sail and raises the waves up to heaven. Down in a heap comes a broken mountain of water. They hang on the wave's ridge. The south wind catches and hurls a ship on hidden rocks. Rocks amid the waves, a vast reef banking the sea. The east wind forces a ship from the deep into shallows and quicksands. Piteous to see, it dashes on shoals and girdles with a sandbank. Before their eyes a vast sea descending strikes astern. 
 
 Insert story about 413225
 
 Insert story about ['42.52', '12.516']
 
-Virgil departed from Narnia, intending to travel by road to Spoletium, a 22.863967316 mile journey. 
+Intending to travel by road to Spoletium, Virgil left Narnia. It was a journey of about 22 miles. 
+
+Then comes the creak of cables and the cries of seamen. Black night broods on the waters. The prow swings away and gives her side to the waves. Down in a heap comes a broken mountain of water. They hang on the wave's ridge. The east wind forces a ship from the deep into shallows and quicksands. The helmsman is dashed away and rolled forward headlong. As she lies the billow sends her spinning thrice round with it, and engulfs her in the swift whirl. Scattered swimmers appear in the vast eddy; armour of men, timbers and treasure amid the water. 
 
 Insert story about 413320
 
 Insert story about ['42.745', '12.738']
 
-Virgil departed from Spoletium, intending to travel by road to Fanum Fortunae, a 90.170252665 mile journey. 
+Leaving Spoletium, Virgil set out for Fanum Fortunae by road, a journey of about 90 miles. 
+
+Then comes the creak of cables and the cries of seamen. Black night broods on the waters. All around from pole to pole the rattling peals resound. Frequent flashes light the lurid air. A gust of the shrill north strikes full on the sail and raises the waves up to heaven. Down in a heap comes a broken mountain of water. The yawning billow shows ground amid the surge, where the sea churns with sand. They hang on the wave's ridge. Scattered swimmers appear in the vast eddy; armour of men, timbers and treasure amid the water. 
 
 Insert story about 413129
 
 Insert story about ['43.845', '13.017']
 
-Virgil departed from Fanum Fortunae, intending to travel by ship down the coast to Ariminum, a 38.157771739 mile journey. 
+From Fanum Fortunae to Ariminum is about 38 miles away when travelling by ship down the coast. 
+
+Then comes the creak of cables and the cries of seamen. Frequent flashes light the lurid air. All nature, big with instant ruin, frowned destruction. The oars are snapped. Down in a heap comes a broken mountain of water. Rocks amid the waves, a vast reef banking the sea. The east wind forces a ship from the deep into shallows and quicksands. Before their eyes a vast sea descending strikes astern. Scattered swimmers appear in the vast eddy; armour of men, timbers and treasure amid the water. 
 
 Insert story about 393379
 
 Insert story about ['44.059', '12.563']
 
-Virgil departed from Ariminum, intending to travel by ship down the coast to Fanum Fortunae, a 38.157771739 mile journey. 
+Virgil departed from Ariminum, intending to travel by ship down the coast to Fanum Fortunae, about 38 miles away. 
+
+The oars are snapped. The yawning billow shows ground amid the surge, where the sea churns with sand. As she lies the billow sends her spinning thrice round with it, and engulfs her in the swift whirl. 
 
 Insert story about 413129
 
 Insert story about ['43.845', '13.017']
 
-Virgil departed from Fanum Fortunae, intending to travel by ship down the coast to Ancona, a 42.411056234 mile journey. 
+Leaving Fanum Fortunae, Virgil set out for Ancona by ship down the coast, a distance of about 42 miles. 
+
+Clouds the darkened heavens have drowned, and snatched the daylight from their eyes. All nature, big with instant ruin, frowned destruction. Down in a heap comes a broken mountain of water. The east wind forces a ship from the deep into shallows and quicksands. Piteous to see, it dashes on shoals and girdles with a sandbank. The helmsman is dashed away and rolled forward headlong. 
 
 Insert story about 413014
 
 Insert story about ['43.616', '13.519']
 
-Virgil departed from Ancona, intending to travel by ship down the coast to Iader, a 107.75815881999999 mile journey. 
+From Ancona to Iader is a journey of about 107 miles when travelling by ship down the coast. 
 
-Insert story about 197312
+Clouds the darkened heavens have drowned, and snatched the daylight from their eyes. Black night broods on the waters. They hang on the wave's ridge. 
 
-Insert story about ['44.115', '15.229']
-
-Virgil departed from Iader, intending to travel by ship down the coast to Titius (river), a 48.512298083 mile journey. 
-
-There was no story for None
-
-Insert story about ['43.72', '15.86']
-
-Virgil departed from Titius (river), intending to travel by ship down the coast to Iader, a 48.512298083 mile journey. 
-
-Insert story about 197312
-
-Insert story about ['44.115', '15.229']
-
-Virgil departed from Iader, intending to travel by road to Burnum, a 40.332570239000006 mile journey. 
-
-Insert story about 197184
-
-Insert story about ['44.032', '15.994']
-
-Virgil departed from Burnum, intending to travel by road to Salona, a 50.36833326 mile journey. 
-
-Insert story about 197488
-
-Insert story about ['43.54', '16.483']
-
-Virgil departed from Salona, intending to travel by ship down the coast to Aternum, a 153.083445044 mile journey. 
-
-Insert story about 413039
-
-Insert story about ['42.465', '14.214']
-
-Virgil departed from Aternum, intending to travel by ship down the coast to Castrum Truentinum, a 38.822017338 mile journey. 
-
-Insert story about 413074
-
-Insert story about ['42.914', '13.904']
-
-Virgil departed from Castrum Truentinum, intending to travel by road to Asculum, a 17.434427518 mile journey. 
-
-Insert story about 413036
-
-Insert story about ['42.855', '13.575']
-
-Virgil departed from Asculum, intending to travel by road to Reate, a 59.120965166 mile journey. 
-
-Insert story about 413283
-
-Insert story about ['42.403', '12.861']
-
-Virgil departed from Reate, intending to travel by road to Roma, a 44.475872067 mile journey. 
-
-Insert story about 423025
-
-Insert story about ['41.892', '12.486']
-
-Virgil departed from Roma, intending to travel on a boat heading downstream to Ostia/Portus, a 17.919718269 mile journey. 
-
-Insert story about 422995
-
-Insert story about ['41.755', '12.288']
-
-Virgil departed from Ostia/Portus, intending to travel by ship down the coast to Tarracina, a 77.959069773 mile journey. 
-
-Insert story about 433143
-
-Insert story about ['41.291', '13.249']
-
-Virgil departed from Tarracina, intending to travel by ship down the coast to Formiae, a 24.815072256 mile journey. 
-
-Insert story about 432839
-
-Insert story about ['41.256', '13.606']
-
-Virgil departed from Formiae, intending to travel by ship down the coast to Minturnae, a 18.833133639 mile journey. 
-
-Insert story about 432940
-
-Insert story about ['41.242', '13.769']
-
-Virgil departed from Minturnae, intending to travel by ship down the coast to Formiae, a 18.833133639 mile journey. 
-
-Insert story about 432839
-
-Insert story about ['41.256', '13.606']
-
-Virgil departed from Formiae, intending to travel by ship down the coast to Minturnae, a 18.833133639 mile journey. 
-
-Insert story about 432940
-
-Insert story about ['41.242', '13.769']
-
-Virgil departed from Minturnae, intending to travel by ship down the coast to Formiae, a 18.833133639 mile journey. 
-
-Insert story about 432839
-
-Insert story about ['41.256', '13.606']
-
-Virgil departed from Formiae, intending to travel by ship down the coast to Tarracina, a 24.815072256 mile journey. 
-
-Insert story about 433143
-
-Insert story about ['41.291', '13.249']
-
-Virgil departed from Tarracina, intending to travel on a boat heading upstream to Forum Appii, a 14.712822538000001 mile journey. 
-
-There was no story for None
-
-Virgil departed from Forum Appii, intending to travel on a boat heading downstream to Tarracina, a 14.712822538000001 mile journey. 
-
-Insert story about 433143
-
-Insert story about ['41.291', '13.249']
-
-Virgil departed from Tarracina, intending to travel on a boat heading upstream to Forum Appii, a 14.712822538000001 mile journey. 
-
-There was no story for None
-
-Virgil departed from Forum Appii, intending to travel by road to Roma, a 42.639720762 mile journey. 
-
-Insert story about 423025
-
-Insert story about ['41.892', '12.486']
-
-Virgil departed from Roma, intending to travel on a boat heading upstream to Ocriculum, a 64.936997726 mile journey. 
-
-Insert story about 413231
-
-Insert story about ['42.412', '12.467']
-
-Virgil departed from Ocriculum, intending to travel by road to Narnia, a 8.118212115 mile journey. 
-
-Insert story about 413225
-
-Insert story about ['42.52', '12.516']
-
-Virgil departed from Narnia, intending to travel by road to Ocriculum, a 8.118212115 mile journey. 
-
-Insert story about 413231
-
-Insert story about ['42.412', '12.467']
-
-Virgil departed from Ocriculum, intending to travel by road to Narnia, a 8.118212115 mile journey. 
-
-Insert story about 413225
-
-Insert story about ['42.52', '12.516']
-
-Virgil departed from Narnia, intending to travel by road to Spoletium, a 22.863967316 mile journey. 
-
-Insert story about 413320
-
-Insert story about ['42.745', '12.738']
-
-Virgil departed from Spoletium, intending to travel by road to Fanum Fortunae, a 90.170252665 mile journey. 
-
-Insert story about 413129
-
-Insert story about ['43.845', '13.017']
-
-Virgil departed from Fanum Fortunae, intending to travel by ship down the coast to Ariminum, a 38.157771739 mile journey. 
-
-Insert story about 393379
-
-Insert story about ['44.059', '12.563']
-
-Virgil departed from Ariminum, intending to travel by road to Faventia, a 38.639334264 mile journey. 
-
-Insert story about 393420
-
-Insert story about ['44.286', '11.884']
-
-Virgil departed from Faventia, intending to travel by road to Bononia, a 30.18620318 mile journey. 
-
-Insert story about 393421
-
-Insert story about ['44.495', '11.349']
-
-Virgil departed from Bononia, intending to travel on a military boat downstream to the countryside, a 39.472592775 mile journey. 
-
-There was no story for None
-
-Virgil departed from the countryside, intending to travel on a military boat headed upstream to Placentia, a 140.85859199 mile journey. 
-
-Insert story about 383741
-
-Insert story about ['45.052', '9.699']
-
+\newpage

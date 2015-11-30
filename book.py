@@ -25,12 +25,11 @@ def flushBook():
 def bookIntro():
     intro_text = """% Virgil's Commonplace Book
 % Isaac Karth
-\\newpage
 \n## Introduction
 It has long been a common practice to incorporate the works of earlier writers into new books. Indeed, many commonplace books consist of nothing _but_ quotations and similar notes. We have many surviving examples from the Roman Empire, such as Aulus Gellius' _Attic Nights_. These texts were not always attributed to the original source. Lacking the modern concept of plagiarism (and our post-printing-press system of uniform citations) writers sometimes come off as careless to modern sensibilities. Quotes could be paraphrased and rather vague citations were the norm. Indeed, some authors committed a kind of reverse plagiarism, [pseudepigraphically](https://en.wikipedia.org/wiki/Pseudepigrapha) attributing their work to an earlier, more famous author.\n 
 In a way, this reuse is fortunate: many texts from the Classical period only exist in fragments quoted in other documents. Some works survive in [epitome](https://en.wikipedia.org/wiki/Epitome), distilled versions that summarized the text; for others we have fragments that later writers quoted or abridged as they wrote their compilations.\n
-Artists, of course, have been far looser with their borrowings than writers of mere facts, placing the present work solidly within a long tradition. The closest literary ancedents of NaNoGenMo--Dada and Oulipo--have often explored similar sampling approaches. Kathryn Hume has suggested that technical constratints have lead NaNoGenMo to "align itself with poetics of recontextualization and reassembly."^[Hume, Kathryn. "NaNoGenMo: Dada 2.0". URL:\\url{http://arcade.stanford.edu/blogs/nanogenmo-dada-20}. Accessed: 2015-11-28. (Archived by WebCite® at \\url{http://www.webcitation.org/6dNl9xpbY>})] \n
-While I'd point out that NaNoGenMo also exhibits other aspects, such as the concrete poetry in thricedotted's _The Seeker_, or the way structurally-plotted works like _Hannah and The Twelve-Disk Tower of Hanoi_ evoke the chessboard constraints of _Life a User's Manual_ or _Through the Looking Glass_, there is an undeniable strand of appropreation as we teach our machines to imitate their human creators. Still, that's no reason to neglect giving credit, so this book attempts to cite the sources for the texts it borrows.\n
+Artists, of course, have been far looser with their borrowings than writers of mere facts, placing the present work solidly within a long tradition. The closest literary ancedents of NaNoGenMo--Dada and Oulipo--have often explored similar sampling approaches. Kathryn Hume has suggested that technical constratints have lead NaNoGenMo to "align itself with poetics of recontextualization and reassembly."^[Hume, Kathryn. "NaNoGenMo: Dada 2.0". URL:\\url{http://arcade.stanford.edu/blogs/nanogenmo-dada-20}. Accessed: 2015-11-28. (Archived by WebCite® at \\url{http://www.webcitation.org/6dNl9xpbY})] \n
+NaNoGenMo has included other approaches, such as the concrete poetry in thricedotted's _The Seeker_, or the way structurally-plotted works like _Hannah and The Twelve-Disk Tower of Hanoi_ evoke the chessboard constraints of _Life a User's Manual_ or _Through the Looking Glass_. But there is an undeniable strand of appropreation as we teach our machines to imitate their human creators. Still, that's no reason to neglect giving credit, so this book attempts to cite the sources for the texts it borrows.\n
 In this work, that deliberate borrowing is the intent. Unlike an age of precious codices, the information age is a time of entirely too much to read. Search engines can find anything you ask for but, like a fairy-tale mirror, can only answer the questions you know enough to ask in the first place. The serendipity of browsing through a library is lost. Extracting the stories and arranging them in a new pattern presents a new angle. Rather than an exhaustive view of the forest, it picks out one or two trees you might have otherwise overlooked.\n
 I chose Virgil as the protagonist for three reasons: first, his works are among the source texts in the Perseus Digital Library used for much of the text here. His _Aeneid_ builds on earlier traditions, recast in a founding epic for a new age: appropriate for a work themed around appropriation and reuse in this new information age. This would not be enough to recommend him on its own: there are other authors whose works were much closer to the kind of copying and summarizing going on here. And _The Golden Ass_ by Apuleius, one of the earliest surviving novels, is closer in form to the travel tale that structures this generated novel. \n
 But there was also a tradition that linked Virgil and his poetry with magic and prophecy. It was no accident that Dante chose Virgil to be his guide through the _Inferno_. His memory is haunted by that touch of magic, a magic intimately linked with words and poetry. And, as Jeff Howard has pointed out,^[in _Game Magic: A Designer's Guide to Magic Systems in Theory and Practice_] programming is a form of magic. A magician-protagonist is entirely appropreate.\n
@@ -53,14 +52,16 @@ pandoc output.markdown -S --normalize --toc \\
 -V fontfamily:"DejaVu Serif" -V linestretch:1.2 \\
 -V documentclass=book
 ~~~
+
+This copy was generated \\today, with seeds of """ + str(settings.travel_rng_seed) + """ and """ + str(settings.text_rng_seed) + """
+
 \n
-\\newpage
-#Virgil's Commonplace Book \n
-\\newpage
-    """
+\\cleardoublepage"""
     return intro_text
 
 def writeToBook(text):
+    if not text:
+        return
     global book_text
     if DISPLAY_TEXT_WHILE_WRITING:
         pprint.pprint(text)
@@ -90,16 +91,18 @@ def textQuotation(t):
     author_name = t['author']
     title_data = {'place': place_name, 'author': author_name, 'book': t['book_title']}
     if author_name == "Virgil":
-        writeToBook("## {place} in Virgil's _{book}_\n".format(**title_data))
+        writeToBook("## {place} in Virgil's _{book}_".format(**title_data))
     else:    
-        book_string = "## " + str(random.choice(possible_story_titles)) + "\n"
+        book_string = "## " + str(random.choice(possible_story_titles)) + ""
         writeToBook(book_string.format(**title_data))
     writeToBook(h.handle(t['text']))
     #writeToBook(t['text'])
     pass
 
 def textTravel(t):
-    writeToBook(h.handle(t['text']))
+    print(t)
+    if t['text']:
+        writeToBook(h.handle(t['text']))
     #writeToBook(t['text'])
     pass
 
@@ -115,14 +118,17 @@ def addCitation(t):
     #cite = strip_whitespace.sub(" ", cite)
     writeToBook(str(cite))
 
+
 def chapterStart(t):
+    writeToBook(t['text'])
     pass
 
 def chapterEnd(t):
+    writeToBook("\\newpage")
     pass
 
 text_translate_table = {'quotation': textQuotation,
-                       'travel-narration': textTravel,
+                       'travel': textTravel,
                        'placeholder': textPlaceholder,
                        'chapterStart': chapterStart,
                        'chapterEnd': chapterEnd
