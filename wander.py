@@ -66,6 +66,12 @@ def descriptionJourneyTypeName(type):
     type_description = type_description_subs[type]
     return type_description
 
+def renderInscription(wander:dict):
+    try:
+        return data.getInscription(wander['location'].latlon)
+    except settings.InvalidLatLon:
+        return ""
+
 def fleshOutDescription(wander:dict, desc):
     """
     Given a paragraph of text, go through it, replacing the variables with those extracted from the wanderer state.
@@ -82,6 +88,13 @@ def fleshOutDescription(wander:dict, desc):
     text_distance = settings.TEXT_RNG.choice(distance_text)
 
     variable_swap = {'from':text_departing_from_name, 'type':text_travel_route_type, 'type_name':text_travel_route_type_name, 'destination':text_destination_name, 'distance':text_distance, 'miles':str(math.floor(miles_distance))}
+
+    if settings.WRITE_THE_STORIES:
+        if "{inscription}" in desc:
+            while "{inscription}" in desc:
+                if settings.DELAY_FOR_BANDWIDTH:
+                    time.sleep(0.6)
+                desc.replace("{inscription}", renderInscription(wander), 1)
 
     output = str(desc.format(**variable_swap))
     if (output != desc):
@@ -174,11 +187,11 @@ def renderTravelShip(wander:dict):
     return phrasesElision(phrases.sailing) + " \n\n" + phrasesElision(phrases.storm) + phrasesElision(phrases.storm_end) + " \n\n" + phrasesElision(phrases.harbor)
     
 def renderTravelWalk(wander:dict):
-    return phrasesDeal(phrases.walking)
+    return phrasesDeal(phrases.walking + [phrasesShuffle(phrases.inscriptions)[0]])
 
 def renderTravelGeneric(wander:dict):
-    print (phrases.travel)
-    return phrasesDeal(phrases.travel)
+    #print (phrases.travel)
+    return phrasesDeal(phrases.travel + [phrasesShuffle(phrases.inscriptions)[0]])
 
 def renderTravelText(wander:dict):
     """

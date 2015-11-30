@@ -109,7 +109,9 @@ travel=["The journey is more tiring than you might expect",
         "Birds sing their greetings"]
 
 # Hom. Od. 6.251
-harbor=["A fair harbor lies on either side of the city and the entrance is narrow",
+harbor=["The harbor of {destination} came into view over the horizon",
+        "A fair harbor lies on either side of the city and the entrance is narrow",
+        "They beheld the harbor of {destination} with gladness",
         "Curved ships are drawn up along the road",
         "They all have stations for their ships, each man one for himself",
         "There, too, is their place of assembly about the fair temple of Poseidon, fitted with huge stones set deep in the earth",
@@ -117,3 +119,13 @@ harbor=["A fair harbor lies on either side of the city and the entrance is narro
         "Here they shape the thin oar-blades",
         "For they care not for bow or quiver, but for masts and oars of ships",
         "They care for the shapely ships, rejoicing in that which they cross over the grey sea"]
+
+inscriptions = ["On a pillar was written: {inscription}. He contemplated it",
+                "By the gate of {destination}, these words were carved: {inscription}",
+                "Virgil saw this on a roadside tomb: {inscription}",
+                "Wondering if it was related to his journey, he read the words that were carved there: {inscription}",
+                "There was written there these words: {inscription}",
+                "They passed by an inscription that read: {inscription}",
+                "{inscription} was carved into the stone",
+                "{inscription}: he pondered the sight of this inscription",
+                "At that place is inscribed: \"{inscription}\""]

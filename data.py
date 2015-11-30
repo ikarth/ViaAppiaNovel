@@ -388,13 +388,7 @@ def findNearbyPelagiosPlace(latlon):
 def findNearbyPelagiosInscription(latlon):
     if not latlonIsValid(latlon): return
     #result = getSearchPelagios(float(latlon[0]),float(latlon[1]),datasets="ac9dafb82ac100d90d644cd38e19a873")
-    result = getSearchPelagios(float(latlon[0]),float(latlon[1]),datasets="21b2d56d90bd192834aea9d8ad9d61b21a94d85f15f7cab1c458d4eebf599b73")
-    return result
-
-def findNearbyPelagiosInscription(latlon):
-    if not latlonIsValid(latlon): return
-    #result = getSearchPelagios(float(latlon[0]),float(latlon[1]),datasets="ac9dafb82ac100d90d644cd38e19a873")
-    result = getSearchPelagios(float(latlon[0]),float(latlon[1]),datasets="21b2d56d90bd192834aea9d8ad9d61b21a94d85f15f7cab1c458d4eebf599b73")
+    result = getSearchPelagios(float(latlon[0]),float(latlon[1]),datasets="21b2d56d90bd192834aea9d8ad9d61b21a94d85f15f7cab1c458d4eebf599b73", radius=100, limit=200)
     return result
 
 def extractPossibleField(dataset, field):
@@ -666,12 +660,27 @@ def testLocationRome():
     return makeOrbisLocation(50327)
 
 
-
+already_used_inscriptions = set()
 def translateInscription(input):
     """
     Take the raw data and extract the bits that we can use to generate text.
     """
-    heidelberg_data_url = input['items'][0]['homepage'] + ".xml"
+    global already_used_inscriptions
+    #print(input['items'])
+    poss_list = set([i['homepage'] for i in input['items']])
+    possible_inscriptions = poss_list
+    possible_inscriptions = possible_inscriptions.difference(already_used_inscriptions)
+    if len(possible_inscriptions) == 0:
+        return "XXXXXXX"
+    #print(possible_inscriptions)
+    # TODO: weight inscriptions by distance...
+    inscription_data_id = settings.TEXT_RNG.choice(list(possible_inscriptions))
+    already_used_inscriptions.add(inscription_data_id)
+    inscription_data = [j for j in input['items'] if str(j['homepage']) == str(inscription_data_id)][0]
+    if not inscription_data:
+        return "XXXXXXX"
+    #print(inscription_data)
+    heidelberg_data_url = inscription_data['homepage'] + ".xml"
     heidelberg_data = requests.get(heidelberg_data_url)
     #eltree = xml.etree.ElementTree.ElementTree(xml.etree.ElementTree.fromstring(heidelberg_data.text))
     #root = eltree.getroot().find(".")
@@ -682,6 +691,10 @@ def translateInscription(input):
     #return {'data_url': input['items'][0]['homepage'] + ".xml",
     #        'transcription': find_inscription,
     #        'eltree': eltree}
+
+def getInscription(latlon):
+    latlon = cleanLatLon(latlon)
+    return translateInscription(findNearbyPelagiosInscription(latlon))
 
 def testXML():
     eltree = xml.etree.ElementTree.parse("HD006837.xml")
