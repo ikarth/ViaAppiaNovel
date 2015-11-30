@@ -107,7 +107,7 @@ def renderSelectDestination(wander:dict):
                         "Travelling {type} to {destination}",
                         "Travelling by {type_name}"]
     header_choice_text = "\n## " + settings.TEXT_RNG.choice(header_templates)
-    header_text = fleshOutDescription(wander, header_choice_text)
+    header_text = fleshOutDescription(wander, header_choice_text).title()
     header_data = {'type':'travel', 'text':header_text, 'metadata':[], 'state':copy.deepcopy(wander)}
     writeStory(header_data)
 
