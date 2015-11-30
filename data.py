@@ -666,25 +666,21 @@ def translateInscription(input):
     Take the raw data and extract the bits that we can use to generate text.
     """
     global already_used_inscriptions
-    #print(input['items'])
     poss_list = set([i['homepage'] for i in input['items']])
     possible_inscriptions = poss_list
     possible_inscriptions = possible_inscriptions.difference(already_used_inscriptions)
     if len(possible_inscriptions) == 0:
-        return "XXXXXXX"
-    #print(possible_inscriptions)
+        return "SPQR"
     # TODO: weight inscriptions by distance...
     inscription_data_id = settings.TEXT_RNG.choice(list(possible_inscriptions))
     already_used_inscriptions.add(inscription_data_id)
     inscription_data = [j for j in input['items'] if str(j['homepage']) == str(inscription_data_id)][0]
     if not inscription_data:
-        return "XXXXXXX"
-    #print(inscription_data)
+        return "Lucius Pinxit"
     heidelberg_data_url = inscription_data['homepage'] + ".xml"
     heidelberg_data = requests.get(heidelberg_data_url)
     #eltree = xml.etree.ElementTree.ElementTree(xml.etree.ElementTree.fromstring(heidelberg_data.text))
     #root = eltree.getroot().find(".")
-    #print("----------------")
     #print(root.findall(".//{http://www.tei-c.org/ns/1.0}ab"))
     find_inscription = heidelberg_data.text.split("<!--")[1].split("-->")[0].strip()
     return find_inscription

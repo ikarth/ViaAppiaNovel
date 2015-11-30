@@ -107,7 +107,6 @@ def textQuotation(t):
     pass
 
 def textTravel(t):
-    print(t)
     if t['text']:
         writeToBook(convertHTML(t['text']))
     #writeToBook(t['text'])

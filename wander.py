@@ -70,7 +70,7 @@ def renderInscription(wander:dict):
     try:
         return data.getInscription(wander['location'].latlon)
     except settings.InvalidLatLon:
-        return ""
+        return "Lucius Pinxit"
 
 def fleshOutDescription(wander:dict, desc):
     """
@@ -87,14 +87,15 @@ def fleshOutDescription(wander:dict, desc):
                      "at least {} miles".format(str(math.floor(miles_distance)))]
     text_distance = settings.TEXT_RNG.choice(distance_text)
 
-    variable_swap = {'from':text_departing_from_name, 'type':text_travel_route_type, 'type_name':text_travel_route_type_name, 'destination':text_destination_name, 'distance':text_distance, 'miles':str(math.floor(miles_distance))}
+    variable_swap = {'from':text_departing_from_name, 'type':text_travel_route_type, 'type_name':text_travel_route_type_name, 'destination':text_destination_name, 'distance':text_distance, 'miles':str(math.floor(miles_distance)), 'inscription':'Est in Arcadia Ego' }
 
     if settings.WRITE_THE_STORIES:
         if "{inscription}" in desc:
             while "{inscription}" in desc:
                 if settings.DELAY_FOR_BANDWIDTH:
                     time.sleep(0.6)
-                desc.replace("{inscription}", renderInscription(wander), 1)
+                print(desc)
+                desc = desc.replace("{inscription}", renderInscription(wander), 1)
 
     output = str(desc.format(**variable_swap))
     if (output != desc):
@@ -434,6 +435,6 @@ def processWanderer(wander:dict):
     global current_chapter
     current_chapter = 0
     settings.setRNG()
-    for i in range(0,16):
+    for i in range(0,2):
         wander = wanderChapter(wander)
     return wander
