@@ -116,6 +116,9 @@ def textPlaceholder(t):
     writeToBook(convertHTML(t['text']))
     pass
 
+def textNull(t):
+    pass
+
 def addCitation(t):
     cite = ""
     for c in t:
@@ -137,7 +140,8 @@ text_translate_table = {'quotation': textQuotation,
                        'travel': textTravel,
                        'placeholder': textPlaceholder,
                        'chapterStart': chapterStart,
-                       'chapterEnd': chapterEnd
+                       'chapterEnd': chapterEnd,
+                       'plot':textNull
                        }
 
 def transcribeStory(story:list):

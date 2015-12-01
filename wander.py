@@ -20,7 +20,7 @@ def writeStory(story_data:dict):
     #print(story_data)
     wanderer_story.append(story_data)
 
-def processStory(story):
+def processChapters(story):
     new_story = copy.deepcopy(story)
     for i in story:
         if str(i['type']) == "chapterEnd":
@@ -32,6 +32,24 @@ def processStory(story):
                         chapter_title = str(start_loc) + " to " + str(end_loc)
                         j['text'] = str("\n# " + chapter_title + "")
     return new_story
+
+def processStory(story):
+    new_story = processChapters(story)
+
+    plot_events = [i for i in new_story if str(i['type']) == 'plot']
+    plot_events.reverse()
+
+    print([i['plot_point'] for i in plot_events])
+
+
+
+    for i in new_story:
+        if str(i['type']) == "plot":
+            if str(i['plot_type']) == "end":
+                pass
+
+    return new_story
+    
 
 def getStory():
     return processStory(wanderer_story)
@@ -414,12 +432,33 @@ def chapterBegin(wander:dict):
 
 def chapterEnd(wander:dict):
     writeStory({'type':'chapterEnd', 'text':"" , 'state':copy.deepcopy(wander), 'chapter':current_chapter})
-    
+
+
+current_plot_point = 0
+
+def writePlot(wander:dict, plot_type):
+    global current_plot_point
+    current_plot_point += 1
+    writeStory({'type':'plot', 'text':"" , 'state':copy.deepcopy(wander), 'plot_point':current_plot_point, 'plot_type':plot_type})
+
+
+def plotBegin(wander:dict):
+    writePlot(wander, "begin")
+
+def plotSuccess(wander:dict):
+    writePlot(wander, "success")
+
+def plotFailure(wander:dict):
+    writePlot(wander, "failure")
+
+def plotEnd(wander:dict):
+    writePlot(wander, "end")
 
 def wanderChapter(wander:dict):
     chapterBegin(wander)
     passage_count = 0
     chapter_done = False
+    plotBegin(wander)
     while not chapter_done:
         passage_count += 1
         if DELAY_FOR_BANDWIDTH:
@@ -428,13 +467,16 @@ def wanderChapter(wander:dict):
         wander = wander['state'](wander)
         if (passage_count > 30) and wander['state'] == wanderSelectDestination:
             chapter_done = True
+    plotEnd(wander)
     chapterEnd(wander)
     return wander
 
 def processWanderer(wander:dict):
     global current_chapter
     current_chapter = 0
+    global current_plot_point
+    current_plot_point = 0
     settings.setRNG()
-    for i in range(0,2):
+    for i in range(0,16):
         wander = wanderChapter(wander)
     return wander

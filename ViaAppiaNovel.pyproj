@@ -28,6 +28,8 @@
     <Compile Include="data.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="phrases.py" />
+    <Compile Include="plot.py" />
     <Compile Include="settings.py">
       <SubType>Code</SubType>
     </Compile>
@@ -47,6 +49,9 @@
       </PathEnvironmentVariable>
       <Architecture>Amd64</Architecture>
     </Interpreter>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="requirements.txt" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
