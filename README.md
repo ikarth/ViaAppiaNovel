@@ -8,6 +8,8 @@ National Novel Generation Month Project 2015
 
 A [thread about its development can be found here](https://github.com/dariusk/NaNoGenMo-2015/issues/15).
 
+The final NaNoGenMo edition of the novel is here: [Virgil's Commonplace Book](https://github.com/ikarth/ViaAppiaNovel/blob/master/via_appia_nanogenmo.pdf?raw=true)
+
 ## About the generator
 The book generator is a Python program that outputs a Markdown text file designed to be converted into PDF form via Pandoc.
 
