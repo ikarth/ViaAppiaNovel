@@ -1,7 +1,7 @@
 import settings
 import collections
 import math
-
+import itertools
 
 
 plotting = {}
@@ -10,7 +10,7 @@ plotting['have need'] = {'substeps':[['introduce need','new macguffin', 'fulfill
 #plotting['hunt macguffin'] = {'substeps':[['new macguffin'], ['new macguffin', 'new macguffin', 'combine macguffins']], 'halt': 'EVENT-MACGUFFIN HUNT FAIL'}
 #plotting['get parts for macguffin'] = {'substeps':[['macguffin hunt scene'], ['hunt macguffin', 'hunt macguffin'], ['macguffin hunt scene']], 'halt': 'EVENT-MACGUFFIN HUNT SCENE-SUCCESS' }
 plotting['fulfill need'] = {'substeps':None, 'halt': 'EVENT-FULFILL GOAL'}
-plotting['new macguffin'] = {'substeps':[['introduce macguffin', 'macguffin hunt']], 'halt': 'EVENT-DEUS EX MACHINA MACGUFFIN'}
+plotting['new macguffin'] = {'substeps':[['introduce macguffin', 'macguffin hunt']], 'halt': 'EVENT-MACGUFFIN HUNT FAIL'}
 plotting['introduce macguffin'] = {'substeps':None, 'halt': 'EVENT-INTRODUCE MACGUFFIN'}
 plotting['combine macguffin'] = {'substeps':None, 'halt': 'EVENT-COMBINE MACGUFFIN'}
 #plotting['assemble macguffin'] = {'substeps':[['hunt macguffin', 'hunt macguffin'], ['macguffin hunt scene', 'assemble macguffin']], 'halt': 'EVENT-MACGUFFIN ACQUIRED'}
@@ -19,11 +19,11 @@ plotting['macguffin success'] = {'substeps':None, 'halt': 'EVENT-MACGUFFIN ACQUI
 plotting['macguffin hunt failure'] = {'substeps':[['macguffin hunt failure'],['macguffin hunt failure'],['macguffin hunt failure', 'macguffin hunt failure']], 'halt': 'EVENT-MACGUFFIN HUNT FAIL'}
 
 events = {"EVENT-EXPLAIN GOAL":{'sort':0, 'progress':0},
-          'EVENT-DEUS EX MACHINA MACGUFFIN':{'sort':5, 'progress':0},
+          'EVENT-DEUS EX MACHINA MACGUFFIN':{'sort':2, 'progress':0},
           'EVENT-MACGUFFIN ACQUIRED':{'sort':3, 'progress':1},
           'EVENT-FULFILL GOAL':{'sort':9, 'progress':1},
           'EVENT-INTRODUCE MACGUFFIN':{'sort':1, 'progress':0},
-          'EVENT-COMBINE MACGUFFIN':{'sort':5, 'progress':1},
+          'EVENT-COMBINE MACGUFFIN':{'sort':3, 'progress':1},
           'EVENT-MACGUFFIN HUNT FAIL':{'sort':2, 'progress':1}}
 
 
@@ -33,13 +33,13 @@ def expandStep(step):
     Return either the plot step or its expansion.
     """
     global macguffin_count
-    print(step['goal'])
-    print(step['layer'])
+    #print(step['goal'])
+    #print(step['layer'])
     if plotting[step['goal']]:
         if plotting[step['goal']]['substeps']:
             pick = settings.TRAVEL_RNG.choice(range(len(plotting[step['goal']]['substeps'])))
             result = plotting[step['goal']]['substeps'][pick]
-            print(result)
+            #print(result)
             m_count = step['layer']
             m_target = int(step['target'])
             if str(result[0]) == 'introduce macguffin':
@@ -74,14 +74,31 @@ def reorderPlot(plot):
     if 1 + (max_layer * max_layer * 99) < 0:
         print ("Warning: End integer wrap likely")
     #sort_weights = [((i['target']*max_layer*100) + i['layer']) for i in plot]
+    counter = 0
+
+    sort_layers = {0:0}
     for i in plot:
-        if i['goal'] == 'EVENT-FULFILL GOAL':
-            i['sort'] = (max_layer * max_layer * 99) + 1
-        else:
-            i['sort'] = (i['target'] * max_layer * max_layer) + i['layer'] + (max_layer * events[i['goal']]['sort'])
+        if i['goal'] == 'EVENT-INTRODUCE MACGUFFIN':
+            if i['target'] in sort_layers:
+                sort_layers[i['layer']] = sort_layers[i['target']] + 1
+            else:
+                sort_layers[i['layer']] = 0
+    #print (sort_layers)
+
+    for idx, i in enumerate(plot):
+        i['sort'] = sort_layers[i['layer']]
+        i['progress'] = events[i['goal']]['progress']
+
+        #counter += 1
+        #i['sort'] = counter
+        #if i['goal'] == 'EVENT-FULFILL GOAL':
+        #    i['sort'] = (max_layer * max_layer * 99) + 1
+        #else:
+        #    i['sort'] = sort_layers[i['layer']]
              
-    print(plot)
-    sorted_plot = sorted(plot, key=lambda k: k['sort'])
+    #print(plot)
+    #sorted(plot, key=lambda k: k['sort'])
+    sorted_plot = plot
 
     return sorted_plot
 
@@ -94,6 +111,27 @@ def expandPlot(current_plot):
     for i in current_plot:
         new_plot.extend(expandStep(i))
     return new_plot
+
+
+
+def createPlot(length):
+    global macguffin_count
+    macguffin_count = 0
+    a_current_plot = [{'goal':'have need','layer':macguffin_count,'target':-1}]
+    final_plot = []
+    plot_is_too_short = True
+    counter = 0
+    while plot_is_too_short:
+        counter += 1
+        final_plot, success = haltPlotExpansion(a_current_plot)
+        a_current_plot = expandPlot(a_current_plot)
+        if len(a_current_plot) > length and success == True:
+            plot_is_too_short = False
+        if counter > 25:
+            print("Warning: Plot loop exceeded safeguards")
+            break
+    final_plot = reorderPlot(final_plot)
+    return final_plot
 
 def testPlot():
     global macguffin_count
@@ -112,6 +150,7 @@ def testPlot():
     for i in final_plot:
         print(str("   " * i['target']) + str(i['goal'])[6:] + " #" + str(i['layer']) + "\t\tparent: " + str(i['target']) + "\tsort: " + str(i['sort']))
     print("-----------")
-    final_plot = reorderPlot(final_plot)
-    for i in final_plot:
-        print(str(i['goal'])[6:] + " #" + str(i['layer']) + "\t\tparent: " + str(i['target']) + "\tsort: " + str(i['sort']))
+    #final_plot = reorderPlot(final_plot)
+    #for i in final_plot:
+    #    print(str("   " * i['target']) + str(i['goal'])[6:] + " #" + str(i['layer']) + "\t\tparent: " + str(i['target']) + "\tsort: " + str(i['sort']))
+    

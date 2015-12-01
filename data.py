@@ -927,7 +927,7 @@ def findNearbyPerseusFromLatLon(latlon, radius = 200.0):
         if radius < 3000.0:
             probs, map_quotes_to_pleiades = findNearbyPerseusFromLatLon(latlon, (radius * 2) + 1.0)
         else:
-            raise ValueError("No Perseus records within {} km of latlon".format(radius))
+            raise ValueError("No Perseus records within {} km of {} latlon".format(str(radius), str(latlon)))
     return probs, map_quotes_to_pleiades
 
 
@@ -1190,7 +1190,19 @@ def renderPerseusFromPleiades(pleiades_number):
     else:
         print ("Warning: all quotations have already been used")
         return # todo: grab a story from a nearby location instead
-    choice = settings.TEXT_RNG.choice(t)[0].toPython()
+    #print(t)
+    #print(t[0])
+    #print(t[0][0])
+    #print(t[0][0].toPython())
+    #print(len(t))
+
+    choice = None
+    try:
+        choice = settings.TEXT_RNG.choice(t)[0].toPython()
+    except ValueError:
+        tc = [i[0] for i in t]
+        choice = settings.TEXT_RNG.choice(tc)
+
 
     return renderPerseus(choice, pleiades_number)
     

@@ -8,6 +8,7 @@ import re
 import hoedown
 import ftfy
 import random
+import phrases
 
 DISPLAY_TEXT_WHILE_WRITING = settings.DISPLAY_TEXT_WHILE_WRITING
 
@@ -80,7 +81,16 @@ def readBook():
         all_text += ftfy.fix_text(str(t)) + "\n"
     return all_text
 
+def quoteIntroductions(t, v = False):
+    iphrases = phrases.qintro
+    if v:
+        iphrases = phrases.qintrov
+    phr = iphrases[:]
+    return settings.TEXT_RNG.choice(phr)
+
 def textQuotation(t):
+    
+
     possible_story_titles = ["A story about {place}",
                              "What {author} once said about {place}",
                              "A story by {author} about {place} from _{book}_",
@@ -97,10 +107,15 @@ def textQuotation(t):
         place_name = data.getNearestName(data.hydrateLocation(t['state']['location']))
     author_name = t['author']
     title_data = {'place': place_name, 'author': author_name, 'book': t['book_title']}
+    
     if author_name == "Virgil":
-        writeToBook("## {place} in Virgil's _{book}_".format(**title_data).title())
+        intro = quoteIntroductions(t, True)
+        writeToBook(intro.format(**title_data))
+        writeToBook("\n## {place} in Virgil's _{book}_".format(**title_data).title())
     else:    
-        book_string = "## " + str(random.choice(possible_story_titles)) + ""
+        intro = quoteIntroductions(t)
+        writeToBook(intro.format(**title_data))
+        book_string = "\n## " + str(random.choice(possible_story_titles)) + ""
         writeToBook(book_string.format(**title_data).title())
     writeToBook(convertHTML(t['text']))
     #writeToBook(t['text'])

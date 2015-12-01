@@ -111,14 +111,15 @@ travel=["The journey is more tiring than you might expect",
 # Hom. Od. 6.251
 harbor=["The harbor of {destination} came into view over the horizon",
         "A fair harbor lies on either side of the city and the entrance is narrow",
-        "They beheld the harbor of {destination} with gladness",
-        "Curved ships are drawn up along the road",
-        "They all have stations for their ships, each man one for himself",
-        "There, too, is their place of assembly about the fair temple of Poseidon, fitted with huge stones set deep in the earth",
-        "Here the men are busied with the tackle of their black ships, with cables and sails", 
-        "Here they shape the thin oar-blades",
-        "For they care not for bow or quiver, but for masts and oars of ships",
-        "They care for the shapely ships, rejoicing in that which they cross over the grey sea"]
+        "They beheld the harbor of {destination} with gladness"]
+
+landing=["Curved ships are drawn up along the road",
+         "The people of {destination} all have stations for their ships, each man one for himself",
+         "There, too, is their place of assembly about the fair temple of Poseidon, fitted with huge stones set deep in the earth",
+         "Here the men are busied with the tackle of their black ships, with cables and sails", 
+         "Here they shape the thin oar-blades",
+         "For they care not for bow or quiver, but for masts and oars of ships",
+         "They care for the shapely ships, rejoicing in that which they cross over the grey sea"]
 
 inscriptions = ["On a pillar was written: {inscription}. He contemplated it",
                 "By the gate of {destination}, these words were carved: {inscription}",
@@ -129,3 +130,13 @@ inscriptions = ["On a pillar was written: {inscription}. He contemplated it",
                 "{inscription} was carved into the stone",
                 "{inscription}: he pondered the sight of this inscription",
                 "At that place is inscribed: \"{inscription}\""]
+
+qintro = ["While he visited his friend at {place}, he was pleased to discover _{book}_, by {author}. Picking it up, he read:",
+          "The library at {place} happened to have a copy of _{book}_, where Virgil encountered it.",
+          "All of this brought to his mind what {author} had said about {place}:",
+          "He would later record what {author} had said about {place}.",
+          "While he was visiting {place}, he made a point of copying down what {author} had written.",
+          ]
+qintrov = ["The events of the day caused Virgil to recall what he had written about {place}.",
+           "Virgil was reminded of what he haid said in _{book}_.",
+           "This was the event that influenced him later when he wrote about {place} in _{book}_:"]

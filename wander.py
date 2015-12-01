@@ -7,6 +7,7 @@ import math
 import uuid
 import phrases
 import copy
+import plot
 
 DELAY_FOR_BANDWIDTH = settings.DELAY_FOR_BANDWIDTH #if true, sleeps a bit between tasks that might call for network resources
 WRITE_THE_STORIES = settings.WRITE_THE_STORIES # if false, skip writing the actual stories, so we can speed up testing
@@ -19,6 +20,24 @@ def writeStory(story_data:dict):
     #print("========================")
     #print(story_data)
     wanderer_story.append(story_data)
+
+current_plot_point = 0
+def writePlot(wander:dict, plot_type):
+    global current_plot_point
+    current_plot_point += 1
+    writeStory({'type':'plot', 'text':"" , 'state':copy.deepcopy(wander), 'plot_point':current_plot_point, 'plot_type':plot_type})
+
+def plotBegin(wander:dict):
+    writePlot(wander, "begin")
+
+def plotEvent(wander:dict):
+    writePlot(wander, "event")
+
+def plotFailure(wander:dict):
+    writePlot(wander, "failure")
+
+def plotEnd(wander:dict):
+    writePlot(wander, "end")
 
 def processChapters(story):
     new_story = copy.deepcopy(story)
@@ -33,15 +52,37 @@ def processChapters(story):
                         j['text'] = str("\n# " + chapter_title + "")
     return new_story
 
+def makeMacguffin(plot_event):
+    return {"name": str("MacGuffin #" + str(plot_event['layer']))}
+
 def processStory(story):
     new_story = processChapters(story)
+    return new_story #todo: implement plot
 
     plot_events = [i for i in new_story if str(i['type']) == 'plot']
-    plot_events.reverse()
+    if len(plot_events) < 3:
+        return new_story
+    middle_plot_events = plot_events[1:len(plot_events) - 1]
+    #plot_events.reverse()
 
     print([i['plot_point'] for i in plot_events])
 
+    plotting = plot.createPlot(len(plot_events))
 
+    if (not plot_events) or (not plotting):
+        return new_story
+
+    remove_list = []
+    if len(plot_events) > len(plotting):
+        remove_list = list(settings.TRAVEL_RNG.shuffle(plot_events))[len(plot_events) - len(plotting):]
+        [plot_events.remove(i) for i in remove_list]
+
+    # take the plot_events and plotting and consume both lists...
+    # {'goal':'','layer':0,'target':0,'sort':0,'progress':0}
+    for i in plotting:
+        pass       
+
+    # todo: remove_list entries get their own special consideration
 
     for i in new_story:
         if str(i['type']) == "plot":
@@ -202,8 +243,8 @@ def renderTravelShip(wander:dict):
     if settings.TEXT_RNG.choice([True, False, False, False]):
         return renderTravelShipStorm(wander)
     if settings.TEXT_RNG.choice([True, False]):
-        return phrasesElision(phrases.sailing) + " \n\n" + phrasesElision(phrases.harbor)
-    return phrasesElision(phrases.sailing) + " \n\n" + phrasesElision(phrases.storm) + phrasesElision(phrases.storm_end) + " \n\n" + phrasesElision(phrases.harbor)
+        return phrasesElision(phrases.sailing) + " \n\n" + phrasesElision(phrases.harbor) + phrasesElision(phrases.landing)
+    return phrasesElision(phrases.sailing) + " \n\n" + phrasesElision(phrases.storm) + phrasesElision(phrases.storm_end) + " \n\n" + phrasesElision(phrases.harbor) + phrasesElision(phrases.landing)
     
 def renderTravelWalk(wander:dict):
     return phrasesDeal(phrases.walking + [phrasesShuffle(phrases.inscriptions)[0]])
@@ -243,8 +284,11 @@ def renderNearbyPlaceQuotation(wander:dict, loc:data.Location, range:float = 0.0
     #data.findNearbyPerseusFromLatLon(loc.latlon)
     if WRITE_THE_STORIES:
         render_base = {'type':'quotation', 'state':copy.deepcopy(wander)}
-        render_base.update(data.renderPerseusFromLatLon(loc.latlon)) # TODO: set range based on location
-        writeStory(render_base)    
+        try:
+            render_base.update(data.renderPerseusFromLatLon(loc.latlon)) # TODO: set range based on location
+            writeStory(render_base)
+        except ValueError as err:
+            print("renderNearbyPlaceQuotation Exception: " + str(err))
     else:
         print("Skipping story for " + str(loc.latlon))
         writeStory({'type':'placeholder', 'text':str("Insert story about " + str(loc.latlon)) , 'state':copy.deepcopy(wander)})
@@ -433,26 +477,6 @@ def chapterBegin(wander:dict):
 def chapterEnd(wander:dict):
     writeStory({'type':'chapterEnd', 'text':"" , 'state':copy.deepcopy(wander), 'chapter':current_chapter})
 
-
-current_plot_point = 0
-
-def writePlot(wander:dict, plot_type):
-    global current_plot_point
-    current_plot_point += 1
-    writeStory({'type':'plot', 'text':"" , 'state':copy.deepcopy(wander), 'plot_point':current_plot_point, 'plot_type':plot_type})
-
-
-def plotBegin(wander:dict):
-    writePlot(wander, "begin")
-
-def plotSuccess(wander:dict):
-    writePlot(wander, "success")
-
-def plotFailure(wander:dict):
-    writePlot(wander, "failure")
-
-def plotEnd(wander:dict):
-    writePlot(wander, "end")
 
 def wanderChapter(wander:dict):
     chapterBegin(wander)
