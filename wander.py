@@ -154,7 +154,10 @@ def fleshOutDescription(wander:dict, desc):
                 if settings.DELAY_FOR_BANDWIDTH:
                     time.sleep(0.6)
                 print(desc)
-                desc = desc.replace("{inscription}", renderInscription(wander), 1)
+                try:
+                    desc = desc.replace("{inscription}", renderInscription(wander), 1)
+                except settings.DataSourceAccessProblem as err:
+                    desc = desc.replace("{inscription}", "Est in Arcadia Ego", 1)
 
     output = str(desc.format(**variable_swap))
     if (output != desc):
@@ -482,16 +485,16 @@ def wanderChapter(wander:dict):
     chapterBegin(wander)
     passage_count = 0
     chapter_done = False
-    plotBegin(wander)
+    #plotBegin(wander)
     while not chapter_done:
         passage_count += 1
         if DELAY_FOR_BANDWIDTH:
             print(time.process_time())
-            time.sleep(1)
+            time.sleep(0.1)
         wander = wander['state'](wander)
         if (passage_count > 30) and wander['state'] == wanderSelectDestination:
             chapter_done = True
-    plotEnd(wander)
+    #plotEnd(wander)
     chapterEnd(wander)
     return wander
 

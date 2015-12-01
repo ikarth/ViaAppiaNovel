@@ -1099,7 +1099,7 @@ def getPerseusCatalogData(doc_url, no_urn = False):
 
 previously_used_perseus_extracts = []
 
-def renderPerseus(choice, pleiades_number):
+def renderPerseus(choice, pleiades_number, is_retry = False):
     base_choice = choice.split(", ")[0].strip()
     previously_used_perseus_extracts.append(str(choice))
     #print(previously_used_perseus_extracts)
@@ -1121,17 +1121,25 @@ def renderPerseus(choice, pleiades_number):
     soup = None
         
     if not xml_url:
-        rqst = requests.get(base_choice)
-        soup = BeautifulSoup(rqst.text, "xml")
-        #def class_is_text_container(x):
-        #    return re.compile("text_container").search(x)
-        sresult = soup.find(class_=re.compile("text_container"))
+        try:
+            rqst = requests.get(base_choice)
+            soup = BeautifulSoup(rqst.text, "xml")
+            #def class_is_text_container(x):
+            #    return re.compile("text_container").search(x)
+            sresult = soup.find(class_=re.compile("text_container"))
 
-        link = soup.find_all("a", class_="xml")
-        for i in link:
-            if i.has_attr('href'):
-                if "xmlchu" == str(i['href'])[0:6]:
-                    xml_url = "http://www.perseus.tufts.edu/hopper/" + i['href']
+            link = soup.find_all("a", class_="xml")
+            for i in link:
+                if i.has_attr('href'):
+                    if "xmlchu" == str(i['href'])[0:6]:
+                        xml_url = "http://www.perseus.tufts.edu/hopper/" + i['href']
+        except requests.exceptions.ConnectionError as err:
+            print("renderPerseus Exception: " + str(err))
+            print(base_choice)
+            if not is_retry:
+                return renderPerseus(choice, pleiades_number, True)
+            raise
+
 
     #print(link)
     #print(xml_url)
