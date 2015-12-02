@@ -10,6 +10,16 @@ A [thread about its development can be found here](https://github.com/dariusk/Na
 
 The final NaNoGenMo edition of the novel is here: [Virgil's Commonplace Book](https://github.com/ikarth/ViaAppiaNovel/blob/master/via_appia_nanogenmo.pdf?raw=true)
 
+This project and my [erat_viator](https://twitter.com/erat_viator) twitterbot project are conceptually linked.
+
+## Previous projects
+
+I've also done novel generators for all of the past NaNoGenMos:
+
+For 2014, [The Infinite Garden of One Thousand and One Stories](https://github.com/ikarth/nonogen)
+
+For 2013, [Gutenberg Shuffle](https://github.com/ikarth/nanogenmo)
+
 ## About the generator
 The book generator is a Python program that outputs a Markdown text file designed to be converted into PDF form via Pandoc.
 
